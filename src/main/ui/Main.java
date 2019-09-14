@@ -30,11 +30,12 @@ public class Main {
             Scanner bhid = new Scanner(System.in);
             logs.add(bhid.nextLine());
             System.out.println(logs + "end of list");
-        } else if
-        (userinput.equals("2")) {
+        } else if (userinput.equals("2")) {
             System.out.println(logs);
         } else {
             System.out.println("Sorry I didn't understand the command, please try again.");
         }
     }
 }
+
+
