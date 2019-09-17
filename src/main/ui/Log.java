@@ -4,12 +4,13 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
-    ArrayList<String> logs = new ArrayList<String>();
+public class Log {
+    public ArrayList<String> boreholes = new ArrayList<String>();
+
 
     public static void main(String[] args) {
         System.out.println("Welcome to BH Log Generator v.1.0!");
-        Main main = new Main();
+        Log main = new Log();
         main.initiateApplication();
     }
 
@@ -49,30 +50,26 @@ public class Main {
 
     public void optionOne() {
         System.out.println("Please enter a new borehole name.");
-        Scanner bhid = new Scanner(System.in);
-        logs.add(bhid.nextLine());
+        Scanner bhId = new Scanner(System.in);
+        boreholes.add(bhId.nextLine());
         System.out.println("You successfully added an entry.");
-        System.out.println(logs);
+        System.out.println(boreholes);
         initiateApplication();
 
     }
 
     public void optionTwo() {
-        System.out.println(logs);
+        System.out.println(boreholes);
         initiateApplication();
     }
 
     public void optionThree() {
         System.out.println("Please enter the name of the log you would like to delete.");
-        Scanner deletebh = new Scanner(System.in);
-//        if (logs.contains(deletebh.nextLine())) {
-        logs.remove(deletebh);
-        System.out.println("You successfully removed " + deletebh.nextLine());
-        System.out.println(logs);
+        Scanner deleteBh = new Scanner(System.in);
+        boreholes.remove(deleteBh.nextLine());
+        System.out.println("You successfully removed an entry.");
+        System.out.println(boreholes);
         initiateApplication();
-//    } else {
-////        System.out.println("Sorry, that log does not exist.");
-////        initiateApplication();
     }
 
 
