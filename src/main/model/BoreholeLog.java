@@ -1,4 +1,4 @@
-package ui;
+package model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,16 +7,9 @@ public class BoreholeLog {
     public ArrayList<Sample> samples = new ArrayList<Sample>();
 
 
-    public static void main(String[] args) {
-        welcomeStatement("1.0");
-        BoreholeLog main = new BoreholeLog();
-        main.initiateApplication();
-    }
-
-    private static void welcomeStatement(String version) {
+    public static void welcomeStatement(String version) {
         System.out.println("Welcome to Borehole Log Generator v." + version + "!");
     }
-
 
     public void initiateApplication() {
 
@@ -36,7 +29,6 @@ public class BoreholeLog {
             str = input.nextLine();
             if (str.equals("1")) {
                 optionOne();
-
             } else if (str.equals("2")) {
                 optionTwo();
             } else if (str.equals("3")) {
@@ -53,64 +45,27 @@ public class BoreholeLog {
 
 
     public void optionOne() {
+
         Sample sample1 = new Sample();
         System.out.println("Please enter a new sample id.");
-        Scanner sampleData = new Scanner(System.in);
-        sample1.name = (sampleData.nextLine());
-//        enterId();
-//        enterColour();
-//        enterStatigraphy();
-//        enterOdours();
+        Scanner sampleData = new Scanner(System.in);  //
+        sample1.setName(sampleData.nextLine());
         System.out.println("Is the sample grey, blue, or brown?");
-        sample1.colour = (sampleData.nextLine());
+        sample1.setColour(sampleData.nextLine());
         System.out.println("Is the sample silt, sand, or gravel?");
-        sample1.type = (sampleData.nextLine());
+        sample1.setType(sampleData.nextLine());
         System.out.println("Is the sample odorous?");
         String contaminated = sampleData.nextLine();
         if (contaminated.equals("yes")) {
-            sample1.odour = true;
+            sample1.setOdour(true);
         } else {
-            sample1.odour = false;
+            sample1.setOdour(false);
         }
         samples.add(sample1);
         System.out.println("You successfully added an entry.");
-//        System.out.println(samples.toString());
+        System.out.println(samples.toString());
         initiateApplication();
     }
-
-//    public String enterId() {
-//        Sample sample1 = new Sample();
-//        System.out.println("Please enter a new sample id.");
-//        Scanner sampleData = new Scanner(System.in);
-//        sample1.name = (sampleData.nextLine());
-//        return sample1.name;
-//    }
-
-//    public void enterColour() {
-//        Sample sample1 = new Sample();
-//        System.out.println("Is the sample grey, blue, or brown?");
-//        Scanner sampleData = new Scanner(System.in);
-//        sample1.colour = (sampleData.nextLine());
-//    }
-//
-//    public void enterStatigraphy() {
-//        Sample sample1 = new Sample();
-//        System.out.println("Is the sample silt, sand, or gravel?");
-//        Scanner sampleData = new Scanner(System.in);
-//        sample1.type = (sampleData.nextLine());
-//    }
-//
-//    public void enterOdours() {
-//        Sample sample1 = new Sample();
-//        System.out.println("Is the sample odorous?");
-//        Scanner sampleData = new Scanner(System.in);
-//        String contaminated = sampleData.nextLine();
-//        if (contaminated.equals("yes")) {
-//            sample1.odour = true;
-//        } else {
-//            sample1.odour = false;
-//        }
-//    }
 
     public void optionTwo() {
         System.out.println("This borehole log has " + size() + " samples.");
@@ -124,7 +79,7 @@ public class BoreholeLog {
         String deleteId = id.next();
 
         for (int i = 0; i < samples.size(); i++) {
-            if (samples.get(i).name.equals(deleteId)) {
+            if (samples.get(i).getName().equals(deleteId)) {
                 samples.remove(i);
                 break;
             }
@@ -143,7 +98,6 @@ public class BoreholeLog {
     public Integer size() {
         return samples.size();
     }
-
 
 }
 
