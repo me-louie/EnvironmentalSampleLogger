@@ -22,6 +22,7 @@ public class BoreholeLog {
     }
 
 
+
     public void handleUserInput() {
         String str = "";
         while (true) {
