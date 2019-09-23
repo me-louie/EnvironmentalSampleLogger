@@ -6,13 +6,14 @@ public class Sample {
     private String type;
     private Boolean odour;
 
-    Sample(String name, String colour, String type, Boolean odour) {
-        this.name = name;
-        this.colour = colour;
-        this.type = type;
-        this.odour = odour;
-    }
+//    Sample(String name, String colour, String type, Boolean odour) {
+//        this.name = name;
+//        this.colour = colour;
+//        this.type = type;
+//        this.odour = odour;
+//    }
 
+    //EFFECTS: creates sample with name, colour, type, and odour
     public Sample() {
         this.name = name;
         this.colour = colour;
@@ -20,39 +21,53 @@ public class Sample {
         this.odour = odour;
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets sample name to name
     public void setName(String name) {
         this.name = name;
     }
 
+    //MODIFIES: this
+    //EFFECTS: set sample colour to grey, blue, or brown
     public void setColour(String colour) {
         this.colour = colour;
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets sample type to silt, sand, or gravel
     public void setType(String type) {
         this.type = type;
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: sets sample odour to true if odourous, otherwise false
     public void setOdour(Boolean odour) {
         this.odour = odour;
     }
 
-    String getName() {  //getter
+    //EFFECTS: returns sample name
+    public String getName() {  //getter
         return name;
     }
 
-    String getColour() {  //getter
+    //EFFECTS: return sample colour
+    public String getColour() {  //getter
         return colour;
     }
 
-    String getType() { //getter
+    //EFFECTS: return sample type
+    public String getType() { //getter
         return type;
     }
 
-    Boolean getOdour() { //getter
+    //EFFECTS: return true if sample is odourous, otherwise false
+    public Boolean getOdour() { //getter
         return odour;
     }
 
 
+    //EFFECTS: overwrites native toString function to print sample's name, colour, type, and whether it is odourous
     public String toString() {
         return name + " " + colour + " " + type + " " + odour;
     }

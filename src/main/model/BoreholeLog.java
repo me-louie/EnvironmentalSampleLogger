@@ -7,22 +7,7 @@ public class BoreholeLog {
     public ArrayList<Sample> samples = new ArrayList<Sample>();
 
 
-    public static void welcomeStatement(String version) {
-        System.out.println("Welcome to Borehole Log Generator v." + version + "!");
-    }
-
-    public void initiateApplication() {
-
-        System.out.println("What would you like to do?");
-        System.out.println("Press [1] to create a new borehole log.");
-        System.out.println("Press [2] to view existing borehole log.");
-        System.out.println("Press [3] to delete a sample from an existing borehole log.");
-        System.out.println("Type 'quit' to end the application.");
-        handleUserInput();
-    }
-
-
-
+    //EFFECTS:
     public void handleUserInput() {
         String str = "";
         while (true) {
@@ -63,17 +48,19 @@ public class BoreholeLog {
             sample1.setOdour(false);
         }
         samples.add(sample1);
-        System.out.println("You successfully added an entry.");
-        System.out.println(samples.toString());
-        initiateApplication();
+        System.out.println("You successfully added the entry: [" + sample1.toString() + "].");
+        Menu.initiateApplication();
     }
 
+    //EFFECTS: prints list of samples currently logged
     public void optionTwo() {
         System.out.println("This borehole log has " + size() + " samples.");
         System.out.println(samples);
-        initiateApplication();
+        Menu.initiateApplication();
     }
 
+    //MODIFIES: this
+    //EFFECTS: removes sample from borehole log based on sample id user inputted
     public void optionThree() {
         System.out.println("Please enter the ID of the sample you would like to delete.");
         Scanner id = new Scanner(System.in);
@@ -86,16 +73,18 @@ public class BoreholeLog {
             }
         }
         System.out.println("You successfully removed a sample.");
-        System.out.println(samples);
-        initiateApplication();
+        System.out.println("The remaining samples are:" + samples);
+        Menu.initiateApplication();
     }
 
 
+    //EFFECTS: prints error statement when user does not input a valid response
     public void invalidInput() {
         System.out.println("Sorry, I didn't understand. Please try a different command.");
-        initiateApplication();
+        Menu.initiateApplication();
     }
 
+    //EFFECTS: returns number of samples in the borehole log
     public Integer size() {
         return samples.size();
     }
