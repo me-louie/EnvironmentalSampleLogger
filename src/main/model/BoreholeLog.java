@@ -16,7 +16,7 @@ public class BoreholeLog {
 
     //EFFECTS: provides application options based on user input
     public void handleUserInput() {
-        String str = "";
+        String str;
         while (true) {
             Scanner input = new Scanner(System.in);
             str = input.nextLine();
@@ -34,6 +34,8 @@ public class BoreholeLog {
                 break;
             }
         }
+
+
     }
 
 
@@ -50,6 +52,8 @@ public class BoreholeLog {
         Menu.initiateApplication();
     }
 
+    //MODIFIES: this, Sample
+    //EFFECTS: sets new sample name based on user input
     private void addName() {
         System.out.println("Please enter a new sample id.");
         Scanner sampleData = new Scanner(System.in);
@@ -57,6 +61,7 @@ public class BoreholeLog {
 
     }
 
+    //MODIFIES: this, Sample
     //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
     private void hasOdour() {
         System.out.println("Is the sample odourous?");
@@ -78,6 +83,7 @@ public class BoreholeLog {
     }
 
 
+    //MODIFIES: this, sample
     //EFFECTS: sets sample colour to grey, blue, or brown
     private void addColour() {
         System.out.println("Is the sample grey, blue, or brown?");
@@ -106,6 +112,7 @@ public class BoreholeLog {
         addColour();
     }
 
+    //MODIFIES: this, Sample
     //EFFECTS: sets sample type to silt, sand, or gravel
     private void addType() {
         System.out.println("Is the sample silt, sand, or gravel?");
@@ -160,23 +167,26 @@ public class BoreholeLog {
         Menu.initiateApplication();
     }
 
-    //EFFECTS: returns number of samples in the borehole log
-    private Integer size() {
+
+    //EFFECTS: returns size of list
+    public Integer size() {
         return boreholeLog.size();
     }
 
+
     //EFFECTS: returns list of samples which are odourous
-    public List<Sample> returnContaminatedSamples() {
-        List<Sample> contaminated = new ArrayList<>();
+    public BoreholeLog returnContaminatedSamples() {
+        BoreholeLog contaminated = new BoreholeLog();
 
         for (Sample sample : boreholeLog) {
             if (sample.isOdourous()) {
-                contaminated.add(sample);
+                contaminated.addSample(sample);
             }
         }
         return contaminated;
     }
 
+    //EFFECTS: adds a sample to borehole log
     public void addSample(Sample sample) {
         boreholeLog.add(sample);
     }
@@ -186,6 +196,7 @@ public class BoreholeLog {
         System.out.println("Please enter a valid type.");
         addType();
     }
+
 }
 
 

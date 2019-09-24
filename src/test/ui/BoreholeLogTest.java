@@ -5,77 +5,56 @@ import model.Sample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class BoreholeLogTest {
 
-    //TODO: Test return contaminated sample empty: no contaminated samples to remove
-    //TODO: outcome: returns empty list
+class BoreholeLogTest {
 
-    //TODO: test return contaminated samples with entries: some contaminated samples
-    //TODO: outcome: returns only contaminated samples
-    private BoreholeLog log;
-    private ArrayList<Sample> testLog;
-    private List<Sample> log2 = new ArrayList<>();
+    private BoreholeLog testLog;
+    private BoreholeLog otherTestLog;
+//    private BoreholeLog thirdTestLog;
+
     private Sample testSample1 = new Sample("101", "brown", "gravel", false);
     private Sample testSample2 = new Sample("102", "grey", "silt", true);
-    private Sample testSample3 = new Sample("103", "blue", "sand", true);
+    private Sample testSample3 = new Sample("103", "blue", "sand", false);
 
 
     @BeforeEach
-    private void setup() {
-        testLog = new ArrayList<>();
-        log2.add(testSample1);
-        log2.add(testSample2);
-        log2.add(testSample3);
+    void setup() {
+        testLog = new BoreholeLog();
+        otherTestLog = new BoreholeLog();
+//        thirdTestLog = new BoreholeLog();
+
+        otherTestLog.addSample(testSample1);
+        otherTestLog.addSample(testSample2);
+        otherTestLog.addSample(testSample3);
+//        thirdTestLog.addSample(testSample1);
 
     }
-
-//    @Test
-//    public void returnContaminatedSamplesEmptyList() {
-//        log.returnContaminatedSamples();
-//        assertEquals(0, log.returnContaminatedSamples());
-//    }
 
     @Test
-    void testSize() {
-        assertEquals(0,testLog.size());
-        assertEquals(3, log2.size());
+    void testGetSize() {
+        assertEquals(0, testLog.size());
+        assertEquals(3, otherTestLog.size());
     }
 
 //    @Test
-//    public void returnContaminatedSamplesTest() {
-//         boreholeLog.returnContaminatedSamples();
-
-
-    }
-//
-//
-//    @Test
-//    public void returnContaminatedSamplesEmptyLogTest() {
-//        assertTrue(testLog.contains(0));
-//        assertEquals(0, testLog.returnContaminatedSamples());
+//    void addSample() {
+//        otherTestLog.addSample(testSample1);
+//        assertEquals(thirdTestLog, otherTestLog);
 //    }
-//
+
 //    @Test
-//    public void returnContaminatedSamplesNonEmptyTest() {
-//        Sample testSample1 = new Sample("101", "brown", "gravel", false);
-//        Sample testSample2 = new Sample("102", "grey", "silt", true);
-//        Sample testSample3 = new Sample("103", "blue", "sand", true);
-//        testLog.add(testSample1);
-//        testLog.add(testSample2);
-//        testLog.add(testSample3);
-////        testLog.returnContaminatedSamples();
-//        testLog.returnContaminatedSamples();
-//        ArrayList<Sample> logg = new ArrayList<>();
-//        logg = testLog.returnContaminatedSamples();
-//        assertEquals(testLog.size(), 2);
-//}
+//    void returnContaminatedSamplesEmptyList() {
+//        assertEquals(otherTestLog, otherTestLog.returnContaminatedSamples());
+//    }
+
+    //TA said complete this test once we cover Override in lecture.. hashes are different
+}
+
+
+
 
 
 
