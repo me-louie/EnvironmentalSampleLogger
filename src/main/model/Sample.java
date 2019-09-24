@@ -4,21 +4,18 @@ public class Sample {
     private String name;
     private String colour;
     private String type;
-    private Boolean odour;
-
-//    Sample(String name, String colour, String type, Boolean odour) {
-//        this.name = name;
-//        this.colour = colour;
-//        this.type = type;
-//        this.odour = odour;
-//    }
+    private boolean odour;
 
     //EFFECTS: creates sample with name, colour, type, and odour
-    public Sample() {
+    public Sample(String name, String colour, String type, boolean odour) {
         this.name = name;
         this.colour = colour;
         this.type = type;
         this.odour = odour;
+    }
+
+    //EFFECTS: creates empty sample
+    public Sample() {
     }
 
     //MODIFIES: this
@@ -62,12 +59,13 @@ public class Sample {
     }
 
     //EFFECTS: return true if sample is odourous, otherwise false
-    public Boolean getOdour() { //getter
+    public boolean isOdourous() {
         return odour;
     }
 
 
     //EFFECTS: overwrites native toString function to print sample's name, colour, type, and whether it is odourous
+    @Override
     public String toString() {
         return name + " " + colour + " " + type + " " + odour;
     }
