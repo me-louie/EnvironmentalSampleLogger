@@ -204,7 +204,7 @@ public class BoreholeLog implements Saveable, Loadable {
     }
 
     @Override
-    //EFFECTS: writes sample data to txt file
+    //EFFECTS: writes Sample data to txt file
     public void save() throws IOException {
         File fileName = new File("Borehole Log.txt");
         FileOutputStream fos = new FileOutputStream(fileName);
