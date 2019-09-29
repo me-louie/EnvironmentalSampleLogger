@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class BoreholeLog implements Saveable {
+public class BoreholeLog implements Saveable, Loadable {
     private List<Sample> boreholeLog;
     private Sample sample1 = new Sample();
     private File file = new File("Borehole Log.txt");
@@ -36,8 +36,8 @@ public class BoreholeLog implements Saveable {
                 optionThree();
             } else if (str.equals("save")) {
                 save();
-//            } else if (str.equals("read")) {
-//                read();
+            } else if (str.equals("load")) {
+                load();
             } else if (!str.equals("quit")) {
                 invalidInput();
             }
@@ -223,25 +223,39 @@ public class BoreholeLog implements Saveable {
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
         for (int i = 0; i < boreholeLog.size(); i++) {
-            pw.println("ID: " + boreholeLog.get(i).getName());
-            pw.println("Type:  " + boreholeLog.get(i).getType());
-            pw.println("Colour: " + boreholeLog.get(i).getColour());
-            pw.println("Odourous?: " + boreholeLog.get(i).isOdourous());
+            pw.println(boreholeLog.get(i).getName());
+            pw.println(boreholeLog.get(i).getType());
+            pw.println(boreholeLog.get(i).getColour());
+            pw.println(boreholeLog.get(i).isOdourous());
+//            pw.println("ID: " + boreholeLog.get(i).getName());
+//            pw.println("Type:  " + boreholeLog.get(i).getType());
+//            pw.println("Colour: " + boreholeLog.get(i).getColour());
+//            pw.println("Odourous?: " + boreholeLog.get(i).isOdourous());
         }
         pw.close();
+        System.out.println("File 'Borehole Log.txt' was saved.");
+        Menu.initiateApplication();
+
+    }
+
+    @Override
+    public void load() throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream("Borehole Log.txt");
+        Scanner in = new Scanner(fis);
+
+        while (in.hasNext()) {
+            Sample sample1 = new Sample();
+            sample1.setName(in.nextLine());
+            sample1.setType(in.nextLine());
+            sample1.setColour(in.nextLine());
+            sample1.setOdour((in.nextLine().equals("true")));
+            boreholeLog.add(sample1);
+        }
+        System.out.println("'Borehole Log.txt data has been loaded.");
 
 
     }
 
-
-//    @Override
-//EFFECTS: reads a text file
-//    public void read() throws FileNotFoundException {
-//        Scanner input = new Scanner(file);
-//        String boreholeLog = input.nextLine();
-//
-//        System.out.printf("The borehole log is: ", boreholeLog);
-//    }
 }
 
 
