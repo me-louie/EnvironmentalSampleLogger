@@ -13,8 +13,6 @@ import java.util.Scanner;
 public class BoreholeLog implements Saveable, Loadable {
     private List<Sample> boreholeLog;
     private Sample sample1 = new Sample();
-    private File file = new File("Borehole Log.txt");
-    private List<String> listOfSamples;
 
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
@@ -24,10 +22,9 @@ public class BoreholeLog implements Saveable, Loadable {
 
     //EFFECTS: provides application options based on user input
     public void handleUserInput() throws IOException {
-        String str;
         while (true) {
             Scanner input = new Scanner(System.in);
-            str = input.nextLine();
+            String str = input.nextLine();
             if (str.equals("1")) {
                 optionOne();
             } else if (str.equals("2")) {
@@ -38,16 +35,13 @@ public class BoreholeLog implements Saveable, Loadable {
                 save();
             } else if (str.equals("load")) {
                 load();
-            } else if (!str.equals("quit")) {
+            } else if (str.equals("quit")) {
+//                System.out.println("Goodbye.");
+                break;
+            } else {
                 invalidInput();
             }
-            if (str.equals("quit")) {
-                System.out.println("Goodbye.");
-                break;
-            }
         }
-
-
     }
 
 
@@ -187,12 +181,12 @@ public class BoreholeLog implements Saveable, Loadable {
 
 
     //EFFECTS: returns list of samples which are odourous
-    public BoreholeLog returnContaminatedSamples() {
-        BoreholeLog contaminated = new BoreholeLog();
+    public List<Sample> returnContaminatedSamples() {
+        List<Sample> contaminated = new ArrayList<>();
 
         for (Sample sample : boreholeLog) {
             if (sample.isOdourous()) {
-                contaminated.addSample(sample);
+                contaminated.add(sample);
             }
         }
         return contaminated;
@@ -210,37 +204,32 @@ public class BoreholeLog implements Saveable, Loadable {
     }
 
     @Override
-    //EFFECTS: writes boreholeLog to a txt file
+    //EFFECTS: writes sample data to txt file
     public void save() throws IOException {
-//        Sample sample1 = new Sample("101", "grey", "sand", false);
-//        Sample sample2 = new Sample("102", "blue", "gravel", true);
-//        List<Sample> testLog2 = new ArrayList<>();
-//        testLog2.add(sample1);
-//        testLog2.add(sample2);
-//        boreholeLog = testLog2;
-
         File fileName = new File("Borehole Log.txt");
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
-        for (int i = 0; i < boreholeLog.size(); i++) {
-            pw.println(boreholeLog.get(i).getName());
-            pw.println(boreholeLog.get(i).getType());
-            pw.println(boreholeLog.get(i).getColour());
-            pw.println(boreholeLog.get(i).isOdourous());
+        for (Sample sample : boreholeLog) {
+            pw.println(sample.getName());
+            pw.println(sample.getType());
+            pw.println(sample.getColour());
+            pw.println(sample.isOdourous());
 //            pw.println("ID: " + boreholeLog.get(i).getName());
 //            pw.println("Type:  " + boreholeLog.get(i).getType());
 //            pw.println("Colour: " + boreholeLog.get(i).getColour());
 //            pw.println("Odourous?: " + boreholeLog.get(i).isOdourous());
         }
         pw.close();
-        System.out.println("File 'Borehole Log.txt' was saved.");
+        System.out.println("File " + fileName + " was saved.");
         Menu.initiateApplication();
 
     }
 
     @Override
+    //EFFECTS: loads Sample data saved in .txt file
     public void load() throws FileNotFoundException {
-        FileInputStream fis = new FileInputStream("Borehole Log.txt");
+        File fileName = new File("Borehole Log.txt");
+        FileInputStream fis = new FileInputStream(fileName);
         Scanner in = new Scanner(fis);
 
         while (in.hasNext()) {
@@ -251,7 +240,7 @@ public class BoreholeLog implements Saveable, Loadable {
             sample1.setOdour((in.nextLine().equals("true")));
             boreholeLog.add(sample1);
         }
-        System.out.println("'Borehole Log.txt data has been loaded.");
+        System.out.println(fileName + " data has been loaded.");
 
 
     }

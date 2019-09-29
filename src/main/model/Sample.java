@@ -1,8 +1,10 @@
 package model;
 
-import javax.xml.bind.Element;
 
-public class Sample {
+import java.io.*;
+import java.util.Scanner;
+
+public class Sample implements Loadable, Saveable {
     private String name;
     private String colour;
     private String type;
@@ -66,12 +68,43 @@ public class Sample {
     }
 
 
-    //EFFECTS: overwrites native toString function to print sample's name, colour, type, and whether it is odourous
     @Override
+    //EFFECTS: overwrites native toString function to print sample's name, colour, type, and whether it is odourous
     public String toString() {
         return name + " " + colour + " " + type + " " + odour;
     }
 
+    @Override
+    public void load() throws FileNotFoundException {
+        File fileName = new File("Sample.txt");
+        FileInputStream fis = new FileInputStream(fileName);
+        Scanner in = new Scanner(fis);
+
+        while (in.hasNext()) {
+            Sample sampleToLoad = new Sample();
+            sampleToLoad.setName(in.nextLine());
+            sampleToLoad.setType(in.nextLine());
+            sampleToLoad.setColour(in.nextLine());
+            sampleToLoad.setOdour((in.nextLine().equals("true")));
+        }
+        System.out.println(fileName + " data has been loaded.");
+
+    }
+
+    @Override
+    public void save() throws IOException {
+        Sample sampleToSave = new Sample();
+        File fileName = new File("Sample.txt");
+        FileOutputStream fos = new FileOutputStream(fileName);
+        PrintWriter pw = new PrintWriter(fos);
+        pw.println(sampleToSave.getName());
+        pw.println(sampleToSave.getType());
+        pw.println(sampleToSave.getColour());
+        pw.println(sampleToSave.isOdourous());
+        pw.close();
+        System.out.println("File " + fileName + " was saved.");
+
+    }
 }
 
 

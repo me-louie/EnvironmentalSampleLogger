@@ -3,7 +3,7 @@ package ui;
 import model.BoreholeLog;
 import model.Menu;
 
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 
 public class Main {

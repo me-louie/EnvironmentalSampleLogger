@@ -18,4 +18,5 @@ public class Menu {
         System.out.println("Type 'load' to load a borehole from a text file.");
         System.out.println("Type 'quit' to end the application.");
     }
+
 }
