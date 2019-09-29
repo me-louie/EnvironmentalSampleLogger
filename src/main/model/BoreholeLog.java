@@ -231,13 +231,7 @@ public class BoreholeLog implements Saveable {
         pw.close();
 
 
-
-
-
-
-
     }
-
 
 
 //    @Override
