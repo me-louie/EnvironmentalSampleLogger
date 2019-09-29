@@ -50,6 +50,9 @@ class BoreholeLogTest {
 //        assertEquals(otherTestLog, otherTestLog.returnContaminatedSamples());
 //    }
 
+    //for loop and check each item because it also checks the order
+    //object1.isEqual(object2)
+
     //TA said complete this test once we cover Override in lecture.. hashes are different
 }
 

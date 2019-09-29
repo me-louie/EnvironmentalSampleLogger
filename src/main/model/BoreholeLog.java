@@ -1,12 +1,20 @@
 package model;
 
+import javax.lang.model.element.Element;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class BoreholeLog {
+public class BoreholeLog implements Saveable {
     private List<Sample> boreholeLog;
     private Sample sample1 = new Sample();
+    private File file = new File("Borehole Log.txt");
+    private List<String> listOfSamples;
 
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
@@ -15,7 +23,7 @@ public class BoreholeLog {
     }
 
     //EFFECTS: provides application options based on user input
-    public void handleUserInput() {
+    public void handleUserInput() throws IOException {
         String str;
         while (true) {
             Scanner input = new Scanner(System.in);
@@ -26,6 +34,10 @@ public class BoreholeLog {
                 optionTwo();
             } else if (str.equals("3")) {
                 optionThree();
+            } else if (str.equals("save")) {
+                save();
+//            } else if (str.equals("read")) {
+//                read();
             } else if (!str.equals("quit")) {
                 invalidInput();
             }
@@ -197,6 +209,45 @@ public class BoreholeLog {
         addType();
     }
 
+    @Override
+    //EFFECTS: writes boreholeLog to a txt file
+    public void save() throws IOException {
+//        Sample sample1 = new Sample("101", "grey", "sand", false);
+//        Sample sample2 = new Sample("102", "blue", "gravel", true);
+//        List<Sample> testLog2 = new ArrayList<>();
+//        testLog2.add(sample1);
+//        testLog2.add(sample2);
+//        boreholeLog = testLog2;
+
+        File fileName = new File("Borehole Log.txt");
+        FileOutputStream fos = new FileOutputStream(fileName);
+        PrintWriter pw = new PrintWriter(fos);
+        for (int i = 0; i < boreholeLog.size(); i++) {
+            pw.println("ID: " + boreholeLog.get(i).getName());
+            pw.println("Type:  " + boreholeLog.get(i).getType());
+            pw.println("Colour: " + boreholeLog.get(i).getColour());
+            pw.println("Odourous?: " + boreholeLog.get(i).isOdourous());
+        }
+        pw.close();
+
+
+
+
+
+
+
+    }
+
+
+
+//    @Override
+//EFFECTS: reads a text file
+//    public void read() throws FileNotFoundException {
+//        Scanner input = new Scanner(file);
+//        String boreholeLog = input.nextLine();
+//
+//        System.out.printf("The borehole log is: ", boreholeLog);
+//    }
 }
 
 

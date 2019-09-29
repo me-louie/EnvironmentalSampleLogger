@@ -1,5 +1,7 @@
 package model;
 
+import javax.xml.bind.Element;
+
 public class Sample {
     private String name;
     private String colour;

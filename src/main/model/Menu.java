@@ -11,9 +11,11 @@ public class Menu {
     public static void initiateApplication() {
 
         System.out.println("What would you like to do?");
-        System.out.println("Press [1] to create a new borehole log.");
-        System.out.println("Press [2] to view existing borehole log.");
-        System.out.println("Press [3] to delete a sample from an existing borehole log.");
+        System.out.println("Press [1] to add a new sample to the borehole log.");
+        System.out.println("Press [2] to view the borehole log.");
+        System.out.println("Press [3] to delete an existing sample from the borehole log.");
+        System.out.println("Type 'save' to save your borehole log.");
+        System.out.println("Type 'read' to read a text file.");
         System.out.println("Type 'quit' to end the application.");
     }
 }
