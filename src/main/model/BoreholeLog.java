@@ -5,14 +5,13 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class BoreholeLog implements Saveable, Loadable {
     private List<Sample> boreholeLog;
     private Sample sample1 = new Sample();
+
+
 
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
@@ -20,28 +19,38 @@ public class BoreholeLog implements Saveable, Loadable {
 
     }
 
+
     //EFFECTS: provides application options based on user input
     public void handleUserInput() throws IOException {
         while (true) {
             Scanner input = new Scanner(System.in);
             String str = input.nextLine();
-            if (str.equals("1")) {
-                optionOne();
-            } else if (str.equals("2")) {
-                optionTwo();
-            } else if (str.equals("3")) {
-                optionThree();
+            if (str.equals("1")
+                    || str.equals("2")
+                    || str.equals("3")) {
+                numAnswer(str);
             } else if (str.equals("save")) {
                 save();
             } else if (str.equals("load")) {
                 load();
             } else if (str.equals("quit")) {
-//                System.out.println("Goodbye.");
+                System.out.println("Goodbye.");
                 break;
             } else {
                 invalidInput();
             }
         }
+    }
+
+    private boolean numAnswer(String str) {
+        if (str.equals("1")) {
+            optionOne();
+        } else if (str.equals("2")) {
+            optionTwo();
+        } else if (str.equals("3")) {
+            optionThree();
+        }
+        return false;
     }
 
 
@@ -246,5 +255,7 @@ public class BoreholeLog implements Saveable, Loadable {
     }
 
 }
+
+
 
 
