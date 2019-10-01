@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,8 +28,6 @@ class BoreholeLogTest {
     private Sample testSample1 = new Sample("101", "brown", "gravel", false);
     private Sample testSample2 = new Sample("102", "grey", "silt", true);
     private Sample testSample3 = new Sample("103", "blue", "sand", false);
-
-
 
 
     @BeforeEach
@@ -66,145 +66,32 @@ class BoreholeLogTest {
         assertEquals("101 brown gravel false", testLog.get(0).toString());
     }
 
-
-
-//    @Test
-//    void testBHLoad2() throws IOException {
-//        testLog3.load();
-//        assertEquals(4, testLog3.bhLogSize());
-//test with contains and size
-
-//        assertEquals("103", testLog3.getSample(0).getName());
-//        assertEquals("101", testLog3.getSample(1).getName());
-//        assertEquals("blue", testLog3.getSample(0).getColour());
-//        assertEquals("sand", testLog3.getSample(0).getType());
-//        assertFalse(testLog3.getSample(0).isOdourous());
-
-//        testLog4.save();
-//        testLog4.load();
-//        testLog4.toString().equals(Files.readAllLines(Paths.get("Borehole Log.txt")));
-
-//    }
-
     @Test
-    void testBHLoad() throws FileNotFoundException {
-        testLog3.load();
-        //test with read all lines
+    void testBHSave() throws IOException {
+        testLog3.save("Save Test File.txt");
+        assertEquals(Files.readAllLines(Paths.get("Save Test Answers.txt")), Files.readAllLines(Paths.get("Save Test File.txt")));
     }
 
     @Test
-    void testSaveSamples() throws FileNotFoundException {
-        Sample sample1 = new Sample("101", "grey", "sand", false);
-        Sample sample2 = new Sample("102", "blue", "gravel", true);
-        List<Sample> testLog2 = new ArrayList<>();
-        testLog2.add(sample1);
-        testLog2.add(sample2);
-
-        String testString1 = "101 grey sand false";
-        String testString2 = "102 blue gravel true";
-
-        File testFile = new File("Save Tester.txt");
-        FileOutputStream fos = new FileOutputStream(testFile);
-        PrintWriter pw = new PrintWriter(fos);
-        for (Sample sample : testLog2) {
-            pw.println(sample.getName());
-            pw.println(sample.getColour());
-            pw.println(sample.getType());
-            pw.println(sample.isOdourous());
-        }
-        pw.close();
-
-
-        FileInputStream fis = new FileInputStream(testFile);
-        Scanner in = new Scanner(fis);
-
-        while (in.hasNext()) {
-            Sample testSample = new Sample();
-            testSample.setName(in.nextLine());
-            testSample.setColour(in.nextLine());
-            testSample.setType(in.nextLine());
-            testSample.setOdour((in.nextLine().equals("true")));
-            testLog2.add(testSample);
-        }
-
-        assertEquals(testString1, testLog2.get(0).toString());
-        assertEquals(testString2, testLog2.get(1).toString());
+    void testBHLoad() throws IOException {
+        BoreholeLog testLoadLog = new BoreholeLog();
+        testLoadLog.load("Load Test File.txt");
+        assertEquals("123", testLoadLog.getSample(0).getName());
+        assertEquals("blue", testLoadLog.getSample(0).getColour());
+        assertEquals("gravel", testLoadLog.getSample(0).getType());
+        assertTrue(testLoadLog.getSample(0).isOdourous());
     }
 
     @Test
-    void testLoad() throws FileNotFoundException {
-        List<Sample> testLoadLog = new ArrayList<>();
-
-        File testFile = new File("Load Tester.txt");
-        FileOutputStream fos = new FileOutputStream(testFile);
-        PrintWriter pw = new PrintWriter(fos);
-        pw.println("105");
-        pw.println("blue");
-        pw.println("sand");
-        pw.println(false);
-        pw.println("106");
-        pw.println("brown");
-        pw.println("gravel");
-        pw.println(true);
-        pw.close();
-
-        FileInputStream fis = new FileInputStream(testFile);
-        Scanner in = new Scanner(fis);
-
-        while (in.hasNext()) {
-            Sample testSample = new Sample();
-            testSample.setName(in.nextLine());
-            testSample.setColour(in.nextLine());
-            testSample.setType(in.nextLine());
-            testSample.setOdour((in.nextLine().equals("true")));
-            testLoadLog.add(testSample);
-        }
-
-        assertEquals("105", testLoadLog.get(0).getName());
-        assertEquals("blue", testLoadLog.get(0).getColour());
-        assertEquals("sand", testLoadLog.get(0).getType());
-        assertFalse(testLoadLog.get(0).isOdourous());
-
-        assertEquals("106", testLoadLog.get(1).getName());
-        assertEquals("brown", testLoadLog.get(1).getColour());
-        assertEquals("gravel", testLoadLog.get(1).getType());
-        assertTrue(testLoadLog.get(1).isOdourous());
-
-    }
-
-    @Test
-    void loadThenAdd() throws FileNotFoundException {
-        List<Sample> testLoadEditSaveLog = new ArrayList<>();
-
-        File testFile = new File("Load Edit Save Tester.txt");
-        FileOutputStream fos = new FileOutputStream(testFile);
-        PrintWriter pw = new PrintWriter(fos);
-        pw.println("105");
-        pw.println("blue");
-        pw.println("sand");
-        pw.println(false);
-        pw.close();
-
-        FileInputStream fis = new FileInputStream(testFile);
-        Scanner in = new Scanner(fis);
-
-        while (in.hasNext()) {
-            Sample testSample = new Sample();
-            testSample.setName(in.nextLine());
-            testSample.setColour(in.nextLine());
-            testSample.setType(in.nextLine());
-            testSample.setOdour((in.nextLine().equals("true")));
-            testLoadEditSaveLog.add(testSample);
-        }
-
-        testLoadEditSaveLog.add(testSample1);
-
-        assertEquals("105", testLoadEditSaveLog.get(0).getName());
-        assertEquals("101", testLoadEditSaveLog.get(1).getName());
-        assertEquals("brown", testLoadEditSaveLog.get(1).getColour());
-        assertEquals("gravel", testLoadEditSaveLog.get(1).getType());
-        assertFalse(testLoadEditSaveLog.get(1).isOdourous());
-
+    void loadAddSave() throws IOException {
+        BoreholeLog testLoadLog = new BoreholeLog();
+        testLoadLog.load("Load Test File.txt");
+        testLoadLog.addSample(testSample1);
+        assertEquals("101", testLoadLog.getSample(1).getName());
+        assertEquals("brown", testLoadLog.getSample(1).getColour());
+        assertTrue(testLoadLog.getSample(0).isOdourous());
+        testLoadLog.save("Load Add Save.txt");
+        assertEquals(Files.readAllLines(Paths.get("Load Add Save Answer.txt")), Files.readAllLines(Paths.get("Load Add Save.txt")));
     }
 
 

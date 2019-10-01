@@ -15,7 +15,6 @@ public class BoreholeLog implements Saveable, Loadable {
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
         boreholeLog = new ArrayList<>();
-
     }
 
 
@@ -29,9 +28,9 @@ public class BoreholeLog implements Saveable, Loadable {
                     || str.equals("3")) {
                 numAnswer(str);
             } else if (str.equals("save")) {
-                save();
+                saveAnswer(str);
             } else if (str.equals("load")) {
-                load();
+                loadAnswer(str);
             } else if (str.equals("quit")) {
                 System.out.println("Goodbye.");
                 break;
@@ -39,6 +38,20 @@ public class BoreholeLog implements Saveable, Loadable {
                 invalidInput();
             }
         }
+    }
+
+    private void loadAnswer(String str) throws FileNotFoundException {
+        System.out.println("Please enter the name of the file you would like to load.");
+        Scanner loadName = new Scanner(System.in);
+        String fileToLoad = loadName.nextLine();
+        load(fileToLoad);
+    }
+
+    private void saveAnswer(String str) throws IOException {
+        System.out.println("Please enter a new file name.");
+        Scanner saveName = new Scanner(System.in);
+        String fileToSave = saveName.nextLine();
+        save(fileToSave);
     }
 
     private boolean numAnswer(String str) {
@@ -212,23 +225,16 @@ public class BoreholeLog implements Saveable, Loadable {
     }
 
     @Override
-    //EFFECTS: writes Sample data to txt file
-    public void save() throws IOException {
-        System.out.println("Please a new file name.");
-        Scanner saveName = new Scanner(System.in);
-        String str = saveName.nextLine();
-        File fileName = new File(String.valueOf(str));
+    //EFFECTS: writes borehole log data to txt file
+    public void save(String fileSaveName) throws IOException {
+        File fileName = new File(fileSaveName);
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
         for (Sample sample : boreholeLog) {
             pw.println(sample.getName());
-            pw.println(sample.getType());
             pw.println(sample.getColour());
+            pw.println(sample.getType());
             pw.println(sample.isOdourous());
-//            pw.println("ID: " + boreholeLog.get(i).getName());
-//            pw.println("Type:  " + boreholeLog.get(i).getType());
-//            pw.println("Colour: " + boreholeLog.get(i).getColour());
-//            pw.println("Odourous?: " + boreholeLog.get(i).isOdourous());
         }
         pw.close();
         System.out.println("File " + fileName + " was saved.");
@@ -237,28 +243,25 @@ public class BoreholeLog implements Saveable, Loadable {
     }
 
     @Override
-    //EFFECTS: loads Sample data saved in .txt file
-    public void load() throws FileNotFoundException {
-        System.out.println("Please enter the name of the file you would like to load.");
-        Scanner loadName = new Scanner(System.in);
-        String str = loadName.nextLine();
-        File fileName = new File(str);
-        FileInputStream fis = new FileInputStream(fileName);
+    //MODIFIES: this
+    //EFFECTS: loads borehole log data saved in .txt file
+    public void load(String fileLoadName) throws FileNotFoundException {
+        File file = new File(fileLoadName);
+        FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
 
         while (in.hasNext()) {
             Sample sample1 = new Sample();
             sample1.setName(in.nextLine());
-            sample1.setType(in.nextLine());
             sample1.setColour(in.nextLine());
+            sample1.setType(in.nextLine());
             sample1.setOdour((in.nextLine().equals("true")));
             boreholeLog.add(sample1);
         }
-        System.out.println(fileName + " data has been loaded.");
-
-
+        System.out.println(file + " data has been loaded.");
     }
 
+    //EFFECTS: returns sample from borehole log at specified index
     public Sample getSample(int i) {
         return boreholeLog.get(i);
     }

@@ -3,5 +3,5 @@ package model;
 import java.io.FileNotFoundException;
 
 public interface Loadable {
-    void load() throws FileNotFoundException;
+    void load(String fname) throws FileNotFoundException;
 }
