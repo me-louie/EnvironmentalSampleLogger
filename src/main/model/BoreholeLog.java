@@ -5,20 +5,20 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class BoreholeLog implements Saveable, Loadable {
     private List<Sample> boreholeLog;
     private Sample sample1 = new Sample();
+
+
 
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
         boreholeLog = new ArrayList<>();
 
     }
+
 
     //EFFECTS: provides application options based on user input
     public void handleUserInput() throws IOException {
@@ -28,7 +28,7 @@ public class BoreholeLog implements Saveable, Loadable {
             if (str.equals("1")
                     || str.equals("2")
                     || str.equals("3")) {
-                numOptions(str);
+                numAnswer(str);
             } else if (str.equals("save")) {
                 save();
             } else if (str.equals("load")) {
@@ -42,7 +42,7 @@ public class BoreholeLog implements Saveable, Loadable {
         }
     }
 
-    private boolean numOptions(String str) {
+    private boolean numAnswer(String str) {
         if (str.equals("1")) {
             optionOne();
         } else if (str.equals("2")) {
@@ -255,5 +255,7 @@ public class BoreholeLog implements Saveable, Loadable {
     }
 
 }
+
+
 
 
