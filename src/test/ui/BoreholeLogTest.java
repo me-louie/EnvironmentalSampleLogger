@@ -1,5 +1,6 @@
 package ui;
 
+import model.BoreholeLog;
 import model.Sample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,10 +19,15 @@ class BoreholeLogTest {
     private List<Sample> testLog;
     private List<Sample> otherTestLog;
 
+    private BoreholeLog testLog3;
+    private BoreholeLog testLog4;
+
 
     private Sample testSample1 = new Sample("101", "brown", "gravel", false);
     private Sample testSample2 = new Sample("102", "grey", "silt", true);
     private Sample testSample3 = new Sample("103", "blue", "sand", false);
+
+
 
 
     @BeforeEach
@@ -32,6 +38,14 @@ class BoreholeLogTest {
         otherTestLog.add(testSample1);
         otherTestLog.add(testSample2);
         otherTestLog.add(testSample3);
+
+        testLog3 = new BoreholeLog();
+        testLog3.addSample(testSample3);
+        testLog3.addSample(testSample1);
+
+        testLog4 = new BoreholeLog();
+        testLog4.addSample(testSample2);
+        testLog4.addSample(testSample1);
     }
 
     @Test
@@ -41,17 +55,41 @@ class BoreholeLogTest {
     }
 
     @Test
+    void testGetBHSize() {
+        assertEquals(2, testLog3.bhLogSize());
+        assertEquals(2, testLog4.bhLogSize());
+    }
+
+    @Test
     void addSample() {
         testLog.add(testSample1);
         assertEquals("101 brown gravel false", testLog.get(0).toString());
     }
 
-    @Test
-    void testLoadSingleSample() throws IOException {
-        testSample1.save();
-        testSample1.load();
-        assertEquals("101", testSample1.getName());
 
+
+//    @Test
+//    void testBHSave() throws IOException {
+//        testLog3.save();
+//        testLog3.load();
+//        List<String> content = Files.readAllLines(Paths.get("Borehole Log.txt"));
+//        assertEquals("101, 102", content);
+//
+////        assertEquals("103", testLog3.getSample(0).getName());
+////        assertEquals("101", testLog3.getSample(1).getName());
+////        assertEquals("blue", testLog3.getSample(0).getColour());
+////        assertEquals("sand", testLog3.getSample(0).getType());
+////        assertFalse(testLog3.getSample(0).isOdourous());
+//
+////        testLog4.save();
+////        testLog4.load();
+////        testLog4.toString().equals(Files.readAllLines(Paths.get("Borehole Log.txt")));
+//
+//    }
+
+    @Test
+    void testBHLoad() throws FileNotFoundException {
+        testLog3.load();
     }
 
     @Test

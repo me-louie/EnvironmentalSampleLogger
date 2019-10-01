@@ -1,16 +1,15 @@
 package model;
 
-import javax.lang.model.element.Element;
+import ui.Menu;
+
 import java.io.*;
-import java.lang.reflect.Array;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class BoreholeLog implements Saveable, Loadable {
     private List<Sample> boreholeLog;
     private Sample sample1 = new Sample();
-
 
 
     //EFFECTS: creates empty borehole log
@@ -152,7 +151,7 @@ public class BoreholeLog implements Saveable, Loadable {
 
     //EFFECTS: prints list of samples currently logged
     private void optionTwo() {
-        System.out.println("This borehole log has " + size() + " samples.");
+        System.out.println("This borehole log has " + bhLogSize() + " samples.");
         System.out.println(boreholeLog);
         Menu.initiateApplication();
     }
@@ -184,7 +183,7 @@ public class BoreholeLog implements Saveable, Loadable {
 
 
     //EFFECTS: returns size of list
-    public Integer size() {
+    public Integer bhLogSize() {
         return boreholeLog.size();
     }
 
@@ -254,6 +253,9 @@ public class BoreholeLog implements Saveable, Loadable {
 
     }
 
+    public Sample getSample(int i) {
+        return boreholeLog.get(i);
+    }
 }
 
 

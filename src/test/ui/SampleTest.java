@@ -4,17 +4,22 @@ import model.Sample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SampleTest {
     private Sample testSample;
     private Sample otherTestSample;
+    private Sample testSample1;
+
 
 
     @BeforeEach
     void setup() {
         testSample = new Sample();
         otherTestSample = new Sample("101", "grey", "sand", false);
+        testSample1 = new Sample("101", "brown", "gravel", false);
 
     }
 
@@ -58,6 +63,15 @@ class SampleTest {
         testSample.setOdour(true);
         assertTrue(testSample.isOdourous());
     }
+
+    @Test
+    void testLoadSingleSample() throws IOException {
+        testSample1.save();
+        assertEquals("101", testSample1.getName());
+
+    }
+
+
 
     @Test
     void testToString() {
