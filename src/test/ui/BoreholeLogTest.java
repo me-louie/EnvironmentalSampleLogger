@@ -69,27 +69,27 @@ class BoreholeLogTest {
 
 
 //    @Test
-//    void testBHSave() throws IOException {
-//        testLog3.save();
+//    void testBHLoad2() throws IOException {
 //        testLog3.load();
-//        List<String> content = Files.readAllLines(Paths.get("Borehole Log.txt"));
-//        assertEquals("101, 102", content);
-//
-////        assertEquals("103", testLog3.getSample(0).getName());
-////        assertEquals("101", testLog3.getSample(1).getName());
-////        assertEquals("blue", testLog3.getSample(0).getColour());
-////        assertEquals("sand", testLog3.getSample(0).getType());
-////        assertFalse(testLog3.getSample(0).isOdourous());
-//
-////        testLog4.save();
-////        testLog4.load();
-////        testLog4.toString().equals(Files.readAllLines(Paths.get("Borehole Log.txt")));
-//
+//        assertEquals(4, testLog3.bhLogSize());
+//test with contains and size
+
+//        assertEquals("103", testLog3.getSample(0).getName());
+//        assertEquals("101", testLog3.getSample(1).getName());
+//        assertEquals("blue", testLog3.getSample(0).getColour());
+//        assertEquals("sand", testLog3.getSample(0).getType());
+//        assertFalse(testLog3.getSample(0).isOdourous());
+
+//        testLog4.save();
+//        testLog4.load();
+//        testLog4.toString().equals(Files.readAllLines(Paths.get("Borehole Log.txt")));
+
 //    }
 
     @Test
     void testBHLoad() throws FileNotFoundException {
         testLog3.load();
+        //test with read all lines
     }
 
     @Test

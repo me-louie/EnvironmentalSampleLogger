@@ -214,7 +214,10 @@ public class BoreholeLog implements Saveable, Loadable {
     @Override
     //EFFECTS: writes Sample data to txt file
     public void save() throws IOException {
-        File fileName = new File("Borehole Log.txt");
+        System.out.println("Please a new file name.");
+        Scanner saveName = new Scanner(System.in);
+        String str = saveName.nextLine();
+        File fileName = new File(String.valueOf(str));
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
         for (Sample sample : boreholeLog) {
@@ -236,7 +239,10 @@ public class BoreholeLog implements Saveable, Loadable {
     @Override
     //EFFECTS: loads Sample data saved in .txt file
     public void load() throws FileNotFoundException {
-        File fileName = new File("Borehole Log.txt");
+        System.out.println("Please enter the name of the file you would like to load.");
+        Scanner loadName = new Scanner(System.in);
+        String str = loadName.nextLine();
+        File fileName = new File(str);
         FileInputStream fis = new FileInputStream(fileName);
         Scanner in = new Scanner(fis);
 
