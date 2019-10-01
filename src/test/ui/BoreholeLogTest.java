@@ -47,6 +47,14 @@ class BoreholeLogTest {
     }
 
     @Test
+    void testLoadSingleSample() throws IOException {
+        testSample1.save();
+        testSample1.load();
+        assertEquals("101", testSample1.getName());
+
+    }
+
+    @Test
     void testSaveSamples() throws FileNotFoundException {
         Sample sample1 = new Sample("101", "grey", "sand", false);
         Sample sample2 = new Sample("102", "blue", "gravel", true);
