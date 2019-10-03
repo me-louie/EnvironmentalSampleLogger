@@ -1,22 +1,9 @@
 package model;
 
-public class Sample {
-    private String name;
-    private String colour;
-    private String type;
-    private boolean odour;
-
-    //EFFECTS: creates sample with name, colour, type, and odour
-    public Sample(String name, String colour, String type, boolean odour) {
-        this.name = name;
-        this.colour = colour;
-        this.type = type;
-        this.odour = odour;
-    }
-
-    //EFFECTS: creates empty sample
-    public Sample() {
-    }
+public abstract class Sample {
+    protected String name;
+    protected String type;
+    protected boolean odour;
 
     //MODIFIES: this
     //EFFECTS: sets sample name to name
@@ -25,17 +12,10 @@ public class Sample {
     }
 
     //MODIFIES: this
-    //EFFECTS: set sample colour to grey, blue, or brown
-    public void setColour(String colour) {
-        this.colour = colour;
-    }
-
-    //MODIFIES: this
-    //EFFECTS: sets sample type to silt, sand, or gravel
+    //EFFECTS: sets sample type
     public void setType(String type) {
         this.type = type;
     }
-
 
     //MODIFIES: this
     //EFFECTS: sets sample odour to true if odourous, otherwise false
@@ -48,11 +28,6 @@ public class Sample {
         return name;
     }
 
-    //EFFECTS: return sample colour
-    public String getColour() {  //getter
-        return colour;
-    }
-
     //EFFECTS: return sample type
     public String getType() { //getter
         return type;
@@ -63,14 +38,7 @@ public class Sample {
         return odour;
     }
 
-
-    @Override
-    //EFFECTS: overwrites native toString function to print sample's name, colour, type, and whether it is odourous
-    public String toString() {
-        return name + " " + colour + " " + type + " " + odour;
-    }
-
+    //EFFECTS: print sample's name and qualifiers
+    public abstract String toString();
 }
-
-
 

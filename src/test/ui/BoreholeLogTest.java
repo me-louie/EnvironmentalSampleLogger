@@ -1,7 +1,7 @@
 package ui;
 
 import model.BoreholeLog;
-import model.Sample;
+import model.SoilSample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,23 +11,22 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class BoreholeLogTest {
 
-    private List<Sample> testLog;
-    private List<Sample> otherTestLog;
+    private List<SoilSample> testLog;
+    private List<SoilSample> otherTestLog;
 
     private BoreholeLog testLog3;
     private BoreholeLog testLog4;
 
 
-    private Sample testSample1 = new Sample("101", "brown", "gravel", false);
-    private Sample testSample2 = new Sample("102", "grey", "silt", true);
-    private Sample testSample3 = new Sample("103", "blue", "sand", false);
+    private SoilSample testSoilSample1 = new SoilSample("101", "brown", "gravel", false);
+    private SoilSample testSoilSample2 = new SoilSample("102", "grey", "silt", true);
+    private SoilSample testSoilSample3 = new SoilSample("103", "blue", "sand", false);
 
 
     @BeforeEach
@@ -35,17 +34,17 @@ class BoreholeLogTest {
         testLog = new ArrayList<>();
         otherTestLog = new ArrayList<>();
 
-        otherTestLog.add(testSample1);
-        otherTestLog.add(testSample2);
-        otherTestLog.add(testSample3);
+        otherTestLog.add(testSoilSample1);
+        otherTestLog.add(testSoilSample2);
+        otherTestLog.add(testSoilSample3);
 
         testLog3 = new BoreholeLog();
-        testLog3.addSample(testSample3);
-        testLog3.addSample(testSample1);
+        testLog3.addSample(testSoilSample3);
+        testLog3.addSample(testSoilSample1);
 
         testLog4 = new BoreholeLog();
-        testLog4.addSample(testSample2);
-        testLog4.addSample(testSample1);
+        testLog4.addSample(testSoilSample2);
+        testLog4.addSample(testSoilSample1);
     }
 
     @Test
@@ -62,14 +61,15 @@ class BoreholeLogTest {
 
     @Test
     void addSample() {
-        testLog.add(testSample1);
+        testLog.add(testSoilSample1);
         assertEquals("101 brown gravel false", testLog.get(0).toString());
     }
 
     @Test
     void testBHSave() throws IOException {
         testLog3.save("Save Test File.txt");
-        assertEquals(Files.readAllLines(Paths.get("Save Test Answers.txt")), Files.readAllLines(Paths.get("Save Test File.txt")));
+        assertEquals(Files.readAllLines(Paths.get("Save Test Answers.txt")),
+                Files.readAllLines(Paths.get("Save Test File.txt")));
     }
 
     @Test
@@ -86,12 +86,13 @@ class BoreholeLogTest {
     void loadAddSave() throws IOException {
         BoreholeLog testLoadLog = new BoreholeLog();
         testLoadLog.load("Load Test File.txt");
-        testLoadLog.addSample(testSample1);
+        testLoadLog.addSample(testSoilSample1);
         assertEquals("101", testLoadLog.getSample(1).getName());
         assertEquals("brown", testLoadLog.getSample(1).getColour());
         assertTrue(testLoadLog.getSample(0).isOdourous());
         testLoadLog.save("Load Add Save.txt");
-        assertEquals(Files.readAllLines(Paths.get("Load Add Save Answer.txt")), Files.readAllLines(Paths.get("Load Add Save.txt")));
+        assertEquals(Files.readAllLines(Paths.get("Load Add Save Answer.txt")),
+                Files.readAllLines(Paths.get("Load Add Save.txt")));
     }
 
 
