@@ -6,7 +6,7 @@ public class WaterSample extends Sample {
     private Double temperature;
     private Integer turbidity;
 
-    //EFFECTS: creates sample with name, colour, type, and odour
+    //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity
     public WaterSample(String name, String type, boolean odour, Integer conductivity, Double temperature,
                        Integer turbidity) {
         this.name = name;
