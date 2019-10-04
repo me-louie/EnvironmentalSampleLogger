@@ -1,7 +1,6 @@
 package ui;
 
-import model.BoreholeLog;
-import model.SoilSample;
+import model.*;
 
 
 import java.io.FileNotFoundException;
@@ -11,6 +10,9 @@ import java.util.Scanner;
 public class Main {
     private SoilSample soilSample1 = new SoilSample();
     private BoreholeLog boreholeLog = new BoreholeLog();
+    private WaterSample waterSample1 = new WaterSample();
+    private WaterLog waterLog = new WaterLog();
+    private Log log;
 
     public static void main(String[] args) throws IOException {
         Main main = new Main();
@@ -89,7 +91,6 @@ public class Main {
     //EFFECTS: adds a new sample to the borehole log
     private void optionOne() {
         soilSample1 = new SoilSample();
-//        boreholeLog = boreholeLog;
         addName();
         addColour();
         addType();
@@ -101,8 +102,9 @@ public class Main {
 
     //EFFECTS: prints list of samples currently logged
     private void optionTwo() {
-        System.out.println("This borehole log has " + boreholeLog.bhLogSize() + " samples.");
-        System.out.println(boreholeLog.toString());
+//        this.log = boreholeLog;
+        System.out.println("This borehole log has " + boreholeLog.bhSize() + " samples.");
+        boreholeLog.printLog();
         initiateApplication();
     }
 
@@ -113,14 +115,15 @@ public class Main {
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();
 
-        for (int i = 0; i < boreholeLog.bhLogSize(); i++) {
+        for (int i = 0; i < boreholeLog.bhSize(); i++) {
             if (boreholeLog.getSample(i).getName().equals(deleteId)) {
                 boreholeLog.removeSample(i);
                 break;
             }
         }
         System.out.println("You successfully removed a sample.");
-        System.out.println("The remaining samples are:" + boreholeLog);
+        System.out.println("The remaining sample(s) is/are:");
+        boreholeLog.printLog();
         initiateApplication();
     }
 

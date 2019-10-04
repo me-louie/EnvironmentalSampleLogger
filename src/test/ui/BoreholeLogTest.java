@@ -55,8 +55,8 @@ class BoreholeLogTest {
 
     @Test
     void testGetBHSize() {
-        assertEquals(2, testLog3.bhLogSize());
-        assertEquals(2, testLog4.bhLogSize());
+        assertEquals(2, testLog3.logSize());
+        assertEquals(2, testLog4.logSize());
     }
 
     @Test

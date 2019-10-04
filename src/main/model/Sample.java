@@ -5,6 +5,11 @@ public abstract class Sample {
     protected String type;
     protected boolean odour;
 
+    //EFFECTS: creates new sample
+    public Sample(){
+
+    }
+
     //MODIFIES: this
     //EFFECTS: sets sample name to name
     public void setName(String name) {

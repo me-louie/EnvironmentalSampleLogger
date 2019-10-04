@@ -1,25 +1,18 @@
 package model;
 
-import ui.Main;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class BoreholeLog implements Saveable, Loadable {
-    private List<SoilSample> boreholeLog;
-//    private SoilSample soilSample1 = new SoilSample();
+public class BoreholeLog extends Log {
+    private List<SoilSample> boreholeLog = new ArrayList<>();
+
 
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
-        boreholeLog = new ArrayList<>();
-    }
-
-
-    //EFFECTS: returns size of borehole log
-    public Integer bhLogSize() {
-        return boreholeLog.size();
+        super();
     }
 
 
@@ -37,9 +30,10 @@ public class BoreholeLog implements Saveable, Loadable {
 
     //EFFECTS: adds a sample to borehole log
     public void addSample(SoilSample soilSample) {
+//        List<SoilSample> boreholeLog = new ArrayList<>();
+//        this.boreholeLog = boreholeLog;
         boreholeLog.add(soilSample);
     }
-
 
 
     @Override
@@ -66,6 +60,8 @@ public class BoreholeLog implements Saveable, Loadable {
         File file = new File(fileLoadName);
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
+        List<SoilSample> boreholeLog = new ArrayList<>();
+        this.boreholeLog = boreholeLog;
 
         while (in.hasNext()) {
             SoilSample soilSample1 = new SoilSample();
@@ -79,7 +75,6 @@ public class BoreholeLog implements Saveable, Loadable {
     }
 
 
-
     //EFFECTS: returns sample from borehole log at specified index
     public SoilSample getSample(int i) {
         return boreholeLog.get(i);
@@ -89,8 +84,25 @@ public class BoreholeLog implements Saveable, Loadable {
     public void removeSample(int i) {
         boreholeLog.remove(i);
     }
+
+    public Integer bhSize() {
+        return boreholeLog.size();
+    }
+
+//    public String printSample(int i) {
+//        boreholeLog.get(i).toString();
+//    }
+
+
+
+
+    public void printLog() {
+
+        for (int i = 0; i < boreholeLog.size(); i++) {
+            System.out.println("[" + boreholeLog.get(i).toString() + "]");
+        }
+
+    }
 }
-
-
 
 

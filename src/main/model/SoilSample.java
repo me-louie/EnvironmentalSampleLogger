@@ -1,9 +1,10 @@
 package model;
 
+
 public class SoilSample extends Sample {
     private String colour;
 
-    //EFFECTS: creates sample with name, colour, type, and odour
+    //EFFECTS: creates soil sample with name, colour, type, and odour
     public SoilSample(String name, String colour, String type, boolean odour) {
         this.name = name;
         this.colour = colour;
@@ -13,6 +14,7 @@ public class SoilSample extends Sample {
 
     //EFFECTS: creates empty soil sample
     public SoilSample() {
+        super();
     }
 
     //MODIFIES: this
@@ -37,6 +39,7 @@ public class SoilSample extends Sample {
     }
 
 }
+
 
 
 

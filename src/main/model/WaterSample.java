@@ -1,13 +1,16 @@
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class WaterSample extends Sample {
 
     private Integer conductivity;
-    private Double temperature;
+    private Integer temperature;
     private Integer turbidity;
 
     //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity
-    public WaterSample(String name, String type, boolean odour, Integer conductivity, Double temperature,
+    public WaterSample(String name, String type, boolean odour, Integer conductivity, Integer temperature,
                        Integer turbidity) {
         this.name = name;
         this.type = type;
@@ -20,25 +23,25 @@ public class WaterSample extends Sample {
     //MODIFIES: this
     //EFFECTS: creates new empty water sample
     public WaterSample() {
-
+        super();
     }
 
     //MODIFIES: this
     //EFFECTS: sets water sample conductivity in uS
-    public void setConductivity() {
+    public void setConductivity(Integer conductivity) {
         this.conductivity = conductivity;
     }
 
 
     //MODIFIES: this
     //EFFECTS: sets water sample temperature in deg C;
-    public void setTemperature() {
+    public void setTemperature(Integer temperature) {
         this.temperature = temperature;
     }
 
     //MODIFIES: this
     //EFFECTS: set water sample turbidity in ppm
-    public void setTurbidity() {
+    public void setTurbidity(Integer turbidity) {
         this.turbidity = turbidity;
     }
 
@@ -48,7 +51,7 @@ public class WaterSample extends Sample {
     }
 
     //EFFECTS: return sample temperature;
-    public double getTemperature() {
+    public int getTemperature() {
         return temperature;
     }
 
