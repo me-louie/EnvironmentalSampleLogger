@@ -101,19 +101,56 @@ public class Main {
 //    }
 
     private boolean numAnswer(String str) throws IOException {
-        if (str.equals("1")
-                && this.sampleType.equals("soil")) {
-            optionOneSoil();
-        } else if (str.equals("1")
-                && this.sampleType.equals("water")) {
+
+        if (this.sampleType.equals("soil")) {
+            if (str.equals("1")) {
+                optionOneSoil();
+            } else if (str.equals("2")) {
+                optionTwoSoil();
+            } else if (str.equals("3")) {
+                optionThreeSoil();
+            }
+        } else if (str.equals("1")) {
             optionOneWater();
         } else if (str.equals("2")) {
-            optionTwo();
+            optionTwoWater();
         } else if (str.equals("3")) {
-            optionThree();
+            optionThreeWater();
         }
         return false;
     }
+
+    private void optionThreeWater() throws IOException {
+        System.out.println("Please enter the ID of the sample you would like to delete.");
+        Scanner id = new Scanner(System.in);
+        String deleteId = id.next();
+
+        for (int i = 0; i < waterLog.wlSize(); i++) {
+            if (waterLog.getSample(i).getName().equals(deleteId)) {
+                waterLog.removeSample(i);
+                break;
+            }
+        }
+        System.out.println("You successfully removed a sample.");
+        System.out.println("The remaining sample(s) is/are:");
+        waterLog.printLog();
+        initiateLog();
+    }
+
+
+//        if (str.equals("1")
+//                && this.sampleType.equals("soil")) {
+//            optionOneSoil();
+//        } else if (str.equals("1")
+//                && this.sampleType.equals("water")) {
+//            optionOneWater();
+//        } else if (str.equals("2")) {
+//            optionTwo();
+//        } else if (str.equals("3")) {
+//            optionThree();
+//        }
+//        return false;
+//}
 
     private void optionOneWater() throws IOException {
         waterSample1 = new WaterSample();
@@ -131,20 +168,20 @@ public class Main {
     private void addConductivity() {
         System.out.println("Please enter the sample conductivity.");
         Scanner sampleData = new Scanner(System.in);
-        waterSample1.setConductivity(sampleData.nextInt());
+        waterSample1.setConductivity(sampleData.nextLine());
 //need to restrict inputs to numbers
     }
 
     private void addTemperature() {
         System.out.println("Please enter the sample temperature.");
         Scanner sampleData = new Scanner(System.in);
-        waterSample1.setTemperature(sampleData.nextInt());
+        waterSample1.setTemperature(sampleData.nextLine());
     }
 
     private void addTurbidity() {
         System.out.println("Please enter the sample turbidity.");
         Scanner sampleData = new Scanner(System.in);
-        waterSample1.setTurbidity(sampleData.nextInt());
+        waterSample1.setTurbidity(sampleData.nextLine());
     }
 
 
@@ -152,7 +189,12 @@ public class Main {
         System.out.println("Please enter a new file name.");
         Scanner saveName = new Scanner(System.in);
         String fileToSave = saveName.nextLine();
-        boreholeLog.save(fileToSave);
+        if (this.sampleType.equals("soil")) {
+            boreholeLog.save(fileToSave);
+            initiateLog();
+        } else {
+            waterLog.save(fileToSave);
+        }
         initiateLog();
     }
 
@@ -160,9 +202,15 @@ public class Main {
         System.out.println("Please enter the name of the file you would like to load.");
         Scanner loadName = new Scanner(System.in);
         String fileToLoad = loadName.nextLine();
-        boreholeLog.load(fileToLoad);
-        initiateLog();
+        if (this.sampleType.equals("soil")) {
+            boreholeLog.load(fileToLoad);
+            initiateLog();
+        } else {
+            waterLog.load(fileToLoad);
+            initiateLog();
+        }
     }
+
 
     //MODIFIES: this
     //EFFECTS: adds a new sample to the borehole log
@@ -178,15 +226,22 @@ public class Main {
     }
 
     //EFFECTS: prints list of samples currently logged
-    private void optionTwo() throws IOException {
+    private void optionTwoSoil() throws IOException {
         System.out.println("This borehole log has " + boreholeLog.bhSize() + " samples.");
         boreholeLog.printLog();
         initiateLog();
     }
 
+    //EFFECTS: prints list of samples currently logged
+    private void optionTwoWater() throws IOException {
+        System.out.println("This water log has " + waterLog.wlSize() + " samples.");
+        waterLog.printLog();
+        initiateLog();
+    }
+
     //MODIFIES: this
     //EFFECTS: removes sample from borehole log based on sample id user inputted
-    private void optionThree() throws IOException {
+    private void optionThreeSoil() throws IOException {
         System.out.println("Please enter the ID of the sample you would like to delete.");
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();

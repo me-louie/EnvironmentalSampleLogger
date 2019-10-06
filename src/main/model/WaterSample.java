@@ -5,13 +5,13 @@ import java.io.IOException;
 
 public class WaterSample extends Sample {
 
-    private Integer conductivity;
-    private Integer temperature;
-    private Integer turbidity;
+    private String conductivity;
+    private String temperature;
+    private String turbidity;
 
     //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity
-    public WaterSample(String name, String type, boolean odour, Integer conductivity, Integer temperature,
-                       Integer turbidity) {
+    public WaterSample(String name, String type, boolean odour, String conductivity, String temperature,
+                       String turbidity) {
         this.name = name;
         this.type = type;
         this.odour = odour;
@@ -28,35 +28,35 @@ public class WaterSample extends Sample {
 
     //MODIFIES: this
     //EFFECTS: sets water sample conductivity in uS
-    public void setConductivity(Integer conductivity) {
+    public void setConductivity(String conductivity) {
         this.conductivity = conductivity;
     }
 
 
     //MODIFIES: this
     //EFFECTS: sets water sample temperature in deg C;
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
 
     //MODIFIES: this
     //EFFECTS: set water sample turbidity in ppm
-    public void setTurbidity(Integer turbidity) {
+    public void setTurbidity(String turbidity) {
         this.turbidity = turbidity;
     }
 
     //EFFECTS: returns sample conductivity
-    public int getConductivity() {
+    public String getConductivity() {
         return conductivity;
     }
 
     //EFFECTS: return sample temperature;
-    public int getTemperature() {
+    public String getTemperature() {
         return temperature;
     }
 
     //EFFECTS: return sample turbidity
-    public int getTurbidity() {
+    public String getTurbidity() {
         return turbidity;
     }
 

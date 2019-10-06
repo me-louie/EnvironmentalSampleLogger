@@ -55,12 +55,33 @@ public class WaterLog extends Log {
             waterSample1.setName(in.nextLine());
             waterSample1.setType(in.nextLine());
             waterSample1.setOdour((in.nextLine().equals("true")));
-            waterSample1.setConductivity((in.nextInt()));
-            waterSample1.setTemperature((in.nextInt()));
-            waterSample1.setTurbidity((in.nextInt()));
+            waterSample1.setConductivity((in.nextLine()));
+            waterSample1.setTemperature((in.nextLine()));
+            waterSample1.setTurbidity((in.nextLine()));
             waterLog.add(waterSample1);
         }
         System.out.println(file + " data has been loaded.");
+    }
+
+    public void printLog() {
+
+        for (int i = 0; i < waterLog.size(); i++) {
+            System.out.println("[" + waterLog.get(i).toString() + "]");
+        }
+    }
+
+    public Integer wlSize() {
+        return waterLog.size();
+    }
+
+    //EFFECTS: returns sample from borehole log at specified index
+    public WaterSample getSample(int i) {
+        return waterLog.get(i);
+    }
+
+
+    public void removeSample(int i) {
+        waterLog.remove(i);
     }
 }
 
