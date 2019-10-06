@@ -1,6 +1,8 @@
 package model;
 
 
+import ui.Main;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,7 @@ public class BoreholeLog extends Log {
         }
         pw.close();
         System.out.println("File " + fileName + " was saved.");
+
 
     }
 

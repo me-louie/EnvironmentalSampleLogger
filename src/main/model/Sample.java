@@ -1,12 +1,12 @@
 package model;
 
 public abstract class Sample {
-    protected String name;
-    protected String type;
-    protected boolean odour;
+    String name;
+    String type;
+    boolean odour;
 
     //EFFECTS: creates new sample
-    public Sample(){
+    Sample(){
 
     }
 

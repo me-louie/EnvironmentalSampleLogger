@@ -1,17 +1,24 @@
 package model;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class WaterLog extends Log {
-    List<Sample> waterLog;
+    List<WaterSample> waterLog = new ArrayList<>();
     WaterSample waterSample = new WaterSample();
 
     //EFFECTS: creates empty water log
     public WaterLog() {
         super();
+    }
+
+
+    //EFFECTS: adds a sample to borehole log
+    public void addSample(WaterSample waterSample) {
+        waterLog.add(waterSample);
     }
 
     @Override
@@ -20,7 +27,7 @@ public class WaterLog extends Log {
         File fileName = new File(fileSaveName);
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
-        for (Sample sample : waterLog) {
+        for (WaterSample waterSample : waterLog) {
             pw.println(waterSample.getName());
             pw.println(waterSample.getType());
             pw.println(waterSample.isOdourous());
@@ -40,6 +47,8 @@ public class WaterLog extends Log {
         File file = new File(fileLoadName);
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
+        List<WaterSample> waterLog = new ArrayList<>();
+        this.waterLog = waterLog;
 
         while (in.hasNext()) {
             WaterSample waterSample1 = new WaterSample();
