@@ -74,6 +74,8 @@ class BoreholeLogTest extends LogTest {
         assertEquals("blue", testLoadLog.getSample(0).getColour());
         assertEquals("gravel", testLoadLog.getSample(0).getType());
         assertTrue(testLoadLog.getSample(0).isOdourous());
+
+        assertEquals(1, testLoadLog.logSize());
     }
 
     @Test

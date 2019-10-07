@@ -1,14 +1,19 @@
 package ui;
 
+import model.BoreholeLog;
 import model.WaterLog;
 import model.WaterSample;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WaterLogTest {
+class WaterLogTest {
     private WaterLog testWaterLog;
     private WaterLog otherTestWaterLog;
 
@@ -53,5 +58,28 @@ public class WaterLogTest {
     @Test
     void testPrintLog() {
         assertTrue(otherTestWaterLog.printLog());
+    }
+
+    @Test
+    void testWLSave() throws IOException {
+        otherTestWaterLog.addSample(testWaterSample2);
+
+        otherTestWaterLog.save("Save Test Waterlog.txt");
+        assertEquals(Files.readAllLines(Paths.get("Save Test Waterlog Answers.txt")),
+                Files.readAllLines(Paths.get("Save Test Waterlog.txt")));
+    }
+
+    @Test
+    void testWLLoad() throws IOException {
+        WaterLog testLoadLog = new WaterLog();
+        testLoadLog.load("Load Test Waterlog.txt");
+        assertEquals("105n", testLoadLog.getSample(0).getName());
+        assertEquals("groundwater", testLoadLog.getSample(0).getType());
+        assertTrue(testLoadLog.getSample(0).isOdourous());
+        assertEquals("123", testLoadLog.getSample(0).getConductivity());
+        assertEquals("23", testLoadLog.getSample(0).getTemperature());
+        assertEquals("355", testLoadLog.getSample(0).getTurbidity());
+
+        assertEquals(1, testLoadLog.logSize());
     }
 }

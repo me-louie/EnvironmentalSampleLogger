@@ -1,0 +1,12 @@
+101n
+groundwater
+true
+111
+222
+333
+999
+surface water
+false
+888
+777
+666
