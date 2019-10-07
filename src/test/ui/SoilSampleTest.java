@@ -62,13 +62,6 @@ class SoilSampleTest {
         assertTrue(testSoilSample.isOdourous());
     }
 
-//    @Test
-//    void testLoadSingleSample() throws IOException {
-//        testSample1.save();
-//        assertEquals("101", Files.readAllLines(Paths.get("Sample.txt")));
-//
-//    }
-
 
 
     @Test

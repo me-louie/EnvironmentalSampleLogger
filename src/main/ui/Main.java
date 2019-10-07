@@ -16,7 +16,7 @@ public class Main {
     private Log log;
 
 
-    String sampleType = " ";
+    protected String sampleType = " ";
 
     public static void main(String[] args) throws IOException {
         Main main = new Main();
@@ -125,7 +125,7 @@ public class Main {
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();
 
-        for (int i = 0; i < waterLog.wlSize(); i++) {
+        for (int i = 0; i < waterLog.logSize(); i++) {
             if (waterLog.getSample(i).getName().equals(deleteId)) {
                 waterLog.removeSample(i);
                 break;
@@ -227,14 +227,14 @@ public class Main {
 
     //EFFECTS: prints list of samples currently logged
     private void optionTwoSoil() throws IOException {
-        System.out.println("This borehole log has " + boreholeLog.bhSize() + " samples.");
+        System.out.println("This borehole log has " + boreholeLog.logSize() + " samples.");
         boreholeLog.printLog();
         initiateLog();
     }
 
     //EFFECTS: prints list of samples currently logged
     private void optionTwoWater() throws IOException {
-        System.out.println("This water log has " + waterLog.wlSize() + " samples.");
+        System.out.println("This water log has " + waterLog.logSize() + " samples.");
         waterLog.printLog();
         initiateLog();
     }
@@ -246,7 +246,7 @@ public class Main {
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();
 
-        for (int i = 0; i < boreholeLog.bhSize(); i++) {
+        for (int i = 0; i < boreholeLog.logSize(); i++) {
             if (boreholeLog.getSample(i).getName().equals(deleteId)) {
                 boreholeLog.removeSample(i);
                 break;

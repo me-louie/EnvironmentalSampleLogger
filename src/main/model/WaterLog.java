@@ -1,19 +1,19 @@
 package model;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class WaterLog extends Log {
-    List<WaterSample> waterLog = new ArrayList<>();
+
     WaterSample waterSample = new WaterSample();
 
     //EFFECTS: creates empty water log
     public WaterLog() {
         super();
     }
+
 
 
     //EFFECTS: adds a sample to borehole log
@@ -63,6 +63,7 @@ public class WaterLog extends Log {
         System.out.println(file + " data has been loaded.");
     }
 
+    @Override
     public void printLog() {
 
         for (int i = 0; i < waterLog.size(); i++) {
@@ -70,16 +71,19 @@ public class WaterLog extends Log {
         }
     }
 
-    public Integer wlSize() {
+    @Override
+    public Integer logSize() {
         return waterLog.size();
     }
 
+    @Override
     //EFFECTS: returns sample from borehole log at specified index
     public WaterSample getSample(int i) {
         return waterLog.get(i);
     }
 
 
+    @Override
     public void removeSample(int i) {
         waterLog.remove(i);
     }

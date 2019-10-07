@@ -2,6 +2,7 @@ package ui;
 
 import model.BoreholeLog;
 import model.SoilSample;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class BoreholeLogTest {
+class BoreholeLogTest extends LogTest {
 
     private List<SoilSample> testLog;
     private List<SoilSample> otherTestLog;
@@ -54,18 +55,6 @@ class BoreholeLogTest {
     }
 
     @Test
-    void testGetBHSize() {
-        assertEquals(2, testLog3.logSize());
-        assertEquals(2, testLog4.logSize());
-    }
-
-    @Test
-    void addSample() {
-        testLog.add(testSoilSample1);
-        assertEquals("101 brown gravel false", testLog.get(0).toString());
-    }
-
-    @Test
     void testBHSave() throws IOException {
         testLog3.save("Save Test File.txt");
         assertEquals(Files.readAllLines(Paths.get("Save Test Answers.txt")),
@@ -93,6 +82,12 @@ class BoreholeLogTest {
         testLoadLog.save("Load Add Save.txt");
         assertEquals(Files.readAllLines(Paths.get("Load Add Save Answer.txt")),
                 Files.readAllLines(Paths.get("Load Add Save.txt")));
+    }
+
+    @Test
+    void addSample() {
+        testLog.add(testSoilSample1);
+        Assertions.assertEquals("101 brown gravel false", testLog.get(0).toString());
     }
 
 

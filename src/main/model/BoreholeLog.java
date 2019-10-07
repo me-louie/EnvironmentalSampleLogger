@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BoreholeLog extends Log {
-    private List<SoilSample> boreholeLog = new ArrayList<>();
 
 
     //EFFECTS: creates empty borehole log
@@ -32,8 +31,6 @@ public class BoreholeLog extends Log {
 
     //EFFECTS: adds a sample to borehole log
     public void addSample(SoilSample soilSample) {
-//        List<SoilSample> boreholeLog = new ArrayList<>();
-//        this.boreholeLog = boreholeLog;
         boreholeLog.add(soilSample);
     }
 
@@ -78,27 +75,26 @@ public class BoreholeLog extends Log {
     }
 
 
+    @Override
     //EFFECTS: returns sample from borehole log at specified index
     public SoilSample getSample(int i) {
         return boreholeLog.get(i);
     }
 
 
+    @Override
     public void removeSample(int i) {
         boreholeLog.remove(i);
     }
 
-    public Integer bhSize() {
+    @Override
+    public Integer logSize() {
         return boreholeLog.size();
     }
 
-//    public String printSample(int i) {
-//        boreholeLog.get(i).toString();
-//    }
 
 
-
-
+    @Override
     public void printLog() {
 
         for (int i = 0; i < boreholeLog.size(); i++) {
