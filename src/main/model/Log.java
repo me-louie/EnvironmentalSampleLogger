@@ -22,6 +22,8 @@ public abstract class Log implements Saveable, Loadable {
     public abstract void printLog();
 
 
+
+
 }
 
 

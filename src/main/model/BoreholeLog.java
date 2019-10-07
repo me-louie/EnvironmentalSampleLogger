@@ -29,6 +29,7 @@ public class BoreholeLog extends Log {
         return contaminated;
     }
 
+
     //EFFECTS: adds a sample to borehole log
     public void addSample(SoilSample soilSample) {
         boreholeLog.add(soilSample);

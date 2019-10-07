@@ -63,7 +63,7 @@ public class WaterSample extends Sample {
     @Override
     //EFFECTS: overwrites native toString function to print sample's name, colour, type, and whether it is odourous
     public String toString() {
-        return name + " " + " " + type + " " + odour + " " + conductivity + " " + temperature + " " + turbidity;
+        return name + " " + type + " " + odour + " " + conductivity + " " + temperature + " " + turbidity;
     }
 
 }
