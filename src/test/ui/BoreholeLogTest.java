@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ class BoreholeLogTest extends LogTest {
     private List<SoilSample> testLog;
     private List<SoilSample> otherTestLog;
 
+    private BoreholeLog emptyTestLog;
     private BoreholeLog testLog3;
     private BoreholeLog testLog4;
 
@@ -29,6 +31,8 @@ class BoreholeLogTest extends LogTest {
     private SoilSample testSoilSample2 = new SoilSample("102", "grey", "silt", true);
     private SoilSample testSoilSample3 = new SoilSample("103", "blue", "sand", false);
 
+    private ArrayList emptyArray = new ArrayList();
+    private ArrayList testArray = new ArrayList();
 
     @BeforeEach
     void setup() {
@@ -38,6 +42,8 @@ class BoreholeLogTest extends LogTest {
         otherTestLog.add(testSoilSample1);
         otherTestLog.add(testSoilSample2);
         otherTestLog.add(testSoilSample3);
+
+        emptyTestLog = new BoreholeLog();
 
         testLog3 = new BoreholeLog();
         testLog3.addSample(testSoilSample3);
@@ -72,7 +78,7 @@ class BoreholeLogTest extends LogTest {
     }
 
     @Test
-    void loadAddSave() throws IOException {
+    void testLoadAddSave() throws IOException {
         BoreholeLog testLoadLog = new BoreholeLog();
         testLoadLog.load("Load Test File.txt");
         testLoadLog.addSample(testSoilSample1);
@@ -85,16 +91,35 @@ class BoreholeLogTest extends LogTest {
     }
 
     @Test
-    void addSample() {
+    void testAddSample() {
         testLog.add(testSoilSample1);
         Assertions.assertEquals("101 brown gravel false", testLog.get(0).toString());
     }
 
+    @Test
+    void testGetSample() {
+        assertEquals(testSoilSample2, testLog4.getSample(0));
+    }
 
-//    @Test
-//    void returnContaminatedSamplesEmptyList() {
-//        assertEquals("102", boreholeLog.returnContaminatedSamples());
-//    }
+    @Test
+    void testRemoveSample() {
+        testLog4.removeSample(0);
+        assertEquals(1, testLog4.logSize());
+        assertFalse(testLog4.contains(testSoilSample2));
+        assertTrue(testLog4.contains(testSoilSample1));
+    }
+
+
+    @Test
+    void returnContaminatedSamplesEmptyList() {
+        assertEquals(emptyArray, emptyTestLog.returnContaminatedSamples());
+    }
+
+    @Test
+    void returnContaminatedSamples() {
+        testArray.add(testSoilSample2);
+        assertEquals(testArray, testLog4.returnContaminatedSamples());
+    }
 
 //for loop and check each item because it also checks the order
 //object1.isEqual(object2)

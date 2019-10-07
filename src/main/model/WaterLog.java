@@ -63,7 +63,6 @@ public class WaterLog extends Log {
         System.out.println(file + " data has been loaded.");
     }
 
-    @Override
     public void printLog() {
 
         for (int i = 0; i < waterLog.size(); i++) {
@@ -86,6 +85,15 @@ public class WaterLog extends Log {
     @Override
     public void removeSample(int i) {
         waterLog.remove(i);
+    }
+
+    @Override
+    public boolean contains(Sample sample) {
+        if (waterLog.contains(sample)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

@@ -47,6 +47,18 @@ public class WaterSampleTest {
         assertEquals("999", testWaterSample.getName());
     }
 
+    @Test
+    void testSetTurbidity() {
+        testWaterSample.setTurbidity("123");
+        assertEquals("123", testWaterSample.getTurbidity());
+    }
+
+    @Test
+    void testSetTemperature() {
+        testWaterSample.setTemperature("30");
+        assertEquals("30", testWaterSample.getTemperature());
+    }
+
 
     @Test
     void testSetType() {
@@ -60,9 +72,10 @@ public class WaterSampleTest {
         assertTrue(testWaterSample.isOdourous());
     }
 
-
     @Test
     void testToString() {
         assertEquals("101n groundwater true 111 222 333", otherTestWaterSample.toString());
     }
+
+
 }

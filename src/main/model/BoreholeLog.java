@@ -89,13 +89,19 @@ public class BoreholeLog extends Log {
     }
 
     @Override
+    public boolean contains(Sample sample) {
+        if (boreholeLog.contains(sample)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public Integer logSize() {
         return boreholeLog.size();
     }
 
-
-
-    @Override
     public void printLog() {
 
         for (int i = 0; i < boreholeLog.size(); i++) {
@@ -103,6 +109,9 @@ public class BoreholeLog extends Log {
         }
 
     }
+
+
+
 }
 
 
