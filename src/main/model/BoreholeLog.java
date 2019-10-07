@@ -102,11 +102,12 @@ public class BoreholeLog extends Log {
         return boreholeLog.size();
     }
 
-    public void printLog() {
+    public boolean printLog() {
 
         for (int i = 0; i < boreholeLog.size(); i++) {
             System.out.println("[" + boreholeLog.get(i).toString() + "]");
         }
+        return true;
 
     }
 

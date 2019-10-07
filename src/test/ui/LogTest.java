@@ -5,14 +5,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-public class LogTest {
+class LogTest {
 
-    Log testBoreholeLog;
-    Log testWaterLog;
-    Sample soilTestSample1;
-    Sample waterTestSample1;
+    private Log testBoreholeLog;
+    private Log testWaterLog;
+    private Sample soilTestSample1;
+    private Sample waterTestSample1;
 
     @BeforeEach
     void setup() {

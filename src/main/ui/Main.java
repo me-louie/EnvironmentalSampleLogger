@@ -387,6 +387,8 @@ public class Main {
         System.out.println("Please enter a valid type.");
         addType();
     }
+
+
 }
 
 

@@ -59,6 +59,12 @@ public class WaterSampleTest {
         assertEquals("30", testWaterSample.getTemperature());
     }
 
+    @Test
+    void testSetConductivity() {
+        testWaterSample.setConductivity("1244");
+        assertEquals("1244", testWaterSample.getConductivity());
+    }
+
 
     @Test
     void testSetType() {

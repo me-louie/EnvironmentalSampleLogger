@@ -15,7 +15,6 @@ public class WaterLog extends Log {
     }
 
 
-
     //EFFECTS: adds a sample to borehole log
     public void addSample(WaterSample waterSample) {
         waterLog.add(waterSample);
@@ -63,12 +62,14 @@ public class WaterLog extends Log {
         System.out.println(file + " data has been loaded.");
     }
 
-    public void printLog() {
+    public boolean printLog() {
 
         for (int i = 0; i < waterLog.size(); i++) {
             System.out.println("[" + waterLog.get(i).toString() + "]");
         }
+        return true;
     }
+
 
     @Override
     public Integer logSize() {

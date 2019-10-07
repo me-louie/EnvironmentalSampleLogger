@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -121,10 +120,10 @@ class BoreholeLogTest extends LogTest {
         assertEquals(testArray, testLog4.returnContaminatedSamples());
     }
 
-//for loop and check each item because it also checks the order
-//object1.isEqual(object2)
-
-//TA said complete this test once we cover Override in lecture.. hashes are different
+    @Test
+    void testPrintLog() {
+        assertTrue(testLog4.printLog());
+    }
 
 }
 

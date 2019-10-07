@@ -49,4 +49,9 @@ public class WaterLogTest {
         assertFalse(testWaterLog.contains(testWaterSample2));
         assertTrue(testWaterLog.contains(testWaterSample1));
     }
+
+    @Test
+    void testPrintLog() {
+        assertTrue(otherTestWaterLog.printLog());
+    }
 }
