@@ -4,6 +4,7 @@ package model;
 public class SoilSample extends Sample {
     private String colour;
 
+
     //EFFECTS: creates soil sample with name, colour, type, and odour
     public SoilSample(String name, String colour, String type, boolean odour) {
         this.name = name;

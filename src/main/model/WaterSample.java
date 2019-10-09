@@ -1,8 +1,5 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 public class WaterSample extends Sample {
 
     private String conductivity;

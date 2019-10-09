@@ -21,6 +21,7 @@ public class WaterLog extends Log {
     }
 
     @Override
+    //REQUIRES: access to directory where file will be saved
     //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws IOException {
         File fileName = new File(fileSaveName);
@@ -40,6 +41,7 @@ public class WaterLog extends Log {
     }
 
     @Override
+    //REQUIRES: file to be loaded to be saved in project directory
     //MODIFIES: this
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
@@ -62,6 +64,7 @@ public class WaterLog extends Log {
         System.out.println(file + " data has been loaded.");
     }
 
+    //EFFECTS: converts waterlog to list of string
     public boolean printLog() {
 
         for (int i = 0; i < waterLog.size(); i++) {
@@ -71,23 +74,27 @@ public class WaterLog extends Log {
     }
 
 
+    //EFFECTS: returns size of the water log
     @Override
     public Integer logSize() {
         return waterLog.size();
     }
 
+
     @Override
-    //EFFECTS: returns sample from borehole log at specified index
+    //EFFECTS: returns sample from water log at specified index
     public WaterSample getSample(int i) {
         return waterLog.get(i);
     }
 
 
+    //EFFECTS: removes sample from waterlog at specified index
     @Override
     public void removeSample(int i) {
         waterLog.remove(i);
     }
 
+    //EFFECTS: returns true is water log contains sample, otherwise false
     @Override
     public boolean contains(Sample sample) {
         if (waterLog.contains(sample)) {

@@ -1,7 +1,6 @@
 package model;
 
 
-import ui.Main;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -37,6 +36,7 @@ public class BoreholeLog extends Log {
 
 
     @Override
+    //REQUIRES: access to location where file is intended to be saved
     //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws IOException {
         File fileName = new File(fileSaveName);
@@ -55,6 +55,7 @@ public class BoreholeLog extends Log {
     }
 
     @Override
+    //REQUIRES: file to be loaded to be located in the project directory
     //MODIFIES: this
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
@@ -77,6 +78,7 @@ public class BoreholeLog extends Log {
 
 
     @Override
+    //MODIFIES: this
     //EFFECTS: returns sample from borehole log at specified index
     public SoilSample getSample(int i) {
         return boreholeLog.get(i);
@@ -84,11 +86,14 @@ public class BoreholeLog extends Log {
 
 
     @Override
+    //MODIFIES: this
+    //EFFECTS: removes sample from the borehole log at the specified index
     public void removeSample(int i) {
         boreholeLog.remove(i);
     }
 
     @Override
+    //EFFECTS: returns true if borehole log contains sample, otherwise return false
     public boolean contains(Sample sample) {
         if (boreholeLog.contains(sample)) {
             return true;
@@ -98,10 +103,12 @@ public class BoreholeLog extends Log {
     }
 
     @Override
+    //EFFECTS: returns size of the borehole log
     public Integer logSize() {
         return boreholeLog.size();
     }
 
+    //EFFECTS: converts borehole log to a list of string
     public boolean printLog() {
 
         for (int i = 0; i < boreholeLog.size(); i++) {
