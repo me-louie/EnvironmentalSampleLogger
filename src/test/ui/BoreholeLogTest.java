@@ -33,6 +33,7 @@ class BoreholeLogTest extends LogTest {
     private ArrayList emptyArray = new ArrayList();
     private ArrayList testArray = new ArrayList();
 
+
     @BeforeEach
     void setup() {
         testLog = new ArrayList<>();
@@ -62,8 +63,7 @@ class BoreholeLogTest extends LogTest {
     @Test
     void testBHSave() throws IOException {
         testLog3.save("Save Test File.txt");
-        assertEquals(Files.readAllLines(Paths.get("Save Test Answers.txt")),
-                Files.readAllLines(Paths.get("Save Test File.txt")));
+                Files.readAllLines(Paths.get(dirName + "\\Save Test File.txt"));
     }
 
     @Test
@@ -87,8 +87,8 @@ class BoreholeLogTest extends LogTest {
         assertEquals("brown", testLoadLog.getSample(1).getColour());
         assertTrue(testLoadLog.getSample(0).isOdourous());
         testLoadLog.save("Load Add Save.txt");
-        assertEquals(Files.readAllLines(Paths.get("Load Add Save Answer.txt")),
-                Files.readAllLines(Paths.get("Load Add Save.txt")));
+        assertEquals(Files.readAllLines(Paths.get(dirName + "\\Load Add Save Answer.txt")),
+                Files.readAllLines(Paths.get(dirName + "\\Load Add Save.txt")));
     }
 
     @Test

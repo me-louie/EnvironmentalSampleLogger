@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class BoreholeLog extends Log {
 
 
+
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
         super();
@@ -39,7 +40,8 @@ public class BoreholeLog extends Log {
     //REQUIRES: access to location where file is intended to be saved
     //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws IOException {
-        File fileName = new File(fileSaveName);
+        File dir = new File(dirName);
+        File fileName = new File(dir, fileSaveName);
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
         for (SoilSample soilSample : boreholeLog) {
@@ -59,7 +61,8 @@ public class BoreholeLog extends Log {
     //MODIFIES: this
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
-        File file = new File(fileLoadName);
+        File dir = new File(dirName);
+        File file = new File(dirName, fileLoadName);
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
         List<SoilSample> boreholeLog = new ArrayList<>();

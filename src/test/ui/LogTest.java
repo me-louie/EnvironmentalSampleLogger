@@ -13,6 +13,9 @@ class LogTest {
     private Sample soilTestSample1;
     private Sample waterTestSample1;
 
+    protected String dirName = "C:\\Users\\Pikachu\\Documents\\!Courses\\Fall 2019\\CPSC 210\\project_u7v2b\\data";
+
+
     @BeforeEach
     void setup() {
        testBoreholeLog = new BoreholeLog();
@@ -23,11 +26,11 @@ class LogTest {
 
     }
 
-    @Test
-    void testLogSize() {
-        Assertions.assertEquals(0, testBoreholeLog.logSize());
-        Assertions.assertEquals(0, testWaterLog.logSize());
-    }
+//    @Test
+//    void testLogSize() {
+//        Assertions.assertEquals(0, testBoreholeLog.logSize());
+//        Assertions.assertEquals(0, testWaterLog.logSize());
+//    }
 
 
 

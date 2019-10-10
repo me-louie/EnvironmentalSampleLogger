@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WaterLogTest {
+class WaterLogTest extends LogTest {
     private WaterLog testWaterLog;
     private WaterLog otherTestWaterLog;
 
@@ -42,6 +42,7 @@ class WaterLogTest {
 
     @Test
     void testGetSample() {
+        testWaterLog.addSample(testWaterSample1);
         assertEquals(testWaterSample1, testWaterLog.getSample(0));
     }
 
@@ -65,8 +66,8 @@ class WaterLogTest {
         otherTestWaterLog.addSample(testWaterSample2);
 
         otherTestWaterLog.save("Save Test Waterlog.txt");
-        assertEquals(Files.readAllLines(Paths.get("Save Test Waterlog Answers.txt")),
-                Files.readAllLines(Paths.get("Save Test Waterlog.txt")));
+        assertEquals(Files.readAllLines(Paths.get(dirName + "\\Save Test Waterlog Answers.txt")),
+                Files.readAllLines(Paths.get(dirName + "\\Save Test Waterlog.txt")));
     }
 
     @Test
