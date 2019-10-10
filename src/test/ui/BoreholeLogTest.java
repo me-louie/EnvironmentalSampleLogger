@@ -64,6 +64,8 @@ class BoreholeLogTest extends LogTest {
     void testBHSave() throws IOException {
         testLog3.save("Save Test File.txt");
                 Files.readAllLines(Paths.get(dirName + "\\Save Test File.txt"));
+        assertEquals(Files.readAllLines(Paths.get(dirName + "\\Save Test Answers.txt")),
+                Files.readAllLines(Paths.get(dirName + "\\Save Test File.txt")));
     }
 
     @Test

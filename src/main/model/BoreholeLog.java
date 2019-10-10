@@ -62,7 +62,7 @@ public class BoreholeLog extends Log {
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
         File dir = new File(dirName);
-        File file = new File(dirName, fileLoadName);
+        File file = new File(dir, fileLoadName);
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
         List<SoilSample> boreholeLog = new ArrayList<>();
