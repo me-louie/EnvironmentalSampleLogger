@@ -63,9 +63,9 @@ class BoreholeLogTest extends LogTest {
     @Test
     void testBHSave() throws IOException {
         testLog3.save("Save Test File.txt");
-                Files.readAllLines(Paths.get(dirName + "\\Save Test File.txt"));
-        assertEquals(Files.readAllLines(Paths.get(dirName + "\\Save Test Answers.txt")),
-                Files.readAllLines(Paths.get(dirName + "\\Save Test File.txt")));
+                Files.readAllLines(Paths.get("data", "Save Test File.txt"));
+        assertEquals(Files.readAllLines(Paths.get("data", "Save Test Answers.txt")),
+                Files.readAllLines(Paths.get("data", "Save Test File.txt")));
     }
 
     @Test
@@ -89,8 +89,8 @@ class BoreholeLogTest extends LogTest {
         assertEquals("brown", testLoadLog.getSample(1).getColour());
         assertTrue(testLoadLog.getSample(0).isOdourous());
         testLoadLog.save("Load Add Save.txt");
-        assertEquals(Files.readAllLines(Paths.get(dirName + "\\Load Add Save Answer.txt")),
-                Files.readAllLines(Paths.get(dirName + "\\Load Add Save.txt")));
+        assertEquals(Files.readAllLines(Paths.get("data", "Load Add Save Answer.txt")),
+                Files.readAllLines(Paths.get("data",  "Load Add Save.txt")));
     }
 
     @Test

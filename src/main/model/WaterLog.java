@@ -25,7 +25,7 @@ public class WaterLog extends Log {
     //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws IOException {
         File dir = new File(dirName);
-        File fileName = new File(dir, fileSaveName);
+        File fileName = new File("data", fileSaveName);
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
         for (WaterSample waterSample : waterLog) {
@@ -47,7 +47,7 @@ public class WaterLog extends Log {
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
         File dir = new File(dirName);
-        File file = new File(dir, fileLoadName);
+        File file = new File("data", fileLoadName);
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
         List<WaterSample> waterLog = new ArrayList<>();

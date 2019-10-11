@@ -65,8 +65,8 @@ class WaterLogTest extends LogTest {
         otherTestWaterLog.addSample(testWaterSample2);
 
         otherTestWaterLog.save("Save Test Waterlog.txt");
-        assertEquals(Files.readAllLines(Paths.get(dirName + "\\Save Test Waterlog Answers.txt")),
-                Files.readAllLines(Paths.get(dirName + "\\Save Test Waterlog.txt")));
+        assertEquals(Files.readAllLines(Paths.get("data", "Save Test Waterlog Answers.txt")),
+                Files.readAllLines(Paths.get("data", "Save Test Waterlog.txt")));
     }
 
     @Test
