@@ -219,7 +219,7 @@ public class Main {
             initiateLog();
         }
     }
-
+//
 
     //MODIFIES: this
 //EFFECTS: adds a new sample to the borehole log
