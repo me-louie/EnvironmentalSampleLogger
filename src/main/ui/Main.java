@@ -16,6 +16,7 @@ public class Main {
     private WaterSample waterSample1 = new WaterSample();
     private WaterLog waterLog = new WaterLog();
     private Log log;
+    private Sample sample;
 
 
     private String sampleType = " ";
@@ -29,6 +30,8 @@ public class Main {
             } catch (InvalidSampleMediaException | IOException e) {
 //                e.printStackTrace();
                 System.out.println("Please enter a valid sample type.");
+            } finally {
+                System.out.println("Goodbye!");
             }
         }
     }
@@ -111,7 +114,6 @@ public class Main {
         } else if (str.equals("return")) {
             pickSampleType();
         } else if (str.equals("quit")) {
-            System.out.println("Goodbye.");
             runProgram = false;
         } else {
             throw new InvalidInputException();
@@ -145,14 +147,15 @@ public class Main {
         String deleteId = id.next();
 
         for (int i = 0; i < waterLog.logSize(); i++) {
+
             if (waterLog.getSample(i).getName().equals(deleteId)) {
                 waterLog.removeSample(i);
                 System.out.println("You successfully removed a sample.");
                 System.out.println("The remaining sample(s) is/are:");
                 waterLog.printLog();
-                initiateLog();
-                break;
-            }
+            } else System.out.println("sample not found");
+            initiateLog();
+            break;
         }
     }
 
@@ -284,18 +287,56 @@ public class Main {
     //MODIFIES: this, Sample
     //EFFECTS: sets new sample name based on user input
     private void addName() {
+        checkType();
         System.out.println("Please enter a new sample id.");
-        Scanner sampleData = new Scanner(System.in);
-        if (this.sampleType.equals("soil")) {
-            soilSample1.setName(sampleData.nextLine());
+        Scanner s = new Scanner(System.in);
+        String sampleData = s.nextLine();
+        if (checkUnique(sampleData, log)) {
+            sample.setName(sampleData);
         } else {
-            waterSample1.setName(sampleData.nextLine());
+            try {
+                throw new SampleNameAlreadyUsedException();
+            } catch (SampleNameAlreadyUsedException e) {
+                System.out.println("Sorry, that ID has already been used.");
+                addName();
+            }
         }
     }
 
 
+    private void checkType() {
+        if (this.sampleType.equals("soil")) {
+            log = boreholeLog;
+            sample = soilSample1;
+        } else {
+            log = waterLog;
+            sample = waterSample1;
+        }
+    }
+
+
+//
+////                    e.printStackTrace();
+//                System.out.println("Please enter a unique name.");
+//                addName();
+////            } else
+////        {
+////            waterSample1.setName(sampleData.nextLine());
+//        }
+//    }
+
+    private boolean checkUnique(String testString, Log log) {
+        for (int i = 0; i < log.logSize(); i++) {
+            if (testString.equals(log.getSample(i).getName())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     //MODIFIES: this, Sample
-    //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
+//EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
     private void hasOdour() {
         Sample tempSample;
         if (this.sampleType.equals("soil")) {
@@ -335,7 +376,7 @@ public class Main {
 
 
     //MODIFIES: this, sample
-    //EFFECTS: sets sample colour to grey, blue, or brown
+//EFFECTS: sets sample colour to grey, blue, or brown
     private void addColour() {
         System.out.println("Is the sample grey, blue, or brown?");
         Scanner input = new Scanner(System.in);
@@ -387,7 +428,7 @@ public class Main {
 
 
     //MODIFIES: this, Sample
-    //EFFECTS: sets sample type to silt, sand, or gravel
+//EFFECTS: sets sample type to silt, sand, or gravel
     private void addSoilType() {
         System.out.println("Is the sample silt, sand, or gravel?");
         Scanner input = new Scanner(System.in);

@@ -42,7 +42,6 @@ public class BoreholeLog extends Log {
     //REQUIRES: access to location where file is intended to be saved
     //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws FileNotFoundException {
-        File dir = new File(dirName);
         File fileName = new File("data", fileSaveName);
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
@@ -63,7 +62,6 @@ public class BoreholeLog extends Log {
     //MODIFIES: this
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
-        File dir = new File(dirName);
         File file = new File("data", fileLoadName);
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
