@@ -1,4 +1,4 @@
-package ui;
+package tests;
 
 import model.BoreholeLog;
 import model.SoilSample;

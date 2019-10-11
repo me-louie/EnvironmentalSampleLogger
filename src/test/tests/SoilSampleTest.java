@@ -1,4 +1,4 @@
-package ui;
+package tests;
 
 import model.SoilSample;
 import org.junit.jupiter.api.BeforeEach;

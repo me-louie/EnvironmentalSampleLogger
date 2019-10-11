@@ -1,8 +1,10 @@
 package ui;
 
+import exceptions.InvalidSampleTypeException;
 import model.*;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -22,7 +24,12 @@ public class Main {
         Main main = new Main();
         main.welcomeStatement("2.0");
         while (runProgram) {
-            main.pickSampleType();
+            try {
+                main.pickSampleType();
+            } catch (InvalidSampleTypeException e) {
+                e.printStackTrace();
+                System.out.println("Please enter a valid sample type.");
+            }
         }
     }
 
@@ -34,7 +41,7 @@ public class Main {
     }
 
 
-    private void pickSampleType() throws IOException {
+    private void pickSampleType() throws InvalidSampleTypeException, IOException {
         System.out.println("Which sample type would you like to access?");
         System.out.println("[1] Soil [2] Water");
         String str;
@@ -44,19 +51,25 @@ public class Main {
         } else if (str.equals("2")) {
             this.sampleType = "water";
         } else {
-            invalidSampleInput();
+            throw new InvalidSampleTypeException();
         }
         initiateLog();
     }
 
-    private void invalidSampleInput() throws IOException {
-        System.out.println("Sorry, I didn't understand. Please pick a sample type.");
-        pickSampleType();
-    }
+
+//    initiateLog();
+//
+//}
+
+
+//    private void invalidSampleInput() throws InvalidUserInputException {
+////        System.out.println("Sorry, I didn't understand. Please pick a sample type.");
+//        pickSampleType();
+//    }
 
 
     //EFFECTS: prints user options to begin application, or quit application
-    private void initiateLog() throws IOException {
+    private void initiateLog() throws IOException, InvalidSampleTypeException {
         String type;
         if (this.sampleType.equals("soil")) {
             type = "borehole log";
@@ -76,7 +89,7 @@ public class Main {
 
 
     //EFFECTS: provides application options based on user input
-    private void handleUserInput() throws IOException {
+    private void handleUserInput() throws IOException, InvalidSampleTypeException {
 //        while (true) {
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
@@ -100,7 +113,7 @@ public class Main {
     }
 //    }
 
-    private boolean numAnswer(String str) throws IOException {
+    private boolean numAnswer(String str) throws IOException, InvalidSampleTypeException {
 
         if (this.sampleType.equals("soil")) {
             if (str.equals("1")) {
@@ -120,7 +133,7 @@ public class Main {
         return false;
     }
 
-    private void optionThreeWater() throws IOException {
+    private void optionThreeWater() throws IOException, InvalidSampleTypeException {
         System.out.println("Please enter the ID of the sample you would like to delete.");
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();
@@ -138,21 +151,7 @@ public class Main {
     }
 
 
-//        if (str.equals("1")
-//                && this.sampleType.equals("soil")) {
-//            optionOneSoil();
-//        } else if (str.equals("1")
-//                && this.sampleType.equals("water")) {
-//            optionOneWater();
-//        } else if (str.equals("2")) {
-//            optionTwo();
-//        } else if (str.equals("3")) {
-//            optionThree();
-//        }
-//        return false;
-//}
-
-    private void optionOneWater() throws IOException {
+    private void optionOneWater() throws IOException, InvalidSampleTypeException {
         waterSample1 = new WaterSample();
         addName();
         addType();
@@ -185,7 +184,7 @@ public class Main {
     }
 
 
-    private void saveAnswer(String str) throws IOException {
+    private void saveAnswer(String str) throws IOException, InvalidSampleTypeException {
         System.out.println("Please enter a new file name.");
         Scanner saveName = new Scanner(System.in);
         String fileToSave = saveName.nextLine();
@@ -198,23 +197,33 @@ public class Main {
         initiateLog();
     }
 
-    private void loadAnswer(String str) throws IOException {
+    private void loadAnswer(String str) throws IOException, InvalidSampleTypeException {
         System.out.println("Please enter the name of the file you would like to load.");
         Scanner loadName = new Scanner(System.in);
         String fileToLoad = loadName.nextLine();
         if (this.sampleType.equals("soil")) {
-            boreholeLog.load(fileToLoad);
+            try {
+                boreholeLog.load(fileToLoad);
+            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+                System.out.println("Sorry, that file cannot be found.");
+            }
             initiateLog();
         } else {
-            waterLog.load(fileToLoad);
+            try {
+                waterLog.load(fileToLoad);
+            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+                System.out.println("Sorry, that file cannot be found.");
+            }
             initiateLog();
         }
     }
 
 
     //MODIFIES: this
-    //EFFECTS: adds a new sample to the borehole log
-    private void optionOneSoil() throws IOException {
+//EFFECTS: adds a new sample to the borehole log
+    private void optionOneSoil() throws IOException, InvalidSampleTypeException {
         soilSample1 = new SoilSample();
         addName();
         addColour();
@@ -226,22 +235,22 @@ public class Main {
     }
 
     //EFFECTS: prints list of samples currently logged
-    private void optionTwoSoil() throws IOException {
+    private void optionTwoSoil() throws IOException, InvalidSampleTypeException {
         System.out.println("This borehole log has " + boreholeLog.logSize() + " samples.");
         boreholeLog.printLog();
         initiateLog();
     }
 
     //EFFECTS: prints list of samples currently logged
-    private void optionTwoWater() throws IOException {
+    private void optionTwoWater() throws IOException, InvalidSampleTypeException {
         System.out.println("This water log has " + waterLog.logSize() + " samples.");
         waterLog.printLog();
         initiateLog();
     }
 
     //MODIFIES: this
-    //EFFECTS: removes sample from borehole log based on sample id user inputted
-    private void optionThreeSoil() throws IOException {
+//EFFECTS: removes sample from borehole log based on sample id user inputted
+    private void optionThreeSoil() throws IOException, InvalidSampleTypeException {
         System.out.println("Please enter the ID of the sample you would like to delete.");
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();
@@ -260,14 +269,14 @@ public class Main {
 
 
     //EFFECTS: prints error statement when user does not input a valid response
-    private void invalidInput() throws IOException {
+    private void invalidInput() throws IOException, InvalidSampleTypeException {
         System.out.println("Sorry, I didn't understand. Please try a different command.");
         initiateLog();
     }
 
 
     //MODIFIES: this, Sample
-    //EFFECTS: sets new sample name based on user input
+//EFFECTS: sets new sample name based on user input
     private void addName() {
         System.out.println("Please enter a new sample id.");
         Scanner sampleData = new Scanner(System.in);
@@ -280,7 +289,7 @@ public class Main {
 
 
     //MODIFIES: this, Sample
-    //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
+//EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
     private void hasOdour() {
         Sample tempSample;
         if (this.sampleType.equals("soil")) {
@@ -309,7 +318,7 @@ public class Main {
 
 
     //MODIFIES: this, sample
-    //EFFECTS: sets sample colour to grey, blue, or brown
+//EFFECTS: sets sample colour to grey, blue, or brown
     private void addColour() {
         System.out.println("Is the sample grey, blue, or brown?");
 //        while (true) {
@@ -360,7 +369,7 @@ public class Main {
 
 
     //MODIFIES: this, Sample
-    //EFFECTS: sets sample type to silt, sand, or gravel
+//EFFECTS: sets sample type to silt, sand, or gravel
     private void addSoilType() {
         System.out.println("Is the sample silt, sand, or gravel?");
 //        while (true) {

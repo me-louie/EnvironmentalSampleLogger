@@ -1,6 +1,5 @@
-package ui;
+package tests;
 
-import model.BoreholeLog;
 import model.WaterLog;
 import model.WaterSample;
 import org.junit.jupiter.api.Assertions;

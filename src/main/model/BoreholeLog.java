@@ -2,6 +2,8 @@ package model;
 
 
 
+import exceptions.PathNotFoundException;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public class BoreholeLog extends Log {
     @Override
     //REQUIRES: access to location where file is intended to be saved
     //EFFECTS: writes borehole log data to txt file
-    public void save(String fileSaveName) throws IOException {
+    public void save(String fileSaveName) throws FileNotFoundException {
         File dir = new File(dirName);
         File fileName = new File(dir, fileSaveName);
         FileOutputStream fos = new FileOutputStream(fileName);

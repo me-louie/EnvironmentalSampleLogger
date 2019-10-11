@@ -1,4 +1,4 @@
-package ui;
+package tests;
 
 import model.*;
 import org.junit.jupiter.api.Assertions;
