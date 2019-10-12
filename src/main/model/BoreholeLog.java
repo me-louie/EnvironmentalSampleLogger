@@ -2,6 +2,7 @@ package model;
 
 
 
+import exceptions.CannotSaveException;
 import exceptions.PathNotFoundException;
 
 import java.io.*;
@@ -111,6 +112,7 @@ public class BoreholeLog extends Log {
         return boreholeLog.size();
     }
 
+    @Override
     //EFFECTS: converts borehole log to a list of string
     public boolean printLog() {
 

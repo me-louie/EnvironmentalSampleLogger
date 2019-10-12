@@ -64,6 +64,7 @@ public class WaterLog extends Log {
         System.out.println(file + " data has been loaded.");
     }
 
+    @Override
     //EFFECTS: converts waterlog to list of string
     public boolean printLog() {
 
