@@ -63,7 +63,7 @@ class BoreholeLogTest extends LogTest {
     @Test
     void testBHSave() throws IOException {
         testLog3.save("Save Test File.txt");
-                Files.readAllLines(Paths.get("data", "Save Test File.txt"));
+        Files.readAllLines(Paths.get("data", "Save Test File.txt"));
         assertEquals(Files.readAllLines(Paths.get("data", "Save Test Answers.txt")),
                 Files.readAllLines(Paths.get("data", "Save Test File.txt")));
     }
@@ -90,7 +90,7 @@ class BoreholeLogTest extends LogTest {
         assertTrue(testLoadLog.getSample(0).isOdourous());
         testLoadLog.save("Load Add Save.txt");
         assertEquals(Files.readAllLines(Paths.get("data", "Load Add Save Answer.txt")),
-                Files.readAllLines(Paths.get("data",  "Load Add Save.txt")));
+                Files.readAllLines(Paths.get("data", "Load Add Save.txt")));
     }
 
     @Test
@@ -114,12 +114,12 @@ class BoreholeLogTest extends LogTest {
 
 
     @Test
-    void returnContaminatedSamplesEmptyList() {
+    void testReturnContaminatedSamplesEmptyList() {
         assertEquals(emptyArray, emptyTestLog.returnContaminatedSamples());
     }
 
     @Test
-    void returnContaminatedSamples() {
+    void testReturnContaminatedSamples() {
         testArray.add(testSoilSample2);
         assertEquals(testArray, testLog4.returnContaminatedSamples());
     }
@@ -127,6 +127,60 @@ class BoreholeLogTest extends LogTest {
     @Test
     void testPrintLog() {
         assertTrue(testLog4.printLog());
+    }
+
+    @Test
+    void testCheckUnique() {
+        assertFalse(testLog3.checkUnique("103"));
+        assertFalse(testLog3.checkUnique("101"));
+        assertTrue(testLog3.checkUnique("102"));
+
+
+    }
+
+    @Test
+    void testIncompatibleFileSaveName() {
+        try {
+            testLog3.save("///");
+            fail("Exception was not thrown");
+        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+            //expected
+        }
+    }
+
+    @Test
+    void testAllowableFileSaveName() {
+        try {
+            testLog3.save("Testlog3.txt");
+        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testLoadFileDoesntExist() {
+        BoreholeLog testLoadLog = new BoreholeLog();
+        try {
+            testLoadLog.load("Imaginary File.txt");
+            fail("FileNotFoundException should have been thrown");
+        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+            //expected
+        }
+
+    }
+
+    @Test
+    void testLoadFileExists() {
+        BoreholeLog testLoadLog = new BoreholeLog();
+        try {
+            testLoadLog.load("Load Test File.txt");
+        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+            fail("Exception should not have been thrown");
+        }
     }
 
 }

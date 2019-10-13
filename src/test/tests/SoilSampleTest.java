@@ -68,4 +68,5 @@ class SoilSampleTest {
     void testToString() {
         assertEquals("101 grey sand false", otherTestSoilSample.toString());
     }
+
 }

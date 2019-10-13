@@ -59,7 +59,8 @@ public class BoreholeLog extends Log {
     }
 
     @Override
-    //REQUIRES: file to be loaded to be located in the project directory
+
+    //** need to guard against loading waterlog file**
     //MODIFIES: this
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {

@@ -39,8 +39,9 @@ public class Main {
 //        System.out.println("Type 'quit' to end at any time.");
     }
 
-
-    private void pickSampleType() {
+    //MODIFIES: this
+    //EFFECTS: sets sampleType to soil if user selects 1 or sets sampleType to water if user selects 2
+    public void pickSampleType() {
         System.out.println("Which sample type would you like to access?");
         System.out.println("[1] Soil [2] Water");
         String str;
@@ -55,6 +56,7 @@ public class Main {
             } catch (InvalidSampleMediaException e) {
 //                e.printStackTrace();
                 System.out.println("Please pick a valid type.");
+                pickSampleType();
             }
         }
         initiateLog();
@@ -245,7 +247,7 @@ public class Main {
         System.out.println("Please enter a new sample id.");
         Scanner s = new Scanner(System.in);
         String sampleData = s.nextLine();
-        if (checkUnique(sampleData, log)) {
+        if (log.checkUnique(sampleData)) {
             sample.setName(sampleData);
         } else {
             try {
@@ -269,18 +271,8 @@ public class Main {
     }
 
 
-    private boolean checkUnique(String testString, Log log) {
-        for (int i = 0; i < log.logSize(); i++) {
-            if (testString.equals(log.getSample(i).getName())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
     //MODIFIES: this, Sample
-//EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
+    //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
     private void hasOdour() {
         checkSampleType();
 
@@ -357,7 +349,7 @@ public class Main {
 
 
     //MODIFIES: this, Sample
-//EFFECTS: sets sample type to silt, sand, or gravel
+    //EFFECTS: sets sample type to silt, sand, or gravel
     private void addSoilType() {
         System.out.println("Is the sample silt, sand, or gravel?");
         Scanner input = new Scanner(System.in);

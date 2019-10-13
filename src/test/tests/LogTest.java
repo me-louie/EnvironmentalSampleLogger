@@ -26,11 +26,13 @@ class LogTest {
 
     }
 
-//    @Test
-//    void testLogSize() {
-//        Assertions.assertEquals(0, testBoreholeLog.logSize());
-//        Assertions.assertEquals(0, testWaterLog.logSize());
-//    }
+    @Test
+    void testLogSize() {
+        Assertions.assertEquals(0, testBoreholeLog.logSize());
+        Assertions.assertEquals(0, testWaterLog.logSize());
+    }
+
+
 
 
 

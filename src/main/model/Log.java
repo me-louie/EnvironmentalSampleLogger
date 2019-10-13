@@ -24,6 +24,15 @@ public abstract class Log implements Saveable, Loadable {
     public abstract boolean contains(Sample sample);
 
     public abstract boolean printLog();
+
+    public boolean checkUnique(String testString) {
+        for (int i = 0; i < logSize(); i++) {
+            if (testString.equals(getSample(i).getName())) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 
