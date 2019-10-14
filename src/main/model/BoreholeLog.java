@@ -2,6 +2,7 @@ package model;
 
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -37,7 +38,7 @@ public class BoreholeLog extends Log {
     @Override
     //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws FileNotFoundException {
-        File fileName = new File("data", fileSaveName);
+        File fileName = new File(String.valueOf(Paths.get("data", "soil", fileSaveName)));
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
         for (SoilSample soilSample : boreholeLog) {
@@ -55,11 +56,10 @@ public class BoreholeLog extends Log {
 
     @Override
 
-    //** need to guard against loading waterlog file**
     //MODIFIES: this
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
-        File file = new File("data", fileLoadName);
+        File file = new File(String.valueOf(Paths.get("data", "soil", fileLoadName)));
 
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);

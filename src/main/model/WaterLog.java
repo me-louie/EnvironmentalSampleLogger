@@ -1,6 +1,7 @@
 package model;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class WaterLog extends Log {
 
     //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws FileNotFoundException {
-        File fileName = new File("data", fileSaveName);
+        File fileName = new File(String.valueOf(Paths.get("data", "water", fileSaveName)));
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
         for (WaterSample waterSample : waterLog) {
@@ -45,7 +46,7 @@ public class WaterLog extends Log {
     //MODIFIES: this
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
-        File file = new File("data", fileLoadName);
+        File file = new File(String.valueOf(Paths.get("data", "water", fileLoadName)));
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
         List<WaterSample> waterLog = new ArrayList<>();
