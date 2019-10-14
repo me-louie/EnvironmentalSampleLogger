@@ -66,6 +66,7 @@ public class WaterSample extends Sample {
     }
 
 
+    //EFFECTS: sets water sample type to groundwater or surface water based on user input
     public void setWaterSampleType(Sample waterSample, String str) throws InvalidWaterTypeException {
         if (str.equals("groundwater")) {
             waterSample.setType("groundwater");

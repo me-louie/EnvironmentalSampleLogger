@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Log implements Saveable, Loadable {
-    protected List<Sample> log;
-    protected List<SoilSample> boreholeLog = new ArrayList<>();
-    protected List<WaterSample> waterLog = new ArrayList<>();
+    private List<Sample> log;
+    List<SoilSample> boreholeLog = new ArrayList<>();
+    List<WaterSample> waterLog = new ArrayList<>();
 
 
     Log() {
@@ -25,7 +25,9 @@ public abstract class Log implements Saveable, Loadable {
 
     public abstract boolean printLog();
 
-    public boolean checkUnique(String testString) {
+
+    //EFFECTS: returns true if string is not already assigned to a sample ID in the log, otherwise false
+    public boolean isSampleIDUnique(String testString) {
         for (int i = 0; i < logSize(); i++) {
             if (testString.equals(getSample(i).getName())) {
                 return false;
@@ -34,6 +36,7 @@ public abstract class Log implements Saveable, Loadable {
         return true;
     }
 
+    //EFFECTS: removes sample from log based on sample ID
     public void removeSampleFromLog(Log log, String deleteId) {
         for (int i = 0; i < log.logSize(); i++) {
             if (log.getSample(i).getName().equals(deleteId)) {

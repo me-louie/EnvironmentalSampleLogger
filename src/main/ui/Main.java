@@ -144,11 +144,10 @@ public class Main {
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();
 
-        if (log.checkUnique(deleteId)) {
+        if (log.isSampleIDUnique(deleteId)) {
             try {
                 throw new SampleDoesNotExistException();
             } catch (SampleDoesNotExistException e) {
-//                e.printStackTrace();
                 System.out.println("Sorry, that sample does not exist.");
                 tryDeleteSample();
             }
@@ -203,6 +202,8 @@ public class Main {
             System.out.println("That file name is invalid. Please enter a new name.");
             saveAnswer(fileToSave);
             initiateLog();
+        } finally {
+            System.out.println("...");
         }
     }
 
@@ -213,12 +214,11 @@ public class Main {
         checkSampleType();
         try {
             log.load(fileToLoad);
-//            initiateLog();
         } catch (FileNotFoundException e) {
-//                e.printStackTrace();
             System.out.println("Sorry, that file cannot be found.");
-//            loadAnswer(fileToLoad);
 
+        } finally {
+            System.out.println("...");
         }
         initiateLog();
     }
@@ -253,7 +253,7 @@ public class Main {
         System.out.println("Please enter a new sample id.");
         Scanner s = new Scanner(System.in);
         String sampleData = s.nextLine();
-        if (log.checkUnique(sampleData)) {
+        if (log.isSampleIDUnique(sampleData)) {
             sample.setName(sampleData);
         } else {
             try {

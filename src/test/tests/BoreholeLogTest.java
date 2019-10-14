@@ -131,9 +131,9 @@ class BoreholeLogTest extends LogTest {
 
     @Test
     void testCheckUnique() {
-        assertFalse(testLog3.checkUnique("103"));
-        assertFalse(testLog3.checkUnique("101"));
-        assertTrue(testLog3.checkUnique("102"));
+        assertFalse(testLog3.isSampleIDUnique("103"));
+        assertFalse(testLog3.isSampleIDUnique("101"));
+        assertTrue(testLog3.isSampleIDUnique("102"));
 
 
     }

@@ -21,7 +21,7 @@ public class WaterLog extends Log {
     }
 
     @Override
-    //REQUIRES: access to directory where file will be saved
+
     //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws FileNotFoundException {
         File fileName = new File("data", fileSaveName);
@@ -41,7 +41,7 @@ public class WaterLog extends Log {
     }
 
     @Override
-    //REQUIRES: file to be loaded to be saved in project directory
+
     //MODIFIES: this
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {

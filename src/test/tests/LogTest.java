@@ -38,6 +38,18 @@ class LogTest {
     }
 
     @Test
+    void testSampleIDIsUnique () {
+        assertTrue(testBoreholeLog.isSampleIDUnique( "test3"));
+        assertTrue(testBoreholeLog.isSampleIDUnique("test4"));
+    }
+
+    @Test
+    void testSampleIDIsNotUnique() {
+        assertFalse(testBoreholeLog.isSampleIDUnique("test1"));
+        assertFalse(testBoreholeLog.isSampleIDUnique("test2"));
+    }
+
+    @Test
     void testRemoveSampleFromLog() {
         testBoreholeLog.removeSampleFromLog(testBoreholeLog, "test1");
 

@@ -48,6 +48,7 @@ public abstract class Sample {
     //EFFECTS: print sample's name and qualifiers
     public abstract String toString();
 
+    //EFFECTS: sets isOdurous to true if user inputs 'yes' or sets isOdourous to false if user inputs 'no'
     public void setIsSampleOdourous(Sample sample, String contaminated) throws YesOrNoInputException {
         if (contaminated.equals("yes")) {
             sample.setOdour(true);

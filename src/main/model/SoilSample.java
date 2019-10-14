@@ -41,6 +41,7 @@ public class SoilSample extends Sample {
     }
 
 
+    //EFFECTS: sets soil sample colour to blue, grey, or brown, based on user input
     public void setSoilColour(SoilSample soilSample, String str) throws InvalidSoilColourException {
         if (str.equals("blue")) {
             soilSample.setColour("blue");
@@ -53,6 +54,7 @@ public class SoilSample extends Sample {
         }
     }
 
+    //EFFECTS: sets soil type to silt, sand, or gravel, based on user input
     public void setSoilType(SoilSample soilSample, String str) throws InvalidSoilTypeException {
         if (str.equals("silt")) {
             soilSample.setType("silt");
