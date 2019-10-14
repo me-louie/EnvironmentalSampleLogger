@@ -2,6 +2,10 @@ package ui;
 
 import exceptions.*;
 import model.*;
+import ui.exceptions.InvalidInputException;
+import ui.exceptions.InvalidSampleMediaException;
+import ui.exceptions.InvalidTypeException;
+import ui.exceptions.SampleNameAlreadyUsedException;
 
 
 import java.io.FileNotFoundException;
@@ -208,7 +212,7 @@ public class Main {
         try {
             log.load(fileToLoad);
 //            initiateLog();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException2 | FileNotFoundException e) {
 //                e.printStackTrace();
             System.out.println("Sorry, that file cannot be found.");
 //            loadAnswer(fileToLoad);
@@ -302,15 +306,14 @@ public class Main {
         System.out.println("Is the sample grey, blue, or brown?");
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
-        if (str.equals("blue")) {
-            soilSample1.setColour("blue");
-        } else if (str.equals("grey")) {
-            soilSample1.setColour("grey");
-        } else if (str.equals("brown")) {
-            soilSample1.setColour("brown");
-        } else {
-            invalidColour();
+        try {
+            soilSample1.setSoilColour(soilSample1, str);
+        } catch (InvalidSoilColourException e) {
+//            e.printStackTrace();
+            System.out.println("Please enter a valid colour.");
+            addColour();
         }
+
     }
 
 

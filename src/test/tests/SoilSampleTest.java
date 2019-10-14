@@ -1,5 +1,6 @@
 package tests;
 
+import exceptions.InvalidSoilColourException;
 import model.SoilSample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,4 +70,30 @@ class SoilSampleTest {
         assertEquals("101 grey sand false", otherTestSoilSample.toString());
     }
 
+
+    @Test
+    void testAllowableSoilColour() {
+        SoilSample newSample = new SoilSample();
+        try {
+            newSample.setSoilColour(newSample, "blue");
+            assertEquals("blue", newSample.getColour());
+            //expected
+        } catch (InvalidSoilColourException e) {
+            e.printStackTrace();
+            fail("Exception should have not been thrown");
+        }
+    }
+
+    @Test
+    void testNotAllowedSoilColour() {
+        SoilSample newSample = new SoilSample();
+        try {
+            newSample.setSoilColour(newSample,"purple");
+            assertNull(newSample.getColour());
+            fail("Invalid Soil Colour Exception thrown.");
+        } catch (InvalidSoilColourException e) {
+//            e.printStackTrace();
+            //expected
+        }
+    }
 }

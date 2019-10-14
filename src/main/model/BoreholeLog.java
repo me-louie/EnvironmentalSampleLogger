@@ -1,17 +1,12 @@
 package model;
 
 
-
-import exceptions.CannotSaveException;
-import exceptions.PathNotFoundException;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class BoreholeLog extends Log {
-
 
 
     //EFFECTS: creates empty borehole log
@@ -58,6 +53,7 @@ public class BoreholeLog extends Log {
 
     }
 
+
     @Override
 
     //** need to guard against loading waterlog file**
@@ -65,6 +61,7 @@ public class BoreholeLog extends Log {
     //EFFECTS: loads borehole log data saved in .txt file
     public void load(String fileLoadName) throws FileNotFoundException {
         File file = new File("data", fileLoadName);
+
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
         List<SoilSample> boreholeLog = new ArrayList<>();
@@ -123,7 +120,6 @@ public class BoreholeLog extends Log {
         return true;
 
     }
-
 
 
 }

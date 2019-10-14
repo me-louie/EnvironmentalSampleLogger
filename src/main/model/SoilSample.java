@@ -1,6 +1,8 @@
 package model;
 
 
+import exceptions.InvalidSoilColourException;
+
 public class SoilSample extends Sample {
     private String colour;
 
@@ -37,6 +39,19 @@ public class SoilSample extends Sample {
     //EFFECTS: print soil sample's name, colour, type, and whether it is odourous
     public String toString() {
         return name + " " + colour + " " + type + " " + odour;
+    }
+
+
+    public void setSoilColour(SoilSample soilSample, String str) throws InvalidSoilColourException {
+        if (str.equals("blue")) {
+            soilSample.setColour("blue");
+        } else if (str.equals("grey")) {
+            soilSample.setColour("grey");
+        } else if (str.equals("brown")) {
+            soilSample.setColour("brown");
+        } else {
+            throw new InvalidSoilColourException();
+        }
     }
 
 }

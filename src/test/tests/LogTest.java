@@ -8,12 +8,11 @@ import org.junit.jupiter.api.Test;
 
 class LogTest {
 
-    private Log testBoreholeLog;
-    private Log testWaterLog;
+    private BoreholeLog testBoreholeLog;
+    private WaterLog testWaterLog;
     private Sample soilTestSample1;
     private Sample waterTestSample1;
 
-    protected String dirName = "C:\\Users\\Pikachu\\Documents\\!Courses\\Fall 2019\\CPSC 210\\project_u7v2b\\data";
 
 
     @BeforeEach
@@ -24,13 +23,14 @@ class LogTest {
        waterTestSample1 = new WaterSample("101n", "groundwater", true,
                "123", "234", "345");
 
+
     }
 
-    @Test
-    void testLogSize() {
-        Assertions.assertEquals(0, testBoreholeLog.logSize());
-        Assertions.assertEquals(0, testWaterLog.logSize());
-    }
+//    @Test
+//    void testLogSize() {
+//        Assertions.assertEquals(0, testBoreholeLog.logSize());
+//        Assertions.assertEquals(0, testWaterLog.logSize());
+//    }
 
 
 
