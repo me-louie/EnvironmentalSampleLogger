@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidWaterTypeException;
+
 public class WaterSample extends Sample {
 
     private String conductivity;
@@ -63,4 +65,14 @@ public class WaterSample extends Sample {
         return name + " " + type + " " + odour + " " + conductivity + " " + temperature + " " + turbidity;
     }
 
+
+    public void setWaterSampleType(Sample waterSample, String str) throws InvalidWaterTypeException {
+        if (str.equals("groundwater")) {
+            waterSample.setType("groundwater");
+        } else if (str.equals("surface water")) {
+            waterSample.setType("surface water");
+        } else {
+            throw new InvalidWaterTypeException();
+        }
+    }
 }

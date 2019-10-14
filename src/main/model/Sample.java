@@ -1,12 +1,14 @@
 package model;
 
+import exceptions.YesOrNoInputException;
+
 public abstract class Sample {
     String name;
     String type;
     boolean odour;
 
     //EFFECTS: creates new sample
-    Sample(){
+    Sample() {
 
     }
 
@@ -45,5 +47,15 @@ public abstract class Sample {
 
     //EFFECTS: print sample's name and qualifiers
     public abstract String toString();
+
+    public void setIsSampleOdourous(Sample sample, String contaminated) throws YesOrNoInputException {
+        if (contaminated.equals("yes")) {
+            sample.setOdour(true);
+        } else if (contaminated.equals("no")) {
+            sample.setOdour(false);
+        } else {
+            throw new YesOrNoInputException();
+        }
+    }
 }
 

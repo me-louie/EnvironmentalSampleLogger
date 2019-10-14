@@ -1,5 +1,6 @@
 package tests;
 
+import exceptions.InvalidWaterTypeException;
 import model.SoilSample;
 import model.WaterSample;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WaterSampleTest {
+class WaterSampleTest {
 
     private WaterSample testWaterSample;
     private WaterSample otherTestWaterSample;
@@ -84,4 +85,29 @@ public class WaterSampleTest {
     }
 
 
+    @Test
+    void testAllowableWaterSampleType() {
+        WaterSample newSample = new WaterSample();
+        try {
+            newSample.setWaterSampleType(newSample, "groundwater");
+            assertEquals("groundwater", newSample.getType());
+            newSample.setWaterSampleType(newSample, "surface water");
+            assertEquals("surface water", newSample.getType());
+        } catch (InvalidWaterTypeException e) {
+            e.printStackTrace();
+            fail("InvalidWaterTypeException should not have been thrown.");
+        }
+    }
+
+    @Test
+    void testInvalidWaterSampleType() {
+        WaterSample newSample = new WaterSample();
+        try {
+            newSample.setWaterSampleType(newSample, "tap water");
+            fail("InvalidWaterTypeException should have been thrown");
+        } catch (InvalidWaterTypeException e) {
+//            e.printStackTrace();
+            //expected
+        }
+    }
 }

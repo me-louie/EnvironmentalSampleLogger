@@ -4,7 +4,7 @@ import exceptions.*;
 import model.*;
 import ui.exceptions.InvalidInputException;
 import ui.exceptions.InvalidSampleMediaException;
-import ui.exceptions.InvalidTypeException;
+import ui.exceptions.SampleDoesNotExistException;
 import ui.exceptions.SampleNameAlreadyUsedException;
 
 
@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class Main {
     private static boolean runProgram = true;
+
     private SoilSample soilSample1 = new SoilSample();
     private BoreholeLog boreholeLog = new BoreholeLog();
 
@@ -45,7 +46,7 @@ public class Main {
 
     //MODIFIES: this
     //EFFECTS: sets sampleType to soil if user selects 1 or sets sampleType to water if user selects 2
-    public void pickSampleType() {
+    private void pickSampleType() {
         System.out.println("Which sample type would you like to access?");
         System.out.println("[1] Soil [2] Water");
         String str;
@@ -117,14 +118,14 @@ public class Main {
             throw new InvalidInputException();
         }
     }
-//    }
+
 
     private boolean numAnswer(String str) {
 
         if (str.equals("2")) {
             viewExistingLog();
         } else if (str.equals("3")) {
-            deleteExistingSample();
+            tryDeleteSample();
         } else if (str.equals("1")
                 && sampleType.equals("soil")) {
             addSoilSample();
@@ -137,21 +138,22 @@ public class Main {
 
     //MODIFIES: this
     //EFFECTS: removes sample from borehole log based on sample id user inputted
-    private void deleteExistingSample() {
+    private void tryDeleteSample() {
         checkSampleType();
         System.out.println("Please enter the ID of the sample you would like to delete.");
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();
 
-        for (int i = 0; i < log.logSize(); i++) {
-            if (log.getSample(i).getName().equals(deleteId)) {
-                log.removeSample(i);
-                break;
+        if (log.checkUnique(deleteId)) {
+            try {
+                throw new SampleDoesNotExistException();
+            } catch (SampleDoesNotExistException e) {
+//                e.printStackTrace();
+                System.out.println("Sorry, that sample does not exist.");
+                tryDeleteSample();
             }
         }
-        System.out.println("You successfully removed a sample.");
-        System.out.println("The remaining sample(s) is/are:");
-        log.printLog();
+        log.removeSampleFromLog(log, deleteId);
         initiateLog();
     }
 
@@ -159,7 +161,7 @@ public class Main {
     private void addWaterSample() {
         waterSample1 = new WaterSample();
         addName();
-        addType();
+        addSampleType();
         hasOdour();
         addConductivity();
         addTemperature();
@@ -212,7 +214,7 @@ public class Main {
         try {
             log.load(fileToLoad);
 //            initiateLog();
-        } catch (FileNotFoundException2 | FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
 //                e.printStackTrace();
             System.out.println("Sorry, that file cannot be found.");
 //            loadAnswer(fileToLoad);
@@ -228,7 +230,7 @@ public class Main {
         soilSample1 = new SoilSample();
         addName();
         addColour();
-        addType();
+        addSampleType();
         hasOdour();
         boreholeLog.addSample(soilSample1);
         System.out.println("You successfully added the entry: [" + soilSample1.toString() + "].");
@@ -275,7 +277,7 @@ public class Main {
     }
 
 
-    //MODIFIES: this, Sample
+    //MODIFIES: Sample
     //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
     private void hasOdour() {
         checkSampleType();
@@ -283,12 +285,12 @@ public class Main {
         System.out.println("Is the sample odourous?");
         Scanner input = new Scanner(System.in);
         String contaminated = input.nextLine();
-        if (contaminated.equals("yes")) {
-            sample.setOdour(true);
-        } else if (contaminated.equals("no")) {
-            sample.setOdour(false);
-        } else {
-            yesOrNoRequired();
+        try {
+            sample.setIsSampleOdourous(sample, contaminated);
+        } catch (YesOrNoInputException e) {
+//            e.printStackTrace();
+            System.out.println("A 'yes' or 'no' is required.");
+            hasOdour();
         }
     }
 
@@ -301,7 +303,7 @@ public class Main {
 
 
     //MODIFIES: this, sample
-//EFFECTS: sets sample colour to grey, blue, or brown
+    //EFFECTS: sets sample colour to grey, blue, or brown
     private void addColour() {
         System.out.println("Is the sample grey, blue, or brown?");
         Scanner input = new Scanner(System.in);
@@ -323,7 +325,7 @@ public class Main {
         addColour();
     }
 
-    private void addType() {
+    private void addSampleType() {
         if (this.sampleType.equals("soil")) {
             addSoilType();
         } else {
@@ -335,19 +337,14 @@ public class Main {
         System.out.println("Is the sample groundwater or surface water?");
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
-        if (str.equals("groundwater")) {
-            waterSample1.setType("groundwater");
-        } else if (str.equals("surface water")) {
-            waterSample1.setType("surface water");
-        } else {
-            try {
-                throw new InvalidTypeException();
-            } catch (InvalidTypeException e) {
-//                e.printStackTrace();
-                System.out.println("Please enter a valid type");
-                addWaterType();
-            }
+        try {
+            waterSample1.setWaterSampleType(waterSample1, str);
+        } catch (InvalidWaterTypeException e) {
+//            e.printStackTrace();
+            System.out.println("Please enter a valid sample type.");
+            addWaterType();
         }
+
     }
 
 
@@ -357,29 +354,21 @@ public class Main {
         System.out.println("Is the sample silt, sand, or gravel?");
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
-        if (str.equals("silt")) {
-            soilSample1.setType("silt");
-        } else if (str.equals("sand")) {
-            soilSample1.setType("sand");
-        } else if (str.equals("gravel")) {
-            soilSample1.setType("gravel");
-        } else {
-            try {
-                throw new InvalidTypeException();
-            } catch (InvalidTypeException e) {
-//                e.printStackTrace();
-                System.out.println("Please enter a valid type");
-                addSoilType();
-            }
-
+        try {
+            soilSample1.setSoilType(soilSample1, str);
+        } catch (InvalidSoilTypeException e) {
+//            e.printStackTrace();
+            System.out.println("Please enter a valid type.");
+            addSoilType();
         }
+
     }
-//    }
+
 
     //EFFECTS: limits sample type to silt, sand, or gravel
     private void invalidType() {
         System.out.println("Please enter a valid type.");
-        addType();
+        addSampleType();
     }
 
 

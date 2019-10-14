@@ -33,6 +33,18 @@ public abstract class Log implements Saveable, Loadable {
         }
         return true;
     }
+
+    public void removeSampleFromLog(Log log, String deleteId) {
+        for (int i = 0; i < log.logSize(); i++) {
+            if (log.getSample(i).getName().equals(deleteId)) {
+                log.removeSample(i);
+                break;
+            }
+        }
+        System.out.println("You successfully removed a sample.");
+        System.out.println("The remaining sample(s) is/are:");
+        log.printLog();
+    }
 }
 
 

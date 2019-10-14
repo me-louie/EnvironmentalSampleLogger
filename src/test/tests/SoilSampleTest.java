@@ -1,6 +1,8 @@
 package tests;
 
 import exceptions.InvalidSoilColourException;
+import exceptions.InvalidSoilTypeException;
+import exceptions.YesOrNoInputException;
 import model.SoilSample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ class SoilSampleTest {
     private SoilSample testSoilSample;
     private SoilSample otherTestSoilSample;
     private SoilSample testSoilSample1;
+    private SoilSample testExceptionSample;
 
 
 
@@ -19,6 +22,7 @@ class SoilSampleTest {
         testSoilSample = new SoilSample();
         otherTestSoilSample = new SoilSample("101", "grey", "sand", false);
         testSoilSample1 = new SoilSample("101", "brown", "gravel", false);
+        testExceptionSample = new SoilSample();
 
     }
 
@@ -73,10 +77,13 @@ class SoilSampleTest {
 
     @Test
     void testAllowableSoilColour() {
-        SoilSample newSample = new SoilSample();
         try {
-            newSample.setSoilColour(newSample, "blue");
-            assertEquals("blue", newSample.getColour());
+            testExceptionSample.setSoilColour(testExceptionSample, "blue");
+            assertEquals("blue", testExceptionSample.getColour());
+            testExceptionSample.setSoilColour(testExceptionSample, "brown");
+            assertEquals("brown", testExceptionSample.getColour());
+            testExceptionSample.setSoilColour(testExceptionSample, "grey");
+            assertEquals("grey", testExceptionSample.getColour());
             //expected
         } catch (InvalidSoilColourException e) {
             e.printStackTrace();
@@ -86,12 +93,65 @@ class SoilSampleTest {
 
     @Test
     void testNotAllowedSoilColour() {
-        SoilSample newSample = new SoilSample();
+
         try {
-            newSample.setSoilColour(newSample,"purple");
-            assertNull(newSample.getColour());
+            testExceptionSample.setSoilColour(testExceptionSample,"purple");
+            assertNull(testExceptionSample.getColour());
             fail("Invalid Soil Colour Exception thrown.");
         } catch (InvalidSoilColourException e) {
+//            e.printStackTrace();
+            //expected
+        }
+    }
+
+
+    @Test
+    void testAllowableSoilType() {
+        try {
+            testExceptionSample.setSoilType(testExceptionSample,"sand");
+            assertEquals("sand", testExceptionSample.getType());
+            testExceptionSample.setSoilType(testExceptionSample,"silt");
+            assertEquals("silt", testExceptionSample.getType());
+            testExceptionSample.setSoilType(testExceptionSample, "gravel");
+            assertEquals("gravel", testExceptionSample.getType());
+        } catch (InvalidSoilTypeException e) {
+//            e.printStackTrace();
+            fail("InvalidSoilTypeException should not have been thrown");
+        }
+
+    }
+
+    @Test
+    void testInvalidSoilType() {
+        try {
+            testExceptionSample.setSoilType(testExceptionSample,"stone");
+            fail("InvalidSoilTypeException should have been thrown");
+        } catch (InvalidSoilTypeException e) {
+//            e.printStackTrace();
+            //expected
+        }
+    }
+
+    @Test
+    void testYesOrNoInputRequired() {
+        try {
+            testExceptionSample.setIsSampleOdourous(testExceptionSample, "yes");
+            assertTrue(testExceptionSample.isOdourous());
+            testExceptionSample.setIsSampleOdourous(testExceptionSample, "no");
+            assertFalse(testExceptionSample.isOdourous());
+        } catch (YesOrNoInputException e) {
+            e.printStackTrace();
+            fail("YesOrNoException should have not been thrown");
+        }
+
+    }
+
+    @Test
+    void testNeitherYesNorNoInput() {
+        try {
+            testExceptionSample.setIsSampleOdourous(testExceptionSample, "maybe");
+            fail("YesOrNoException should have been thrown");
+        } catch (YesOrNoInputException e) {
 //            e.printStackTrace();
             //expected
         }

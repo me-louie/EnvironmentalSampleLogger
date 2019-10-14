@@ -2,6 +2,7 @@ package model;
 
 
 import exceptions.InvalidSoilColourException;
+import exceptions.InvalidSoilTypeException;
 
 public class SoilSample extends Sample {
     private String colour;
@@ -33,8 +34,6 @@ public class SoilSample extends Sample {
     }
 
 
-
-
     @Override
     //EFFECTS: print soil sample's name, colour, type, and whether it is odourous
     public String toString() {
@@ -54,6 +53,19 @@ public class SoilSample extends Sample {
         }
     }
 
+    public void setSoilType(SoilSample soilSample, String str) throws InvalidSoilTypeException {
+        if (str.equals("silt")) {
+            soilSample.setType("silt");
+        } else if (str.equals("sand")) {
+            soilSample.setType("sand");
+        } else if (str.equals("gravel")) {
+            soilSample.setType("gravel");
+        } else {
+            throw new InvalidSoilTypeException();
+        }
+
+
+    }
 }
 
 
