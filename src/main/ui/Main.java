@@ -57,10 +57,10 @@ public class Main {
             this.sampleType = "water";
         } else {
             try {
-                throw new InvalidSampleMediaException();
+                throw new InvalidSampleMediaException("Please pick a valid type.");
             } catch (InvalidSampleMediaException e) {
 //                e.printStackTrace();
-                System.out.println("Please pick a valid type.");
+                System.out.println(e.getMessage());
                 pickSampleType();
             }
         }
@@ -107,9 +107,9 @@ public class Main {
                 || str.equals("3")) {
             numAnswer(str);
         } else if (str.equals("save")) {
-            saveAnswer(str);
+            saveAnswer();
         } else if (str.equals("load")) {
-            loadAnswer(str);
+            loadAnswer();
         } else if (str.equals("return")) {
             pickSampleType();
         } else if (str.equals("quit")) {
@@ -146,9 +146,9 @@ public class Main {
 
         if (log.isSampleIDUnique(deleteId)) {
             try {
-                throw new SampleDoesNotExistException();
+                throw new SampleDoesNotExistException("Sorry, that sample does not exist.");
             } catch (SampleDoesNotExistException e) {
-                System.out.println("Sorry, that sample does not exist.");
+                System.out.println(e.getMessage());
                 tryDeleteSample();
             }
         }
@@ -190,7 +190,7 @@ public class Main {
     }
 
 
-    private void saveAnswer(String str) {
+    private void saveAnswer() {
         System.out.println("Please enter a new file name.");
         Scanner saveName = new Scanner(System.in);
         String fileToSave = saveName.nextLine();
@@ -200,14 +200,14 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("That file name is invalid. Please enter a new name.");
-            saveAnswer(fileToSave);
+            saveAnswer();
             initiateLog();
         } finally {
             System.out.println("...");
         }
     }
 
-    private void loadAnswer(String str) {
+    private void loadAnswer() {
         System.out.println("Please enter the name of the file you would like to load.");
         Scanner loadName = new Scanner(System.in);
         String fileToLoad = loadName.nextLine();
@@ -257,9 +257,9 @@ public class Main {
             sample.setName(sampleData);
         } else {
             try {
-                throw new SampleNameAlreadyUsedException();
+                throw new SampleNameAlreadyUsedException("Sorry, that ID has already been used.");
             } catch (SampleNameAlreadyUsedException e) {
-                System.out.println("Sorry, that ID has already been used.");
+                System.out.println(e.getMessage());
                 addName();
             }
         }
@@ -289,7 +289,7 @@ public class Main {
             sample.setIsSampleOdourous(sample, contaminated);
         } catch (YesOrNoInputException e) {
 //            e.printStackTrace();
-            System.out.println("A 'yes' or 'no' is required.");
+            System.out.println(e.getMessage());
             hasOdour();
         }
     }
@@ -312,7 +312,7 @@ public class Main {
             soilSample1.setSoilColour(soilSample1, str);
         } catch (InvalidSoilColourException e) {
 //            e.printStackTrace();
-            System.out.println("Please enter a valid colour.");
+            System.out.println(e.getMessage());
             addColour();
         }
 
@@ -341,7 +341,7 @@ public class Main {
             waterSample1.setWaterSampleType(waterSample1, str);
         } catch (InvalidWaterTypeException e) {
 //            e.printStackTrace();
-            System.out.println("Please enter a valid sample type.");
+            System.out.println(e.getMessage());
             addWaterType();
         }
 
@@ -358,7 +358,7 @@ public class Main {
             soilSample1.setSoilType(soilSample1, str);
         } catch (InvalidSoilTypeException e) {
 //            e.printStackTrace();
-            System.out.println("Please enter a valid type.");
+            System.out.println(e.getMessage());
             addSoilType();
         }
 

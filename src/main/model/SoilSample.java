@@ -50,7 +50,7 @@ public class SoilSample extends Sample {
         } else if (str.equals("brown")) {
             soilSample.setColour("brown");
         } else {
-            throw new InvalidSoilColourException();
+            throw new InvalidSoilColourException("Please enter a valid colour.");
         }
     }
 
@@ -63,7 +63,7 @@ public class SoilSample extends Sample {
         } else if (str.equals("gravel")) {
             soilSample.setType("gravel");
         } else {
-            throw new InvalidSoilTypeException();
+            throw new InvalidSoilTypeException("Please enter a valid type.");
         }
 
 

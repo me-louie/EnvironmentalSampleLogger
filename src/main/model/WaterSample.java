@@ -73,7 +73,7 @@ public class WaterSample extends Sample {
         } else if (str.equals("surface water")) {
             waterSample.setType("surface water");
         } else {
-            throw new InvalidWaterTypeException();
+            throw new InvalidWaterTypeException("Please enter a valid sample type.");
         }
     }
 }
