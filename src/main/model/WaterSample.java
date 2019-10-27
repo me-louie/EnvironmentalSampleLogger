@@ -7,8 +7,9 @@ public class WaterSample extends Sample {
     private String conductivity;
     private String temperature;
     private String turbidity;
+    private WaterLog myWaterLog;
 
-    //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity.
+    //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity.cvb
     public WaterSample(String name, String type, boolean odour, String conductivity, String temperature,
                        String turbidity) {
         this.name = name;
@@ -17,6 +18,8 @@ public class WaterSample extends Sample {
         this.conductivity = conductivity;
         this.temperature = temperature;
         this.turbidity = turbidity;
+        myWaterLog = null;
+
     }
 
     //MODIFIES: this
@@ -76,4 +79,12 @@ public class WaterSample extends Sample {
             throw new InvalidWaterTypeException("Please enter a valid sample type.");
         }
     }
+
+    void setWaterLog(WaterLog wl) {
+        this.myWaterLog = wl;
+//        if (!wl.contains(this)) {
+//            wl.addSample(this);
+//        }
+    }
+
 }

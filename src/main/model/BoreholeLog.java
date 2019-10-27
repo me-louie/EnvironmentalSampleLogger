@@ -8,19 +8,22 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BoreholeLog extends Log {
+    private List<SoilSample> mySoilSamples = new ArrayList<>();
+    private String bhLogName;
 
 
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
         super();
-    }
+        bhLogName = "BHLog 1";
 
+    }
 
     //EFFECTS: returns list of samples which are odourous
     public List<SoilSample> returnContaminatedSamples() {
         List<SoilSample> contaminated = new ArrayList<>();
 
-        for (SoilSample soilSample : boreholeLog) {
+        for (SoilSample soilSample : mySoilSamples) {
             if (soilSample.isOdourous()) {
                 contaminated.add(soilSample);
             }
@@ -31,7 +34,11 @@ public class BoreholeLog extends Log {
 
     //EFFECTS: adds a sample to borehole log
     public void addSample(SoilSample soilSample) {
-        boreholeLog.add(soilSample);
+        if (!mySoilSamples.contains(soilSample)) {
+            mySoilSamples.add(soilSample);
+            soilSample.setBoreholeLog(this);
+        }
+
     }
 
 
@@ -41,7 +48,7 @@ public class BoreholeLog extends Log {
         File fileName = new File(String.valueOf(Paths.get("data", "soil", fileSaveName)));
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
-        for (SoilSample soilSample : boreholeLog) {
+        for (SoilSample soilSample : mySoilSamples) {
             pw.println(soilSample.getName());
             pw.println(soilSample.getColour());
             pw.println(soilSample.getType());
@@ -64,7 +71,7 @@ public class BoreholeLog extends Log {
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
         List<SoilSample> boreholeLog = new ArrayList<>();
-        this.boreholeLog = boreholeLog;
+        this.mySoilSamples = boreholeLog;
 
         while (in.hasNext()) {
             SoilSample soilSample1 = new SoilSample();
@@ -82,7 +89,7 @@ public class BoreholeLog extends Log {
     //MODIFIES: this
     //EFFECTS: returns sample from borehole log at specified index
     public SoilSample getSample(int i) {
-        return boreholeLog.get(i);
+        return mySoilSamples.get(i);
     }
 
 
@@ -90,31 +97,27 @@ public class BoreholeLog extends Log {
     //MODIFIES: this
     //EFFECTS: removes sample from the borehole log at the specified index
     public void removeSample(int i) {
-        boreholeLog.remove(i);
+        mySoilSamples.remove(i);
     }
 
     @Override
     //EFFECTS: returns true if borehole log contains sample, otherwise return false
     public boolean contains(Sample sample) {
-        if (boreholeLog.contains(sample)) {
-            return true;
-        } else {
-            return false;
-        }
+        return mySoilSamples.contains(sample);
     }
 
     @Override
     //EFFECTS: returns size of the borehole log
     public Integer logSize() {
-        return boreholeLog.size();
+        return mySoilSamples.size();
     }
 
     @Override
     //EFFECTS: converts borehole log to a list of string
     public boolean printLog() {
 
-        for (int i = 0; i < boreholeLog.size(); i++) {
-            System.out.println("[" + boreholeLog.get(i).toString() + "]");
+        for (int i = 0; i < mySoilSamples.size(); i++) {
+            System.out.println("[" + mySoilSamples.get(i).toString() + "]");
         }
         return true;
 

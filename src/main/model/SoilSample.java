@@ -4,8 +4,12 @@ package model;
 import exceptions.InvalidSoilColourException;
 import exceptions.InvalidSoilTypeException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SoilSample extends Sample {
     private String colour;
+    private BoreholeLog myBoreholeLog;
 
 
     //EFFECTS: creates soil sample with name, colour, type, and odour
@@ -14,6 +18,8 @@ public class SoilSample extends Sample {
         this.colour = colour;
         this.type = type;
         this.odour = odour;
+        myBoreholeLog = null;
+
     }
 
     //EFFECTS: creates empty soil sample
@@ -66,7 +72,15 @@ public class SoilSample extends Sample {
             throw new InvalidSoilTypeException("Please enter a valid type.");
         }
 
+    }
 
+
+    void setBoreholeLog(BoreholeLog bh) {
+        this.myBoreholeLog = bh;
+//        if (!bh.contains(this)) {
+//            bh.addSample(this);
+//        }
+        // Can I just omit this?
     }
 }
 

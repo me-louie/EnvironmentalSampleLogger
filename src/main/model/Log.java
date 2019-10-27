@@ -6,9 +6,6 @@ import java.util.List;
 
 public abstract class Log implements Saveable, Loadable {
     private List<Sample> log;
-    List<SoilSample> boreholeLog = new ArrayList<>();
-    List<WaterSample> waterLog = new ArrayList<>();
-
 
     Log() {
         this.log = new ArrayList<>();

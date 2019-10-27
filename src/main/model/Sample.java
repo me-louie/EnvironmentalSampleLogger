@@ -58,5 +58,29 @@ public abstract class Sample {
             throw new YesOrNoInputException("A 'yes' or 'no' is required.");
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Sample)) {
+            return false;
+        }
+
+        Sample sample = (Sample) o;
+
+        if (!name.equals(sample.name)) {
+            return false;
+        }
+        return type.equals(sample.type);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
+    }
 }
 

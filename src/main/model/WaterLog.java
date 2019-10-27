@@ -8,18 +8,24 @@ import java.util.Scanner;
 
 public class WaterLog extends Log {
 
-    WaterSample waterSample = new WaterSample();
+    private List<WaterSample> myWaterSamples = new ArrayList<>();
+    private String waterLogName;
 
     //EFFECTS: creates empty water log
     public WaterLog() {
         super();
+        waterLogName = "WaterLog 1";
     }
 
 
     //EFFECTS: adds a sample to borehole log
     public void addSample(WaterSample waterSample) {
-        waterLog.add(waterSample);
+        if (!myWaterSamples.contains(waterSample)) {
+            myWaterSamples.add(waterSample);
+            waterSample.setWaterLog(this);
+        }
     }
+
 
     @Override
 
@@ -28,7 +34,7 @@ public class WaterLog extends Log {
         File fileName = new File(String.valueOf(Paths.get("data", "water", fileSaveName)));
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
-        for (WaterSample waterSample : waterLog) {
+        for (WaterSample waterSample : myWaterSamples) {
             pw.println(waterSample.getName());
             pw.println(waterSample.getType());
             pw.println(waterSample.isOdourous());
@@ -50,7 +56,7 @@ public class WaterLog extends Log {
         FileInputStream fis = new FileInputStream(file);
         Scanner in = new Scanner(fis);
         List<WaterSample> waterLog = new ArrayList<>();
-        this.waterLog = waterLog;
+        this.myWaterSamples = waterLog;
 
         while (in.hasNext()) {
             WaterSample waterSample1 = new WaterSample();
@@ -69,8 +75,8 @@ public class WaterLog extends Log {
     //EFFECTS: converts waterlog to list of string
     public boolean printLog() {
 
-        for (int i = 0; i < waterLog.size(); i++) {
-            System.out.println("[" + waterLog.get(i).toString() + "]");
+        for (int i = 0; i < myWaterSamples.size(); i++) {
+            System.out.println("[" + myWaterSamples.get(i).toString() + "]");
         }
         return true;
     }
@@ -79,32 +85,30 @@ public class WaterLog extends Log {
     //EFFECTS: returns size of the water log
     @Override
     public Integer logSize() {
-        return waterLog.size();
+        return myWaterSamples.size();
     }
 
 
     @Override
     //EFFECTS: returns sample from water log at specified index
     public WaterSample getSample(int i) {
-        return waterLog.get(i);
+        return myWaterSamples.get(i);
     }
 
 
     //EFFECTS: removes sample from waterlog at specified index
     @Override
     public void removeSample(int i) {
-        waterLog.remove(i);
+        myWaterSamples.remove(i);
     }
 
     //EFFECTS: returns true is water log contains sample, otherwise false
     @Override
     public boolean contains(Sample sample) {
-        if (waterLog.contains(sample)) {
-            return true;
-        } else {
-            return false;
-        }
+        return myWaterSamples.contains(sample);
     }
+
+
 }
 
 //methods inherited from sample
