@@ -9,6 +9,7 @@ import ui.exceptions.SampleNameAlreadyUsedException;
 
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -124,8 +125,12 @@ public class Main {
 
         if (str.equals("2")) {
             viewExistingLog();
-        } else if (str.equals("3")) {
+        } else if (str.equals("3")
+                && sampleType.equals("soil")) {
             tryDeleteSample();
+        } else if (str.equals("3")
+                && sampleType.equals("water")) {
+            tryDeleteWaterSample();
         } else if (str.equals("1")
                 && sampleType.equals("soil")) {
             addSoilSample();
@@ -134,6 +139,13 @@ public class Main {
             addWaterSample();
         }
         return false;
+    }
+
+    private void tryDeleteWaterSample() {
+        System.out.println("Please enter the ID of the sample you would like to delete.");
+        Scanner id = new Scanner(System.in);
+        String deleteId = id.next();
+        waterLog.removeSample(deleteId);
     }
 
     //MODIFIES: this
@@ -157,17 +169,22 @@ public class Main {
     }
 
 
+//    private void addWaterSample() {
+//        waterSample1 = new WaterSample();
+//        addName();
+//        addSampleType();
+//        hasOdour();
+//        addConductivity();
+//        addTemperature();
+//        addTurbidity();
+//        waterLog.addSample(waterSample1);
+//        System.out.println("You successfully added the entry: [" + waterSample1.toString() + "].");
+//        initiateLog();
+//    }
+
     private void addWaterSample() {
-        waterSample1 = new WaterSample();
-        addName();
-        addSampleType();
-        hasOdour();
-        addConductivity();
-        addTemperature();
-        addTurbidity();
-        waterLog.addSample(waterSample1);
-        System.out.println("You successfully added the entry: [" + waterSample1.toString() + "].");
-        initiateLog();
+        passWaterData();
+
     }
 
     private void addConductivity() {
@@ -263,6 +280,57 @@ public class Main {
                 addName();
             }
         }
+    }
+
+    private ArrayList buildHashArray() {
+        ArrayList data = new ArrayList();
+        data.add(addWaterTemperature());
+        ;
+        data.add(addWaterTurbidity());
+        data.add(addWaterConductivity());
+        return data;
+    }
+
+    private void passWaterData() {
+        waterLog.setHashKey(addWaterID(), buildHashArray());
+    }
+
+    private String addWaterID() {
+        System.out.println("Please enter a new sample id.");
+        Scanner s = new Scanner(System.in);
+        String sampleID = s.nextLine();
+        return sampleID;
+    }
+
+//    private String addWaterSampleType() {
+//        System.out.println("Is the sample groundwater or surface water?");
+//        Scanner s = new Scanner(System.in);
+//        String sampleData = s.nextLine();
+//        return sampleData;
+//    }
+
+    private Integer addWaterTemperature() {
+        System.out.println("Please enter the sample temperature.");
+        Scanner s = new Scanner(System.in);
+        String sampleData = s.nextLine();
+        int temp = Integer.parseInt(sampleData);
+        return temp;
+    }
+
+    private Integer addWaterTurbidity() {
+        System.out.println("Please enter the sample turbidity.");
+        Scanner s = new Scanner(System.in);
+        String sampleData = s.nextLine();
+        int turbidity = Integer.parseInt(sampleData);
+        return turbidity;
+    }
+
+    private Integer addWaterConductivity() {
+        System.out.println("Please enter the sample conductivity.");
+        Scanner s = new Scanner(System.in);
+        String sampleData = s.nextLine();
+        int conductivity = Integer.parseInt(sampleData);
+        return conductivity;
     }
 
 
