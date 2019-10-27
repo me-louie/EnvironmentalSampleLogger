@@ -110,8 +110,3 @@ public class WaterLog extends Log {
 
 
 }
-
-//methods inherited from sample
-// set/getName
-// set/getType
-// set/isOdourous
