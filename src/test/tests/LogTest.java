@@ -39,20 +39,20 @@ class LogTest {
     @Test
     void testSampleIDIsUnique() {
 
-        assertTrue(testBoreholeLog.isSampleIDUnique("test3"));
-        assertTrue(testBoreholeLog.isSampleIDUnique("test4"));
+        assertTrue(testBoreholeLog.isSoilSampleIDUnique("test3"));
+        assertTrue(testBoreholeLog.isSoilSampleIDUnique("test4"));
     }
 
     @Test
     void testSampleIDIsNotUnique() {
 
-        assertFalse(testBoreholeLog.isSampleIDUnique("test1"));
-        assertFalse(testBoreholeLog.isSampleIDUnique("test2"));
+        assertFalse(testBoreholeLog.isSoilSampleIDUnique("test1"));
+        assertFalse(testBoreholeLog.isSoilSampleIDUnique("test2"));
     }
 
     @Test
     void testRemoveSampleFromLog() {
-        testBoreholeLog.removeSampleFromLog(testBoreholeLog, "test1");
+        testBoreholeLog.removeSampleFromBoreholeLog(testBoreholeLog, "test1");
 
         assertEquals(1, testBoreholeLog.logSize());
         assertTrue(testBoreholeLog.contains(soilTestSample2));
@@ -61,7 +61,7 @@ class LogTest {
 
     @Test
     void testSampleToRemoveFromLogDoesNotExist() {
-        testBoreholeLog.removeSampleFromLog(testBoreholeLog, "test3");
+        testBoreholeLog.removeSampleFromBoreholeLog(testBoreholeLog, "test3");
         assertEquals(2, testBoreholeLog.logSize());
         assertTrue(testBoreholeLog.contains(soilTestSample1));
         assertTrue(testBoreholeLog.contains(soilTestSample2));

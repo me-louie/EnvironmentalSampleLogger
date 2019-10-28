@@ -1,17 +1,16 @@
 package model;
 
+import ui.exceptions.SampleDoesNotExistException;
+
 import java.io.*;
 import java.nio.file.Paths;
+import java.sql.Array;
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class WaterLog extends Log {
 
     private HashMap<String, ArrayList<Integer>> myWaterSamples = new HashMap<>();
-
     private String waterLogName;
 
     //EFFECTS: creates empty water log
@@ -20,25 +19,50 @@ public class WaterLog extends Log {
         waterLogName = "WaterLog 1";
     }
 
-    public void setHashKey(String str, ArrayList data) {
+    public void setHashMap(String str, ArrayList<Integer> data) {
         myWaterSamples.put(str, data);
+        System.out.println("You successfully added water sample " + str);
     }
 
 
-//    //EFFECTS: adds a sample to borehole log
-//    public void addSample(WaterSample waterSample) {
-//        if (!myWaterSamples.contains(waterSample)) {
-//            myWaterSamples.add(waterSample);
-//            waterSample.setWaterLog(this);
+    public void save(String fileSaveName) throws FileNotFoundException {
+
+        File fileName = new File(String.valueOf(Paths.get("data", "water", fileSaveName)));
+        FileOutputStream fos = new FileOutputStream(fileName);
+        PrintWriter pw = new PrintWriter(fos);
+        for (Map.Entry me : myWaterSamples.entrySet()) {
+            pw.println(me.getKey() + "=" + me.getValue());
+        }
+        pw.flush();
+        pw.close();
+        System.out.println("File " + fileName + " was saved.");
+    }
+
+    public void load(String fileLoadName){
+
+    }
+
+//    public void load(String fileLoadName) throws FileNotFoundException {
+//        File file = new File(String.valueOf(Paths.get("data", "water", fileLoadName)));
+//        FileInputStream fis = new FileInputStream(file);
+//        Scanner in = new Scanner(fis);
+//        HashMap<String, ArrayList<Integer>> myWaterSamples = new HashMap<>();
+//        this.myWaterSamples = myWaterSamples;
+//        String currentLine;
+//
+//        while (in.hasNext()) {
+//            currentLine = in.nextLine();
+//            StringTokenizer st = new StringTokenizer(currentLine, "=", false);
+//            myWaterSamples.put(st.nextToken(), st.nextToken());
 //        }
+//        fis.close();
+//        for (Map.Entry<String, ArrayList<Integer>> m : myWaterSamples.entrySet()) {
+//            System.out.println(m.getKey() + " : " + m.getValue());
+//        }
+//        System.out.println(file + " data has been loaded.");
 //    }
 
-    public void save(String stub) {
-    }
 
-    public void load(String stub) {
-
-    }
 
 //    @Override
 //
@@ -112,25 +136,25 @@ public class WaterLog extends Log {
 
 
     //EFFECTS: removes sample from waterlog at specified index
-    @Override
-    public void removeSample(int i) {
-        myWaterSamples.remove(i);
+    public void removeSample(String sampleID) throws SampleDoesNotExistException {
+        if (!myWaterSamples.containsKey(sampleID)) {
+            throw new SampleDoesNotExistException("Sorry, that sample does not exist.");
+        } else {
+            myWaterSamples.remove(sampleID);
+            System.out.println("You sucessfully removed " + sampleID);
+            System.out.println("There are " + myWaterSamples.size() + " samples remaining.");
+            System.out.println(myWaterSamples);
+        }
     }
 
-    public void removeSample(String sampleID) {
-        myWaterSamples.remove(sampleID);
-        System.out.println("You sucessfully removed " + sampleID);
-        System.out.println("There are " + myWaterSamples.size() + " samples remaining.");
-        System.out.println(myWaterSamples);
-    }
+
+//    @Override
+//    public boolean contains(Sample sample) {
+////        return myWaterSamples.contains(sample);
+//        return contains(sample);
+//    }
 
     //EFFECTS: returns true is water log contains sample, otherwise false
-    @Override
-    public boolean contains(Sample sample) {
-//        return myWaterSamples.contains(sample);
-        return contains(sample);
-    }
-
     public boolean contains(String sampleID) {
         return myWaterSamples.containsKey(sampleID);
     }

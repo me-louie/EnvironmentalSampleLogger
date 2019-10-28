@@ -93,14 +93,12 @@ public class BoreholeLog extends Log {
     }
 
 
-    @Override
     //MODIFIES: this
     //EFFECTS: removes sample from the borehole log at the specified index
     public void removeSample(int i) {
         mySoilSamples.remove(i);
     }
 
-    @Override
     //EFFECTS: returns true if borehole log contains sample, otherwise return false
     public boolean contains(Sample sample) {
         return mySoilSamples.contains(sample);
@@ -123,7 +121,29 @@ public class BoreholeLog extends Log {
 
     }
 
+    //EFFECTS: returns true if string is not already assigned to a sample ID in the log, otherwise false
+    public boolean isSoilSampleIDUnique(String testString) {
+        for (int i = 0; i < logSize(); i++) {
+            if (testString.equals(getSample(i).getName())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    //EFFECTS: removes sample from log based on sample ID
+    public void removeSampleFromBoreholeLog(BoreholeLog boreholeLog, String deleteId) {
+        for (int i = 0; i < boreholeLog.logSize(); i++) {
+            if (boreholeLog.getSample(i).getName().equals(deleteId)) {
+                boreholeLog.removeSample(i);
+                break;
+            }
+        }
+        System.out.println("You successfully removed a sample.");
+        System.out.println("The remaining sample(s) is/are:");
+        boreholeLog.printLog();
+    }
 }
+
 
 

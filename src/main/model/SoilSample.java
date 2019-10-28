@@ -4,8 +4,6 @@ package model;
 import exceptions.InvalidSoilColourException;
 import exceptions.InvalidSoilTypeException;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class SoilSample extends Sample {
     private String colour;
@@ -73,7 +71,6 @@ public class SoilSample extends Sample {
         }
 
     }
-
 
     void setBoreholeLog(BoreholeLog bh) {
         this.myBoreholeLog = bh;
