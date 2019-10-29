@@ -27,40 +27,40 @@ public class WaterSample extends Sample {
     public WaterSample() {
         super();
     }
-
-    //MODIFIES: this
-    //EFFECTS: sets water sample conductivity in uS
-    public void setConductivity(String conductivity) {
-        this.conductivity = conductivity;
-    }
-
-
-    //MODIFIES: this
-    //EFFECTS: sets water sample temperature in deg C;
-    public void setTemperature(String temperature) {
-        this.temperature = temperature;
-    }
-
-    //MODIFIES: this
-    //EFFECTS: set water sample turbidity in ppm
-    public void setTurbidity(String turbidity) {
-        this.turbidity = turbidity;
-    }
-
-    //EFFECTS: returns sample conductivity
-    public String getConductivity() {
-        return conductivity;
-    }
-
-    //EFFECTS: return sample temperature;
-    public String getTemperature() {
-        return temperature;
-    }
-
-    //EFFECTS: return sample turbidity
-    public String getTurbidity() {
-        return turbidity;
-    }
+//
+//    //MODIFIES: this
+//    //EFFECTS: sets water sample conductivity in uS
+//    public void setConductivity(String conductivity) {
+//        this.conductivity = conductivity;
+//    }
+//
+//
+//    //MODIFIES: this
+//    //EFFECTS: sets water sample temperature in deg C;
+//    public void setTemperature(String temperature) {
+//        this.temperature = temperature;
+//    }
+//
+//    //MODIFIES: this
+//    //EFFECTS: set water sample turbidity in ppm
+//    public void setTurbidity(String turbidity) {
+//        this.turbidity = turbidity;
+//    }
+//
+//    //EFFECTS: returns sample conductivity
+//    public String getConductivity() {
+//        return conductivity;
+//    }
+//
+//    //EFFECTS: return sample temperature;
+//    public String getTemperature() {
+//        return temperature;
+//    }
+//
+//    //EFFECTS: return sample turbidity
+//    public String getTurbidity() {
+//        return turbidity;
+//    }
 
     @Override
     //EFFECTS: overwrites native toString function to print sample's name, colour, type, and whether it is odourous

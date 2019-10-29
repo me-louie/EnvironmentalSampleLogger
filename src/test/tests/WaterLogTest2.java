@@ -19,9 +19,7 @@ class WaterLogTest2 {
 
     @BeforeEach
     void setup() {
-
         testWaterLog.setHashMap("sample1", data);
-
     }
 
     @Test
