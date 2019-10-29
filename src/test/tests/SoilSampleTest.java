@@ -156,4 +156,18 @@ class SoilSampleTest {
             //expected
         }
     }
+
+    @Test
+    void testOverrideEqualsandHashCode() {
+        SoilSample s1 = new SoilSample("1", "grey", "silt", true);
+        SoilSample s2 = new SoilSample("1", "grey", "silt", true);
+        SoilSample s3 = new SoilSample("2", "grey", "silt", true);
+        SoilSample s4 = s1;
+        assertTrue((s1.hashCode()==s2.hashCode()));
+        assertTrue((s1.hashCode()==s4.hashCode()));
+        assertFalse((s1.hashCode()==s3.hashCode()));
+        assertTrue(s1.equals(s2));
+        assertTrue(s1.equals(s4));
+        assertFalse(s1.equals(s3));
+    }
 }

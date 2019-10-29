@@ -85,7 +85,6 @@ public class BoreholeLog extends Log {
     }
 
 
-    @Override
     //MODIFIES: this
     //EFFECTS: returns sample from borehole log at specified index
     public SoilSample getSample(int i) {

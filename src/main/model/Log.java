@@ -13,7 +13,7 @@ public abstract class Log implements Saveable, Loadable {
 
     public abstract Integer logSize();
 
-    public abstract Sample getSample(int i);
+//    public abstract Sample getSample(int i);
 
 //    public abstract void removeSample(int i);
 

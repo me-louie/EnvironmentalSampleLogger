@@ -14,23 +14,23 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PrintMenu {
+class PrintMenu {
 
-    protected SoilSample soilSample1 = new SoilSample();
-    protected BoreholeLog boreholeLog = new BoreholeLog();
+    private SoilSample soilSample1 = new SoilSample();
+    private BoreholeLog boreholeLog = new BoreholeLog();
 
-    protected Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
 
-    protected WaterSample waterSample1 = new WaterSample();
-    protected WaterLog waterLog = new WaterLog();
+    private WaterSample waterSample1 = new WaterSample();
+    private WaterLog waterLog = new WaterLog();
 
-    protected Log log;
-    protected Sample sample;
+    private Log log;
+    private Sample sample;
 
-    protected String sampleType = " ";
+    private String sampleType = " ";
 
 
-    protected boolean runProgram = true;
+    private boolean runProgram = true;
 
     PrintMenu() {
         welcomeStatement("4.0");
@@ -57,7 +57,7 @@ public class PrintMenu {
         printMainMenu(type);
         try {
             handleUserInput();
-        } catch (InvalidInputException | FileNotFoundException e) {
+        } catch (InvalidInputException e) {
             System.out.println("Please enter a valid command.");
             initiateLog();
         }
@@ -76,7 +76,7 @@ public class PrintMenu {
 
 
     //EFFECTS: provides application options based on user input
-    private void handleUserInput() throws InvalidInputException, FileNotFoundException {
+    private void handleUserInput() throws InvalidInputException {
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
         if (str.equals("1")
@@ -373,7 +373,7 @@ public class PrintMenu {
         return Integer.parseInt(sampleData);
     }
 
-    private ArrayList buildHashArray() {
+    private ArrayList<Integer> buildHashArray() {
         ArrayList<Integer> data = new ArrayList<>();
         data.add(addWaterTemperature());
         data.add(addWaterTurbidity());

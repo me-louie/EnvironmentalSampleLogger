@@ -127,11 +127,10 @@ public class WaterLog extends Log {
     }
 
 
-    @Override
     //EFFECTS: returns sample from water log at specified index
-    public WaterSample getSample(int i) {
+    public ArrayList<Integer> getData(String str) {
 //        return myWaterSamples.get(i);
-        return new WaterSample();
+        return myWaterSamples.get(str);
     }
 
 
