@@ -15,19 +15,21 @@ class LogTest {
     private WaterLog testWaterLog;
     private SoilSample soilTestSample1;
     private SoilSample soilTestSample2;
-    private WaterSample waterTestSample1 = new WaterSample("101n", "groundwater", true,
-            "123", "234", "345");
+    private BoreholeLog bh;
+//    private WaterSample waterTestSample1 = new WaterSample("101n", "groundwater", true,
+//            "123", "234", "345");
 
 
 
     @BeforeEach
     void setup() {
+        bh = new BoreholeLog();
         testBoreholeLog = new BoreholeLog();
         testWaterLog = new WaterLog();
-        soilTestSample1 = new SoilSample("test1", "blue", "sand", false);
-        soilTestSample2 = new SoilSample("test2", "grey", "silt", true);
-        waterTestSample1 = new WaterSample("101n", "groundwater", true,
-                "123", "234", "345");
+        soilTestSample1 = new SoilSample("test1", "blue", "sand", false, bh);
+        soilTestSample2 = new SoilSample("test2", "grey", "silt", true, bh);
+//        waterTestSample1 = new WaterSample("101n", "groundwater", true,
+//                "123", "234", "345");
 
 
         testBoreholeLog.addSample(soilTestSample1);

@@ -4,27 +4,23 @@ import ui.exceptions.SampleDoesNotExistException;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class WaterLog extends Log {
 
-    private HashMap<String, ArrayList<Integer>> myWaterSamples = new HashMap<>();
+    private HashMap<String, WaterSample> waterLog = new HashMap<>();
     private String waterLogName;
 
     //EFFECTS: creates empty water log
     public WaterLog() {
-        super();
-        waterLogName = "WaterLog 1";
-
+        HashMap waterLog = new HashMap();
         //construct new hashMap
     }
 
 
     //setHashMap(String id, WaterSample) waterSample is list of Int.
-    public void setHashMap(String str, ArrayList<Integer> data) {
-        myWaterSamples.put(str, data);
+    public void setHashMap(String str, WaterSample data) {
+        waterLog.put(str, data);
         System.out.println("You successfully added water sample " + str);
     }
 
@@ -34,7 +30,7 @@ public class WaterLog extends Log {
         File fileName = new File(String.valueOf(Paths.get("data", "water", fileSaveName)));
         FileOutputStream fos = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(fos);
-        for (Map.Entry me : myWaterSamples.entrySet()) {
+        for (Map.Entry me : waterLog.entrySet()) {
             pw.println(me.getKey() + "=" + me.getValue());
         }
         pw.flush();
@@ -115,7 +111,7 @@ public class WaterLog extends Log {
     @Override
     //EFFECTS: converts waterlog to list of string
     public boolean printLog() {
-        System.out.println(myWaterSamples);
+        System.out.println(waterLog);
 //
 //        for (int i = 0; i < myWaterSamples.size(); i++) {
 //            System.out.println("[" + myWaterSamples.get(i).toString() + "]");
@@ -127,26 +123,26 @@ public class WaterLog extends Log {
     //EFFECTS: returns size of the water log
     @Override
     public Integer logSize() {
-        return myWaterSamples.size();
+        return waterLog.size();
     }
 
 
     //EFFECTS: returns sample from water log at specified index
-    public ArrayList<Integer> getData(String str) {
+    public WaterSample getData(String str) {
 //        return myWaterSamples.get(i);
-        return myWaterSamples.get(str);
+        return waterLog.get(str);
     }
 
 
     //EFFECTS: removes sample from waterlog at specified index
     public void removeSample(String sampleID) throws SampleDoesNotExistException {
-        if (!myWaterSamples.containsKey(sampleID)) {
+        if (!waterLog.containsKey(sampleID)) {
             throw new SampleDoesNotExistException("Sorry, that sample does not exist.");
         } else {
-            myWaterSamples.remove(sampleID);
+            waterLog.remove(sampleID);
             System.out.println("You sucessfully removed " + sampleID);
-            System.out.println("There are " + myWaterSamples.size() + " samples remaining.");
-            System.out.println(myWaterSamples);
+            System.out.println("There are " + waterLog.size() + " samples remaining.");
+            System.out.println(waterLog);
         }
     }
 
@@ -159,7 +155,7 @@ public class WaterLog extends Log {
 
     //EFFECTS: returns true is water log contains sample, otherwise false
     public boolean contains(String sampleID) {
-        return myWaterSamples.containsKey(sampleID);
+        return waterLog.containsKey(sampleID);
     }
 
 

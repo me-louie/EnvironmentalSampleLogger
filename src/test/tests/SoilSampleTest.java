@@ -3,6 +3,7 @@ package tests;
 import exceptions.InvalidSoilColourException;
 import exceptions.InvalidSoilTypeException;
 import exceptions.YesOrNoInputException;
+import model.BoreholeLog;
 import model.SoilSample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,14 +15,15 @@ class SoilSampleTest {
     private SoilSample otherTestSoilSample;
     private SoilSample testSoilSample1;
     private SoilSample testExceptionSample;
+    private BoreholeLog bh;
 
 
 
     @BeforeEach
     void setup() {
         testSoilSample = new SoilSample();
-        otherTestSoilSample = new SoilSample("101", "grey", "sand", false);
-        testSoilSample1 = new SoilSample("101", "brown", "gravel", false);
+        otherTestSoilSample = new SoilSample("101", "grey", "sand", false, bh);
+        testSoilSample1 = new SoilSample("101", "brown", "gravel", false, bh);
         testExceptionSample = new SoilSample();
 
     }
@@ -159,9 +161,9 @@ class SoilSampleTest {
 
     @Test
     void testOverrideEqualsandHashCode() {
-        SoilSample s1 = new SoilSample("1", "grey", "silt", true);
-        SoilSample s2 = new SoilSample("1", "grey", "silt", true);
-        SoilSample s3 = new SoilSample("2", "grey", "silt", true);
+        SoilSample s1 = new SoilSample("1", "grey", "silt", true, bh);
+        SoilSample s2 = new SoilSample("1", "grey", "silt", true, bh);
+        SoilSample s3 = new SoilSample("2", "grey", "silt", true, bh);
         SoilSample s4 = s1;
         assertTrue((s1.hashCode()==s2.hashCode()));
         assertTrue((s1.hashCode()==s4.hashCode()));

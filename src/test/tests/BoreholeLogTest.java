@@ -24,11 +24,12 @@ class BoreholeLogTest extends LogTest {
     private BoreholeLog emptyTestLog;
     private BoreholeLog testLog3;
     private BoreholeLog testLog4;
+    private BoreholeLog bh;
 
 
-    private SoilSample testSoilSample1 = new SoilSample("101", "brown", "gravel", false);
-    private SoilSample testSoilSample2 = new SoilSample("102", "grey", "silt", true);
-    private SoilSample testSoilSample3 = new SoilSample("103", "blue", "sand", false);
+    private SoilSample testSoilSample1 = new SoilSample("101", "brown", "gravel", false, bh);
+    private SoilSample testSoilSample2 = new SoilSample("102", "grey", "silt", true, bh);
+    private SoilSample testSoilSample3 = new SoilSample("103", "blue", "sand", false, bh);
 
     private ArrayList emptyArray = new ArrayList();
     private ArrayList testArray = new ArrayList();
@@ -52,6 +53,8 @@ class BoreholeLogTest extends LogTest {
         testLog4 = new BoreholeLog();
         testLog4.addSample(testSoilSample2);
         testLog4.addSample(testSoilSample1);
+
+        bh = new BoreholeLog();
     }
 
     @Test

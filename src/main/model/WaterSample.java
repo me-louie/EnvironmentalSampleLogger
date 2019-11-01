@@ -4,20 +4,18 @@ import exceptions.InvalidWaterTypeException;
 
 public class WaterSample extends Sample {
 
-    private String conductivity;
-    private String temperature;
-    private String turbidity;
+    private int conductivity;
+    private int temperature;
+    private int turbidity;
+    private int ph;
     private WaterLog myWaterLog;
 
     //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity.cvb
-    public WaterSample(String name, String type, boolean odour, String conductivity, String temperature,
-                       String turbidity) {
-        this.name = name;
-        this.type = type;
-        this.odour = odour;
+    public WaterSample(int conductivity, int temperature, int turbidity, int ph) {
         this.conductivity = conductivity;
         this.temperature = temperature;
         this.turbidity = turbidity;
+        this.ph = ph;
         myWaterLog = null;
 
     }
@@ -27,45 +25,57 @@ public class WaterSample extends Sample {
     public WaterSample() {
         super();
     }
-//
-//    //MODIFIES: this
-//    //EFFECTS: sets water sample conductivity in uS
-//    public void setConductivity(String conductivity) {
-//        this.conductivity = conductivity;
-//    }
-//
-//
-//    //MODIFIES: this
-//    //EFFECTS: sets water sample temperature in deg C;
-//    public void setTemperature(String temperature) {
-//        this.temperature = temperature;
-//    }
-//
-//    //MODIFIES: this
-//    //EFFECTS: set water sample turbidity in ppm
-//    public void setTurbidity(String turbidity) {
-//        this.turbidity = turbidity;
-//    }
-//
-//    //EFFECTS: returns sample conductivity
-//    public String getConductivity() {
-//        return conductivity;
-//    }
-//
-//    //EFFECTS: return sample temperature;
-//    public String getTemperature() {
-//        return temperature;
-//    }
-//
-//    //EFFECTS: return sample turbidity
-//    public String getTurbidity() {
-//        return turbidity;
-//    }
+
+
+    //MODIFIES: this
+    //EFFECTS: sets water sample conductivity in uS
+    public void setConductivity(int conductivity) {
+        this.conductivity = conductivity;
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: sets water sample temperature in deg C;
+    public void setTemperature(int temperature) {
+        this.temperature = temperature;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set water sample turbidity in ppm
+    public void setTurbidity(int turbidity) {
+        this.turbidity = turbidity;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set water sample PH
+    public void setPh(int ph) {
+        this.ph = ph;
+    }
+
+    //EFFECTS: returns sample conductivity
+    public int getConductivity() {
+        return conductivity;
+    }
+
+    //EFFECTS: return sample temperature;
+    public int getTemperature() {
+        return temperature;
+    }
+
+    //EFFECTS: return sample turbidity
+    public int getTurbidity() {
+        return turbidity;
+    }
+
+    //EFFECTS: returns sample pH
+    public int getPH() {
+        return ph;
+    }
 
     @Override
     //EFFECTS: overwrites native toString function to print sample's name, colour, type, and whether it is odourous
     public String toString() {
-        return name + " " + type + " " + odour + " " + conductivity + " " + temperature + " " + turbidity;
+        return conductivity + " " + temperature + " " + turbidity + " " + ph;
     }
 
 

@@ -352,6 +352,14 @@ class PrintMenu {
         initiateLog();
     }
 
+    private WaterSample buildHashArray() {
+        WaterSample waterSample = new WaterSample();
+        waterSample.setTemperature(addWaterTemperature());
+        waterSample.setTurbidity(addWaterTurbidity());
+        waterSample.setConductivity(addWaterConductivity());
+        return waterSample;
+    }
+
     private Integer addWaterTemperature() {
         System.out.println("Please enter the sample temperature.");
         Scanner s = new Scanner(System.in);
@@ -373,13 +381,6 @@ class PrintMenu {
         return Integer.parseInt(sampleData);
     }
 
-    private ArrayList<Integer> buildHashArray() {
-        ArrayList<Integer> data = new ArrayList<>();
-        data.add(addWaterTemperature());
-        data.add(addWaterTurbidity());
-        data.add(addWaterConductivity());
-        return data;
-    }
 
     private String addWaterID() {
         System.out.println("Please enter a new sample id.");
