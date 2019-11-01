@@ -11,12 +11,12 @@ public class SoilSample extends Sample {
 
 
     //EFFECTS: creates soil sample with name, colour, type, and odour
-    public SoilSample(String name, String colour, String type, boolean odour) {
+    public SoilSample(String name, String colour, String type, boolean odour, BoreholeLog bh) {
         this.name = name;
         this.colour = colour;
         this.type = type;
         this.odour = odour;
-        myBoreholeLog = null;
+        this.myBoreholeLog = bh;
 
     }
 
@@ -78,6 +78,7 @@ public class SoilSample extends Sample {
 //            bh.addSample(this);
 //        }
         // Can I just omit this?
+        //just assigned this.boreholeLog in constructor to remove potential of getting null pointer
     }
 }
 

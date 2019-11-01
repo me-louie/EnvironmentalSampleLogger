@@ -17,8 +17,12 @@ public class WaterLog extends Log {
     public WaterLog() {
         super();
         waterLogName = "WaterLog 1";
+
+        //construct new hashMap
     }
 
+
+    //setHashMap(String id, WaterSample) waterSample is list of Int.
     public void setHashMap(String str, ArrayList<Integer> data) {
         myWaterSamples.put(str, data);
         System.out.println("You successfully added water sample " + str);
