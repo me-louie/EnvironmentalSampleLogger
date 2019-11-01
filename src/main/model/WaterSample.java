@@ -8,6 +8,7 @@ public class WaterSample extends Sample {
     private int temperature;
     private int turbidity;
     private int ph;
+    private String type = "water";
     private WaterLog myWaterLog;
 
     //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity.cvb

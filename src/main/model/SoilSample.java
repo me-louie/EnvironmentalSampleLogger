@@ -7,16 +7,17 @@ import exceptions.InvalidSoilTypeException;
 
 public class SoilSample extends Sample {
     private String colour;
-    private BoreholeLog myBoreholeLog;
+    private BoreholeLog boreholeLog;
+//    private String type = "soil";
 
 
     //EFFECTS: creates soil sample with name, colour, type, and odour
-    public SoilSample(String name, String colour, String type, boolean odour, BoreholeLog bh) {
+    public SoilSample(String name, String colour, String type, boolean odour, BoreholeLog boreholeLog) {
         this.name = name;
         this.colour = colour;
         this.type = type;
         this.odour = odour;
-        this.myBoreholeLog = bh;
+        this.boreholeLog = boreholeLog;
 
     }
 
@@ -36,6 +37,8 @@ public class SoilSample extends Sample {
     public String getColour() {  //getter
         return colour;
     }
+
+
 
 
     @Override
@@ -73,7 +76,7 @@ public class SoilSample extends Sample {
     }
 
     void setBoreholeLog(BoreholeLog bh) {
-        this.myBoreholeLog = bh;
+        this.boreholeLog = bh;
 //        if (!bh.contains(this)) {
 //            bh.addSample(this);
 //        }

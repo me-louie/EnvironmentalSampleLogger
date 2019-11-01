@@ -10,12 +10,12 @@ import java.util.Scanner;
 public class BoreholeLog extends Log {
     private List<SoilSample> mySoilSamples = new ArrayList<>();
     private String bhLogName;
+    private String type = "borehole log";
 
 
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
         super();
-        bhLogName = "BHLog 1";
 
     }
 
@@ -84,6 +84,33 @@ public class BoreholeLog extends Log {
         System.out.println(file + " data has been loaded.");
     }
 
+    //EFFECTS: return soil type
+    public String getType() {
+        return type;
+    }
+
+
+    @Override
+    public boolean isSampleIDUnique(String deleteId) {
+        return isSoilSampleIDUnique(deleteId);
+    }
+
+    @Override
+    public void removeSampleFromLog(BoreholeLog boreholeLog, String deleteId) {
+        removeSampleFromBoreholeLog(boreholeLog, deleteId);
+    }
+
+    public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
+        SoilSample soilSample = new SoilSample(name, colour, type, odour, new BoreholeLog());
+        addSample(soilSample);
+        System.out.println("You successfully added " + name);
+    }
+
+    @Override
+    public void setHashMap(String addSampleID, WaterSample buildHashArray) {
+
+    }
+
 
     //MODIFIES: this
     //EFFECTS: returns sample from borehole log at specified index
@@ -120,6 +147,7 @@ public class BoreholeLog extends Log {
 
     }
 
+
     //EFFECTS: returns true if string is not already assigned to a sample ID in the log, otherwise false
     public boolean isSoilSampleIDUnique(String testString) {
         for (int i = 0; i < logSize(); i++) {
@@ -129,6 +157,7 @@ public class BoreholeLog extends Log {
         }
         return true;
     }
+
 
     //EFFECTS: removes sample from log based on sample ID
     public void removeSampleFromBoreholeLog(BoreholeLog boreholeLog, String deleteId) {

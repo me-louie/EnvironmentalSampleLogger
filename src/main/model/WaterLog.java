@@ -10,6 +10,7 @@ public class WaterLog extends Log {
 
     private HashMap<String, WaterSample> waterLog = new HashMap<>();
     private String waterLogName;
+    private String type = "water log";
 
     //EFFECTS: creates empty water log
     public WaterLog() {
@@ -144,6 +145,27 @@ public class WaterLog extends Log {
             System.out.println("There are " + waterLog.size() + " samples remaining.");
             System.out.println(waterLog);
         }
+    }
+
+    //EFFECTS: return soil type
+    public String getType() {
+        return type;
+    }
+
+
+    @Override
+    public boolean isSampleIDUnique(String deleteId) {
+        return false;
+    }
+
+    @Override
+    public void removeSampleFromLog(BoreholeLog boreholeLog, String deleteId) {
+
+    }
+
+    @Override
+    public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
+
     }
 
 
