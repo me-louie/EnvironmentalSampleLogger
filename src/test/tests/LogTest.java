@@ -24,7 +24,7 @@ class LogTest {
     private WaterSample w3;
 
 
-
+//TODO: can move all these tests to the BoreholeLogTestClass and redo the save/load tests
 
     @BeforeEach
     void setup() {

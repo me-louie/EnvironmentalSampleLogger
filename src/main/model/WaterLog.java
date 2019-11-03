@@ -10,7 +10,6 @@ import java.util.*;
 public class WaterLog extends Log {
 
     private HashMap<String, WaterSample> waterLog = new HashMap<>();
-    private String type = "water log";
     private Printer printer = new Printer();
 
     //EFFECTS: creates empty water log
@@ -19,23 +18,21 @@ public class WaterLog extends Log {
     }
 
 
-    //setHashMap(String id, WaterSample) waterSample is list of Int.
+    //MODIFIES: this
+    //EFFECTS: adds new entry to waterlog based on user input
     public void setHashMap(String str, WaterSample data) {
         waterLog.put(str, data);
         System.out.println("You successfully added water sample " + str);
     }
 
-    @Override
-    public boolean contains(Sample sample) {
-        return waterLog.containsKey(sample);
+    //EFFECTS: returns true if water log contains sample
+    public boolean contains(String sampleID) {
+        return waterLog.containsKey(sampleID);
     }
 
-//    @Override
-//    public boolean contains(Sample sample) {
-//        return contains(sample);
-//    }
 
 
+    //EFFECTS: writes borehole log data to txt file
     public void save(String fileSaveName) throws FileNotFoundException {
 
         File fileName = new File(String.valueOf(Paths.get("data", "water", fileSaveName)));
@@ -120,7 +117,7 @@ public class WaterLog extends Log {
 //    }
 
     @Override
-    //EFFECTS: converts waterlog to list of string
+    //EFFECTS: prints all water samples in water log
     public void printLog() {
         System.out.println(waterLog);
 //
@@ -130,25 +127,20 @@ public class WaterLog extends Log {
     }
 
 
-    //EFFECTS: returns size of the water log
     @Override
+    //EFFECTS: returns size of the water log
     public int logSize() {
         return waterLog.size();
     }
 
-    @Override
-    public Sample getSample(int i) {
-        return null;
-    }
 
-    @Override
-    public void removeSample(int i) {
-
+    //EFFECTS: returns size of the water log
+    public Sample getSample(String sampleID) {
+        return waterLog.get(sampleID);
     }
 
 
-
-    //EFFECTS: removes sample from waterlog at specified index
+    //EFFECTS: removes sample from waterlog
     public void removeSample(String sampleID) throws SampleDoesNotExistException {
         if (!waterLog.containsKey(sampleID)) {
             throw new SampleDoesNotExistException("Sorry, that sample does not exist.");
@@ -160,27 +152,28 @@ public class WaterLog extends Log {
         }
     }
 
-    //EFFECTS: return soil type
+    //EFFECTS: returns "water log"
     public String getType() {
-        return type;
+        return "water log";
     }
 
 
     @Override
-    public boolean isSampleIDUnique(String deleteId) {
-        return (!waterLog.containsKey(deleteId));
+    //EFFECTS: returns true if id has not been assigned to a sample in the water log
+    public boolean isSampleIDUnique(String sampleID) {
+        return (!waterLog.containsKey(sampleID));
     }
 
     @Override
+    //EFFECTS: removes specified sample from waterlog
     public void removeSampleFromLog(String deleteId) {
         waterLog.remove(deleteId);
         printer.sampleHasBeenDeleted();
-//        System.out.println("You successfully removed a sample.");
-//        System.out.println("The remaining sample(s) is/are:");
         printLog();
     }
 
     @Override
+    //TODO: same thing as setHashMap() in borehole log class
     public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
 
     }

@@ -161,7 +161,6 @@ public class BoreholeLog extends Log {
     }
 
     //EFFECTS: returns true if borehole log contains sample
-    @Override
     public boolean contains(Sample sample) {
         return soilSamples.contains(sample);
     }

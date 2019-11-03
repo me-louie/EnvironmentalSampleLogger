@@ -1,64 +1,95 @@
-//package tests;
-//
-//import model.WaterLog;
-//import model.WaterSample;
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//
-//import java.io.IOException;
-//import java.nio.file.Files;
-//import java.nio.file.Paths;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//class WaterLogTest extends LogTest {
-//    private WaterLog testWaterLog;
-//    private WaterLog otherTestWaterLog;
-//
-//    private WaterSample testWaterSample1;
-//    private WaterSample testWaterSample2;
-//
-//
-//    @BeforeEach
-//    void setup() {
-//        testWaterLog = new WaterLog();
-//        otherTestWaterLog = new WaterLog();
-//
-//        testWaterSample1 = new WaterSample("101n", "groundwater", true,
-//                "111", "222", "333");
-//        testWaterSample2 = new WaterSample("999", "surface water",
-//                false, "888", "777", "666");
-//
-//        otherTestWaterLog.addSample(testWaterSample1);
-//    }
-//
-//    @Test
-//    void testAddSample() {
-//        testWaterLog.addSample(testWaterSample1);
-//        Assertions.assertEquals("101n groundwater true 111 222 333", testWaterLog.getSample(0).toString());
-//    }
-//
-//    @Test
-//    void testGetSample() {
-//        testWaterLog.addSample(testWaterSample1);
-//        assertEquals(testWaterSample1, testWaterLog.getSample(0));
-//    }
-//
-//    @Test
-//    void testRemoveSample() {
-//        testWaterLog.addSample(testWaterSample1);
-//        testWaterLog.addSample(testWaterSample2);
-//        testWaterLog.removeSample(1);
-//        assertEquals(1, testWaterLog.logSize());
-//        assertFalse(testWaterLog.contains(testWaterSample2));
-//        assertTrue(testWaterLog.contains(testWaterSample1));
-//    }
-//
-//    @Test
-//    void testPrintLog() {
-//        assertTrue(otherTestWaterLog.printLog());
-//    }
+package tests;
+
+import model.WaterLog;
+import model.WaterSample;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import ui.exceptions.SampleDoesNotExistException;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class WaterLogTest extends LogTest {
+
+    private WaterLog wl;
+    private WaterSample w1;
+    private WaterSample w2;
+    private WaterSample w3;
+
+
+    @BeforeEach
+    void setup() {
+        wl = new WaterLog();
+        w1 = new WaterSample(10, 20, 30, 7 );
+        w2 = new WaterSample(11, 22, 33, 8);
+        w3 = new WaterSample(150, 25, 556, 6);
+
+
+    }
+
+    @Test
+    void testConstructor(){
+        assertEquals(0, wl.logSize());
+    }
+
+    @Test
+    void testSetHashMap(){
+        wl.setHashMap("w1", w1);
+        wl.setHashMap("w2", w2);
+        wl.setHashMap("w3", w3);
+        assertEquals(3, wl.logSize());
+        assertTrue(wl.contains("w1"));
+        assertTrue(wl.contains("w2"));
+    }
+
+    @Test
+    void testGetSample(){
+        wl.setHashMap("w1", w1);
+        wl.setHashMap("w2", w2);
+
+        assertEquals(w1, wl.getSample("w1"));
+        assertEquals(w2, wl.getSample("w2"));
+    }
+
+    @Test
+    void testRemoveSample() {
+        wl.setHashMap("w1", w1);
+        wl.setHashMap("w2", w2);
+        assertEquals(2, wl.logSize());
+        try {
+            wl.removeSample("w1");
+            assertEquals(1, wl.logSize());
+            assertFalse(wl.contains("w1"));
+        } catch (SampleDoesNotExistException e) {
+            e.printStackTrace();
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testGetType(){
+        assertEquals("water log", wl.getType());
+    }
+
+    @Test
+    void testIsSampleIDUnique(){
+        wl.setHashMap("w1", w1);
+        wl.setHashMap("w2", w2);
+        assertFalse(wl.isSampleIDUnique("w1"));
+        assertTrue(wl.isSampleIDUnique("w3"));
+    }
+
+    @Test
+    void removeSampleFromLog(){
+        wl.setHashMap("w1", w1);
+        wl.setHashMap("w2", w2);
+        wl.removeSampleFromLog("w1");
+        assertEquals(1, wl.logSize());
+        assertFalse(wl.contains("w1"));
+    }
+
+
 //
 //    @Test
 //    void testWLSave() throws IOException {
@@ -82,4 +113,4 @@
 //
 //        assertEquals(1, testLoadLog.logSize());
 //    }
-//}
+}

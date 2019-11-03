@@ -8,9 +8,9 @@ import exceptions.InvalidSoilTypeException;
 public class SoilSample extends Sample {
     private String colour;
     private BoreholeLog boreholeLog;
-//    private String type = "soil";
 
 
+    //MODIFIES: this
     //EFFECTS: creates soil sample with name, colour, type, and odour
     public SoilSample(String name, String colour, String type, boolean odour, BoreholeLog boreholeLog) {
         this.name = name;
@@ -18,9 +18,9 @@ public class SoilSample extends Sample {
         this.type = type;
         this.odour = odour;
         this.boreholeLog = boreholeLog;
-
     }
 
+    //MODIFIES: this
     //EFFECTS: creates empty soil sample
     public SoilSample() {
         super();
@@ -37,8 +37,6 @@ public class SoilSample extends Sample {
     public String getColour() {  //getter
         return colour;
     }
-
-
 
 
     @Override
@@ -75,13 +73,12 @@ public class SoilSample extends Sample {
 
     }
 
-    void setBoreholeLog(BoreholeLog bh) {
+    public BoreholeLog getBoreholeLog() {
+        return boreholeLog;
+    }
+
+    public void setBoreholeLog(BoreholeLog bh) {
         this.boreholeLog = bh;
-//        if (!bh.contains(this)) {
-//            bh.addSample(this);
-//        }
-        // Can I just omit this?
-        //just assigned this.boreholeLog in constructor to remove potential of getting null pointer
     }
 }
 

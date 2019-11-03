@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BoreholeLogTest extends LogTest {
 
-
     private BoreholeLog emptyTestLog;
     private BoreholeLog testLog3;
     private BoreholeLog testLog4;
@@ -83,25 +82,6 @@ class BoreholeLogTest extends LogTest {
                 Files.readAllLines(Paths.get("data", "soil", "Load Add Save.txt")));
     }
 
-//    @Test
-//    void testAddSample() {
-//        testLog.add(testSoilSample1);
-//        Assertions.assertEquals("101 brown gravel false", testLog.get(0).toString());
-//    }
-
-//    @Test
-//    void testGetSample() {
-//        assertEquals(testSoilSample2, testLog4.getSample(0));
-//    }
-
-//    @Test
-//    void testRemoveSample() {
-//        testLog4.removeSample(0);
-//        assertEquals(1, testLog4.logSize());
-//        assertFalse(testLog4.contains(testSoilSample2));
-//        assertTrue(testLog4.contains(testSoilSample1));
-//    }
-
 
     @Test
     void testReturnContaminatedSamplesEmptyList() {
@@ -113,20 +93,7 @@ class BoreholeLogTest extends LogTest {
         testArray.add(testSoilSample2);
         assertEquals(testArray, testLog4.returnContaminatedSamples());
     }
-//
-//    @Test
-//    void testPrintLog() {
-//        assertTrue(testLog4.printLog());
-//    }
 
-//    @Test
-//    void testCheckUnique() {
-//        assertFalse(testLog3.isSoilSampleIDUnique("103"));
-//        assertFalse(testLog3.isSoilSampleIDUnique("101"));
-//        assertTrue(testLog3.isSoilSampleIDUnique("102"));
-//
-//
-//    }
 
     @Test
     void testIncompatibleFileSaveName() {

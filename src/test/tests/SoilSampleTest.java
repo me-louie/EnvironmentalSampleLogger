@@ -5,75 +5,84 @@ import exceptions.InvalidSoilTypeException;
 import exceptions.YesOrNoInputException;
 import model.BoreholeLog;
 import model.SoilSample;
+import model.WaterSample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SoilSampleTest {
-    private SoilSample testSoilSample;
-    private SoilSample otherTestSoilSample;
-    private SoilSample testSoilSample1;
     private SoilSample testExceptionSample;
     private BoreholeLog bh;
+
+    private SoilSample s0;
+    private SoilSample s1;
+    private SoilSample s2;
+    private SoilSample s3;
 
 
 
     @BeforeEach
     void setup() {
-        testSoilSample = new SoilSample();
-        otherTestSoilSample = new SoilSample("101", "grey", "sand", false, bh);
-        testSoilSample1 = new SoilSample("101", "brown", "gravel", false, bh);
-        testExceptionSample = new SoilSample();
+        s0 = new SoilSample();
 
+        s1 = new SoilSample("s1", "blue", "sand", false, bh);
+        s2 = new SoilSample("s2", "grey", "silt", true, bh);
+        s3 = new SoilSample("s3", "brown", "gravel", true, bh);
+
+        testExceptionSample = new SoilSample();
+        BoreholeLog bh = new BoreholeLog();
     }
 
     @Test
     void testConstructor() {
-        assertNull(testSoilSample.getName());
-        assertNull(testSoilSample.getColour());
-        assertNull(testSoilSample.getType());
-        assertFalse(testSoilSample.isOdourous());
+        assertNull(s0.getName());
+        assertNull(s0.getColour());
+        assertNull(s0.getType());
+        assertFalse(s0.isOdourous());
     }
 
     @Test
     void testOtherConstructor() {
 //        Sample otherTestSample = new Sample("101", "grey", "sand", false);
-        assertEquals("101", otherTestSoilSample.getName());
-        assertEquals("grey", otherTestSoilSample.getColour());
-        assertEquals("sand", otherTestSoilSample.getType());
-        assertFalse(otherTestSoilSample.isOdourous());
+        assertEquals("s1", s1.getName());
+        assertEquals("blue", s1.getColour());
+        assertEquals("sand", s1.getType());
+        assertFalse(s1.isOdourous());
+        assertEquals(bh, s1.getBoreholeLog());
     }
 
     @Test
     void testSetName() {
-        testSoilSample.setName("101");
-        assertEquals("101", testSoilSample.getName());
+        s0.setName("101");
+        assertEquals("101", s0.getName());
     }
 
     @Test
     void testSetTypeColour() {
-        testSoilSample.setColour("blue");
-        assertEquals("blue", testSoilSample.getColour());
+        s0.setColour("blue");
+        assertEquals("blue", s0.getColour());
     }
 
     @Test
     void testSetType() {
-        testSoilSample.setType("sand");
-        assertEquals("sand", testSoilSample.getType());
+        s0.setType("sand");
+        assertEquals("sand", s0.getType());
     }
 
     @Test
     void testIsOdourous() {
-        testSoilSample.setOdour(true);
-        assertTrue(testSoilSample.isOdourous());
+        s0.setOdour(true);
+        assertTrue(s0.isOdourous());
     }
-
 
 
     @Test
     void testToString() {
-        assertEquals("101 grey sand false", otherTestSoilSample.toString());
+        assertEquals("s1 blue sand false", s1.toString());
     }
 
 
@@ -165,11 +174,14 @@ class SoilSampleTest {
         SoilSample s2 = new SoilSample("1", "grey", "silt", true, bh);
         SoilSample s3 = new SoilSample("2", "grey", "silt", true, bh);
         SoilSample s4 = s1;
-        assertTrue((s1.hashCode()==s2.hashCode()));
-        assertTrue((s1.hashCode()==s4.hashCode()));
-        assertFalse((s1.hashCode()==s3.hashCode()));
-        assertTrue(s1.equals(s2));
-        assertTrue(s1.equals(s4));
-        assertFalse(s1.equals(s3));
+        List<String> myList = new ArrayList<>();
+
+        assertEquals((s1.hashCode()), s2.hashCode());
+        assertEquals((s1.hashCode()), s4.hashCode());
+        assertNotEquals((s1.hashCode()), s3.hashCode());
+        assertEquals(s1, s2);
+        assertEquals(s1, s4);
+        assertNotEquals(s1, s3);
+        assertNotEquals(s1, myList);
     }
 }

@@ -8,8 +8,7 @@ public class WaterSample extends Sample {
     private int temperature;
     private int turbidity;
     private int ph;
-    private String type = "water";
-    private WaterLog myWaterLog;
+    private WaterLog waterSamples;
 
     //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity.cvb
     public WaterSample(int conductivity, int temperature, int turbidity, int ph) {
@@ -17,7 +16,7 @@ public class WaterSample extends Sample {
         this.temperature = temperature;
         this.turbidity = turbidity;
         this.ph = ph;
-        myWaterLog = null;
+        waterSamples = null;
 
     }
 
@@ -49,7 +48,7 @@ public class WaterSample extends Sample {
 
     //MODIFIES: this
     //EFFECTS: set water sample PH
-    public void setPh(int ph) {
+    public void setPH(int ph) {
         this.ph = ph;
     }
 
@@ -91,11 +90,15 @@ public class WaterSample extends Sample {
         }
     }
 
-    void setWaterLog(WaterLog wl) {
-        this.myWaterLog = wl;
+    public void setWaterLog(WaterLog wl) {
+        this.waterSamples = wl;
 //        if (!wl.contains(this)) {
 //            wl.addSample(this);
 //        }
+    }
+
+    public WaterLog getWaterLog() {
+        return waterSamples;
     }
 
 }

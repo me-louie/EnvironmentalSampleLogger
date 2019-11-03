@@ -13,9 +13,9 @@ public abstract class Log implements Saveable, Loadable {
 
     public abstract int logSize();
 
-    public abstract Sample getSample(int i);
+//    public abstract Sample getSample(int i);
 
-    public abstract void removeSample(int i);
+//    public abstract void removeSample(int i);
 
     public abstract void printLog();
 
@@ -29,7 +29,7 @@ public abstract class Log implements Saveable, Loadable {
 
     public abstract void setHashMap(String addSampleID, WaterSample buildHashArray);
 
-    public abstract boolean contains(Sample sample);
+
 }
 
 

@@ -1,111 +1,102 @@
-//package tests;
-//
-//import exceptions.InvalidWaterTypeException;
-//import model.SoilSample;
-//import model.WaterSample;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//class WaterSampleTest {
-//
-//    private WaterSample testWaterSample;
-//    private WaterSample otherTestWaterSample;
-//
-//    @BeforeEach
-//    void setup() {
-//        testWaterSample = new WaterSample();
-//        otherTestWaterSample = new WaterSample("101n", "groundwater", true,
-//                "111", "222", "333");
-//
-//
-//    @Test
-//    void testConstructor() {
-//        assertNull(testWaterSample.getName());
-//        assertNull(testWaterSample.getType());
-//        assertFalse(testWaterSample.isOdourous());
-//        assertNull(testWaterSample.getConductivity());
-//        assertNull(testWaterSample.getTemperature());
-//        assertNull(testWaterSample.getTurbidity());
-//    }
-//
-//    @Test
-//    void testOtherConstructor() {
-//        assertEquals("101n", otherTestWaterSample.getName());
-//        assertEquals("groundwater", otherTestWaterSample.getType());
-//        assertTrue(otherTestWaterSample.isOdourous());
-//        assertEquals("111", otherTestWaterSample.getConductivity());
-//        assertEquals("222", otherTestWaterSample.getTemperature());
-//        assertEquals("333", otherTestWaterSample.getTurbidity());
-//    }
-//
-//    @Test
-//    void testSetName() {
-//        testWaterSample.setName("999");
-//        assertEquals("999", testWaterSample.getName());
-//    }
-//
-//    @Test
-//    void testSetTurbidity() {
-//        testWaterSample.setTurbidity("123");
-//        assertEquals("123", testWaterSample.getTurbidity());
-//    }
-//
-//    @Test
-//    void testSetTemperature() {
-//        testWaterSample.setTemperature("30");
-//        assertEquals("30", testWaterSample.getTemperature());
-//    }
-//
-//    @Test
-//    void testSetConductivity() {
-//        testWaterSample.setConductivity("1244");
-//        assertEquals("1244", testWaterSample.getConductivity());
-//    }
-//
-//
-//    @Test
-//    void testSetType() {
-//        testWaterSample.setType("groundwater");
-//        assertEquals("groundwater", testWaterSample.getType());
-//    }
-//
-//    @Test
-//    void testIsOdourous() {
-//        testWaterSample.setOdour(true);
-//        assertTrue(testWaterSample.isOdourous());
-//    }
-//
-//    @Test
-//    void testToString() {
-//        assertEquals("101n groundwater true 111 222 333", otherTestWaterSample.toString());
-//    }
-//
-//
-//    @Test
-//    void testAllowableWaterSampleType() {
-//        WaterSample newSample = new WaterSample();
-//        try {
-//            newSample.setWaterSampleType(newSample, "groundwater");
-//            assertEquals("groundwater", newSample.getType());
-//            newSample.setWaterSampleType(newSample, "surface water");
-//            assertEquals("surface water", newSample.getType());
-//        } catch (InvalidWaterTypeException e) {
+package tests;
+
+import exceptions.InvalidWaterTypeException;
+import model.WaterLog;
+import model.WaterSample;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class WaterSampleTest {
+
+    private WaterLog wl;
+    private WaterSample w1;
+    private WaterSample w2;
+    private WaterSample w3;
+
+
+    @BeforeEach
+    void setup() {
+        wl = new WaterLog();
+        w1 = new WaterSample(10, 20, 30, 7);
+        w2 = new WaterSample(11, 22, 33, 8);
+        w3 = new WaterSample(150, 25, 556, 6);
+    }
+
+        @Test
+        void testConstructor() {
+            WaterSample w0 = new WaterSample(1, 2, 3, 4);
+            assertEquals(1, w0.getConductivity());
+            assertEquals(2, w0.getTemperature());
+            assertEquals(3, w0.getTurbidity());
+            assertEquals(4, w0.getPH());
+        }
+
+        @Test
+        void testOtherConstructor () {
+        WaterSample w0 = new WaterSample();
+            assertEquals(0, w0.getConductivity());
+            assertEquals(0, w0.getTemperature());
+            assertEquals(0, w0.getTurbidity());
+            assertEquals(0, w0.getPH());
+        }
+
+        @Test
+        void testSetters () {
+            WaterSample w0 = new WaterSample();
+            w0.setConductivity(1500);
+            assertEquals(1500, w0.getConductivity());
+            w0.setTemperature(25);
+            assertEquals(25, w0.getTemperature());
+            w0.setTurbidity(567);
+            assertEquals(567, w0.getTurbidity());
+            w0.setPH(7);
+            assertEquals(7, w0.getPH());
+
+        }
+
+        @Test
+        void testToString() {
+        assertEquals("10 20 30 7", w1.toString());
+        }
+
+        @Test
+        void testSetWaterLog(){
+        w1.setWaterLog(wl);
+        assertEquals(wl, w1.getWaterLog());
+        }
+
+
+
+
+
+
+
+
+        @Test
+        void testAllowableWaterSampleType () {
+            WaterSample newSample = new WaterSample();
+            try {
+                newSample.setWaterSampleType(newSample, "groundwater");
+                assertEquals("groundwater", newSample.getType());
+                newSample.setWaterSampleType(newSample, "surface water");
+                assertEquals("surface water", newSample.getType());
+            } catch (InvalidWaterTypeException e) {
+                e.printStackTrace();
+                fail("InvalidWaterTypeException should not have been thrown.");
+            }
+        }
+
+        @Test
+        void testInvalidWaterSampleType () {
+            WaterSample newSample = new WaterSample();
+            try {
+                newSample.setWaterSampleType(newSample, "tap water");
+                fail("InvalidWaterTypeException should have been thrown");
+            } catch (InvalidWaterTypeException e) {
 //            e.printStackTrace();
-//            fail("InvalidWaterTypeException should not have been thrown.");
-//        }
-//    }
-//
-//    @Test
-//    void testInvalidWaterSampleType() {
-//        WaterSample newSample = new WaterSample();
-//        try {
-//            newSample.setWaterSampleType(newSample, "tap water");
-//            fail("InvalidWaterTypeException should have been thrown");
-//        } catch (InvalidWaterTypeException e) {
-////            e.printStackTrace();
-//            //expected
-//        }
-//    }
-//}
+                //expected
+            }
+        }
+    }
