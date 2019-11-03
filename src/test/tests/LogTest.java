@@ -6,67 +6,92 @@ import org.junit.jupiter.api.Test;
 
 
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class LogTest {
 
-    private BoreholeLog testBoreholeLog;
-    private WaterLog testWaterLog;
-    private SoilSample soilTestSample1;
-    private SoilSample soilTestSample2;
+
     private BoreholeLog bh;
-//    private WaterSample waterTestSample1 = new WaterSample("101n", "groundwater", true,
-//            "123", "234", "345");
+    private SoilSample s1;
+    private SoilSample s2;
+    private SoilSample s3;
+
+    private WaterLog wl;
+    private WaterSample w1;
+    private WaterSample w2;
+    private WaterSample w3;
+
 
 
 
     @BeforeEach
     void setup() {
         bh = new BoreholeLog();
-        testBoreholeLog = new BoreholeLog();
-        testWaterLog = new WaterLog();
-        soilTestSample1 = new SoilSample("test1", "blue", "sand", false, bh);
-        soilTestSample2 = new SoilSample("test2", "grey", "silt", true, bh);
-//        waterTestSample1 = new WaterSample("101n", "groundwater", true,
-//                "123", "234", "345");
+        s1 = new SoilSample("s1", "blue", "sand", false, bh);
+        s2 = new SoilSample("s2", "grey", "silt", true, bh);
+        s3 = new SoilSample("s3", "brown", "gravel", true, bh);
+        bh.addSample(s1);
+        bh.addSample(s2);
+        bh.addSample(s3);
 
 
-        testBoreholeLog.addSample(soilTestSample1);
-        testBoreholeLog.addSample(soilTestSample2);
-
+        wl = new WaterLog();
 
     }
 
     @Test
-    void testSampleIDIsUnique() {
-
-        assertTrue(testBoreholeLog.isSoilSampleIDUnique("test3"));
-        assertTrue(testBoreholeLog.isSoilSampleIDUnique("test4"));
+    void testConstructor() {
+        Log boreholeLog = new BoreholeLog();
+        assertEquals(0, boreholeLog.logSize());
     }
 
     @Test
-    void testSampleIDIsNotUnique() {
-
-        assertFalse(testBoreholeLog.isSoilSampleIDUnique("test1"));
-        assertFalse(testBoreholeLog.isSoilSampleIDUnique("test2"));
+    void testGetSample() {
+        assertEquals(s1, bh.getSample(0));
+        assertEquals(s2, bh.getSample(1));
+        assertNotEquals(s1, bh.getSample(2));
     }
 
     @Test
-    void testRemoveSampleFromLog() {
-        testBoreholeLog.removeSampleFromBoreholeLog(testBoreholeLog, "test1");
-
-        assertEquals(1, testBoreholeLog.logSize());
-        assertTrue(testBoreholeLog.contains(soilTestSample2));
-        assertFalse(testBoreholeLog.contains(soilTestSample1));
+    void testRemoveSample(){
+        bh.removeSample(0);
+        assertEquals(2, bh.logSize());
+        assertFalse(bh.contains(s1));
     }
 
     @Test
-    void testSampleToRemoveFromLogDoesNotExist() {
-        testBoreholeLog.removeSampleFromBoreholeLog(testBoreholeLog, "test3");
-        assertEquals(2, testBoreholeLog.logSize());
-        assertTrue(testBoreholeLog.contains(soilTestSample1));
-        assertTrue(testBoreholeLog.contains(soilTestSample2));
+    void testGetType() {
+        assertEquals("borehole log", bh.getType());
+    }
+
+    @Test
+    void testIsSampleIDUnique(){
+       assertFalse(bh.isSampleIDUnique("s1"));
+       assertTrue(bh.isSampleIDUnique("s4"));
+    }
+
+    @Test
+    void testRemoveSampleFromLog(){
+        bh.removeSampleFromLog("s1");
+        assertEquals(2, bh.logSize());
+        assertFalse(bh.contains(s1));
+    }
+
+    @Test
+    void testRemoveSampleFromLogTwice(){
+        bh.removeSampleFromLog("s1");
+        bh.removeSampleFromLog("s1");
+        assertEquals(2, bh.logSize());
+        assertFalse(bh.contains(s1));
+    }
+
+    @Test
+    void testAddSoilSampleToLog(){
+        bh.addSoilSampleToLog("s4", "blue", "sand", false);
+        assertEquals(4, bh.logSize());
+        assertFalse(bh.isSampleIDUnique("s4"));
     }
 
 

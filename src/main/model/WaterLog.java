@@ -1,5 +1,6 @@
 package model;
 
+import ui.Printer;
 import ui.exceptions.SampleDoesNotExistException;
 
 import java.io.*;
@@ -9,13 +10,12 @@ import java.util.*;
 public class WaterLog extends Log {
 
     private HashMap<String, WaterSample> waterLog = new HashMap<>();
-    private String waterLogName;
     private String type = "water log";
+    private Printer printer = new Printer();
 
     //EFFECTS: creates empty water log
     public WaterLog() {
         HashMap waterLog = new HashMap();
-        //construct new hashMap
     }
 
 
@@ -24,6 +24,16 @@ public class WaterLog extends Log {
         waterLog.put(str, data);
         System.out.println("You successfully added water sample " + str);
     }
+
+    @Override
+    public boolean contains(Sample sample) {
+        return waterLog.containsKey(sample);
+    }
+
+//    @Override
+//    public boolean contains(Sample sample) {
+//        return contains(sample);
+//    }
 
 
     public void save(String fileSaveName) throws FileNotFoundException {
@@ -111,28 +121,31 @@ public class WaterLog extends Log {
 
     @Override
     //EFFECTS: converts waterlog to list of string
-    public boolean printLog() {
+    public void printLog() {
         System.out.println(waterLog);
 //
 //        for (int i = 0; i < myWaterSamples.size(); i++) {
 //            System.out.println("[" + myWaterSamples.get(i).toString() + "]");
 //        }
-        return true;
     }
 
 
     //EFFECTS: returns size of the water log
     @Override
-    public Integer logSize() {
+    public int logSize() {
         return waterLog.size();
     }
 
-
-    //EFFECTS: returns sample from water log at specified index
-    public WaterSample getData(String str) {
-//        return myWaterSamples.get(i);
-        return waterLog.get(str);
+    @Override
+    public Sample getSample(int i) {
+        return null;
     }
+
+    @Override
+    public void removeSample(int i) {
+
+    }
+
 
 
     //EFFECTS: removes sample from waterlog at specified index
@@ -155,30 +168,21 @@ public class WaterLog extends Log {
 
     @Override
     public boolean isSampleIDUnique(String deleteId) {
-        return false;
+        return (!waterLog.containsKey(deleteId));
     }
 
     @Override
-    public void removeSampleFromLog(BoreholeLog boreholeLog, String deleteId) {
-
+    public void removeSampleFromLog(String deleteId) {
+        waterLog.remove(deleteId);
+        printer.sampleHasBeenDeleted();
+//        System.out.println("You successfully removed a sample.");
+//        System.out.println("The remaining sample(s) is/are:");
+        printLog();
     }
 
     @Override
     public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
 
     }
-
-
-//    @Override
-//    public boolean contains(Sample sample) {
-////        return myWaterSamples.contains(sample);
-//        return contains(sample);
-//    }
-
-    //EFFECTS: returns true is water log contains sample, otherwise false
-    public boolean contains(String sampleID) {
-        return waterLog.containsKey(sampleID);
-    }
-
 
 }

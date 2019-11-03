@@ -11,27 +11,25 @@ public abstract class Log implements Saveable, Loadable {
         this.log = new ArrayList<>();
     }
 
-    public abstract Integer logSize();
+    public abstract int logSize();
 
-//    public abstract Sample getSample(int i);
+    public abstract Sample getSample(int i);
 
-//    public abstract void removeSample(int i);
+    public abstract void removeSample(int i);
 
-
-//    public abstract boolean contains(Sample sample);
-
-    public abstract boolean printLog();
+    public abstract void printLog();
 
     public abstract String getType();
 
-
     public abstract boolean isSampleIDUnique(String deleteId);
 
-    public abstract void removeSampleFromLog(BoreholeLog boreholeLog, String deleteId);
+    public abstract void removeSampleFromLog(String deleteId);
 
     public abstract void addSoilSampleToLog(String name, String colour, String type, boolean odour);
 
     public abstract void setHashMap(String addSampleID, WaterSample buildHashArray);
+
+    public abstract boolean contains(Sample sample);
 }
 
 

@@ -1,8 +1,6 @@
 package ui;
 
-import exceptions.InvalidSoilColourException;
 import exceptions.InvalidSoilTypeException;
-import exceptions.InvalidWaterTypeException;
 import model.*;
 import ui.exceptions.InvalidInputException;
 import ui.exceptions.InvalidSampleMediaException;
@@ -12,27 +10,21 @@ import ui.exceptions.SampleNameAlreadyUsedException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-class PrintMenu {
-
+class Menu {
 
     private Log log;
     private boolean runProgram = true;
+    private Printer printer = new Printer();
 
 
-    PrintMenu() {
-        welcomeStatement("4.0");
+    Menu() {
+        printer.welcomeStatement("4.0");
         while (runProgram) {
-            Log log;
             pickSampleType();
             System.out.println("Goodbye!");
         }
     }
 
-    //EFFECTS: prints welcome statement and indicates current version of the program
-    private void welcomeStatement(String version) {
-        System.out.println("Welcome to Sample Log Generator v." + version + "!");
-//        System.out.println("Type 'quit' to end at any time.");
-    }
 
     //MODIFIES: this
     //EFFECTS: sets sampleType to soil if user selects 1 or sets sampleType to water if user selects 2
@@ -56,51 +48,23 @@ class PrintMenu {
         runLogMenu();
     }
 
+    //EFFECTS: initiates application
     private void runLogMenu() {
-        printMainMenu(log.getType());
+        printer.printMainMenu(log.getType());
         try {
             handleUserInput();
-        } catch (InvalidInputException e) {
+        } catch (InvalidInputException | SampleNameAlreadyUsedException e) {
             System.out.println("Please enter a valid command");
         }
     }
 
-//    //EFFECTS: prints user options to begin application, or quit application
-//    private void initiateLog() {
-//        String type;
-//        if (this.sampleType.equals("soil")) {
-//            type = "borehole log";
-//        } else {
-//            type = "water log";
-//        }
-//        printMainMenu(type);
-//        try {
-//            handleUserInput();
-//        } catch (InvalidInputException e) {
-//            System.out.println("Please enter a valid command.");
-//            initiateLog();
-//        }
-//    }
 
-    private void printMainMenu(String type) {
-        System.out.println("What would you like to do?");
-        System.out.println("Press [1] to add a new sample to the " + type);
-        System.out.println("Press [2] to view the " + type);
-        System.out.println("Press [3] to delete an existing sample from the " + type);
-        System.out.println("Type 'save' to save your " + type);
-        System.out.println("Type 'load' to load a " + type + " from a text file.");
-        System.out.println("Type 'return' to return to the main menu.");
-        System.out.println("Type 'quit' to end the application.");
-    }
-
-
+    //TODO: work on waterlog delete, save, load capabilities
     //EFFECTS: provides application options based on user input
-    private void handleUserInput() throws InvalidInputException {
+    private void handleUserInput() throws InvalidInputException, SampleNameAlreadyUsedException {
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
-        if (str.equals("1")
-                || str.equals("2")
-                || str.equals("3")) {
+        if (isNumeric(str)) {
             addViewDeleteSample(str);
         } else if (str.equals("save")) {
             saveAnswer();
@@ -115,33 +79,29 @@ class PrintMenu {
         }
     }
 
-    private void addViewDeleteSample(String str) {
+    //EFFECTS: returns true if input string is 1, 2, or 3
+    private boolean isNumeric(String str) {
+        return (str.equals("1")
+                || str.equals("2")
+                || str.equals("3"));
+    }
+
+    //EFFECTS: initiates add, view, or delete sample menu based on user input
+    private void addViewDeleteSample(String str) throws SampleNameAlreadyUsedException {
         if (str.equals("2")) {
             viewExistingLog();
         } else if (str.equals("3")) {
-            tryDeleteSample();
+            deleteSampleFromLog();
         } else {
             addSampleToLog();
         }
     }
 
 
-//    private void checkSampleType() {
-//        if (this.sampleType.equals("soil")) {
-//            log = boreholeLog;
-//            sample = soilSample1;
-//        } else {
-//            log = waterLog;
-//            sample = waterSample1;
-//        }
-//    }
-
-
     private void saveAnswer() {
         System.out.println("Please enter a new file name.");
         Scanner saveName = new Scanner(System.in);
         String fileToSave = saveName.nextLine();
-//        checkSampleType();
         try {
             log.save(fileToSave);
         } catch (FileNotFoundException e) {
@@ -191,7 +151,6 @@ class PrintMenu {
         System.out.println("Please enter the name of the file you would like to load.");
         Scanner loadName = new Scanner(System.in);
         String fileToLoad = loadName.nextLine();
-//        checkSampleType();
         try {
             log.load(fileToLoad);
         } catch (FileNotFoundException e) {
@@ -200,20 +159,18 @@ class PrintMenu {
             System.out.println("...");
             runLogMenu();
         }
-
     }
 
 
-    //EFFECTS: prints list of samples currently logged
+    //EFFECTS: prints size of log and list of samples currently logged
     private void viewExistingLog() {
-//            checkSampleType();
         System.out.println("This log has " + log.logSize() + " samples.");
         log.printLog();
         runLogMenu();
     }
 
     //MODIFIES: this
-//EFFECTS: adds a new sample to the borehole log
+    //EFFECTS: adds a new sample to the borehole log
     private void addSampleToLog() {
         if (log.getType().equals("borehole log")) {
             addSoilSample();
@@ -222,6 +179,8 @@ class PrintMenu {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds a new soil sample to this
     private void addSoilSample() {
         log.addSoilSampleToLog(addSampleID(), addColour(), addSoilType(), hasOdour());
         runLogMenu();
@@ -229,8 +188,8 @@ class PrintMenu {
 
 
     //MODIFIES: this
-//EFFECTS: removes soil sample from borehole log based on sample id user inputted
-    private void tryDeleteSample() {
+    //EFFECTS: removes soil sample from borehole log based on sample id user inputted
+    private void deleteSampleFromLog() {
         System.out.println("Please enter the ID of the sample you would like to delete.");
         Scanner id = new Scanner(System.in);
         String deleteId = id.next();
@@ -239,10 +198,10 @@ class PrintMenu {
                 throw new SampleDoesNotExistException("Sorry, that sample does not exist.");
             } catch (SampleDoesNotExistException e) {
                 System.out.println(e.getMessage());
-                tryDeleteSample();
+                runLogMenu();
             }
         }
-//        log.removeSampleFromLog(log, deleteId);
+        log.removeSampleFromLog(deleteId);
         runLogMenu();
     }
 
@@ -265,9 +224,8 @@ class PrintMenu {
 //    }
 
     //MODIFIES: Sample
-//EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
+    //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
     private boolean hasOdour() {
-//        checkSampleType();
         System.out.println("Is the sample odourous?");
         Scanner input = new Scanner(System.in);
         String contaminated = input.nextLine();
@@ -284,7 +242,7 @@ class PrintMenu {
     }
 
     //MODIFIES: this, sample
-//EFFECTS: sets sample colour to grey, blue, or brown
+    //EFFECTS: sets sample colour to grey, blue, or brown
     private String addColour() {
         System.out.println("Is the sample grey, blue, or brown?");
         Scanner input = new Scanner(System.in);
@@ -295,6 +253,7 @@ class PrintMenu {
 //            System.out.println(e.getMessage());
 //            addColour();
 //        }
+
         return str;
     }
 
@@ -367,20 +326,29 @@ class PrintMenu {
     private String addSampleID() {
         System.out.println("Please enter a new sample id.");
         Scanner s = new Scanner(System.in);
-        return s.nextLine();
-    }
-//
-//    private void addWaterType() {
-//        System.out.println("Is the sample groundwater or surface water?");
-//        Scanner input = new Scanner(System.in);
-//        String str = input.nextLine();
-//        try {
-//            waterSample1.setWaterSampleType(waterSample1, str);
-//        } catch (InvalidWaterTypeException e) {
-//            System.out.println(e.getMessage());
-//            addWaterType();
+        String id = s.nextLine();
+//        if (!log.isSampleIDUnique(id)) {
+//            System.out.println("Sorry that id has already been used.");
+//            addSampleID();
 //        }
-//
-//    }
+        //TODO: ask TA, why when adding a sample with a duplicate name,
+        // after the return statement, addSample() is called again?
+        return id;
+    }
+
+
+    private boolean checkValidSoilType(String str) throws InvalidSoilTypeException {
+        if (str.equals("blue")
+                || str.equals("grey")
+                || str.equals("brown")) {
+            return true;
+        } else {
+            throw new InvalidSoilTypeException("Please enter a valid colour.");
+        }
+    }
 }
+
+
+
+
 

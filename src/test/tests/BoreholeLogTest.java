@@ -2,7 +2,6 @@ package tests;
 
 import model.BoreholeLog;
 import model.SoilSample;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,15 +10,13 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class BoreholeLogTest extends LogTest {
 
-    private List<SoilSample> testLog;
-    private List<SoilSample> otherTestLog;
 
     private BoreholeLog emptyTestLog;
     private BoreholeLog testLog3;
@@ -37,12 +34,7 @@ class BoreholeLogTest extends LogTest {
 
     @BeforeEach
     void setup() {
-        testLog = new ArrayList<>();
-        otherTestLog = new ArrayList<>();
 
-        otherTestLog.add(testSoilSample1);
-        otherTestLog.add(testSoilSample2);
-        otherTestLog.add(testSoilSample3);
 
         emptyTestLog = new BoreholeLog();
 
@@ -54,14 +46,9 @@ class BoreholeLogTest extends LogTest {
         testLog4.addSample(testSoilSample2);
         testLog4.addSample(testSoilSample1);
 
-        bh = new BoreholeLog();
+//        bh = new BoreholeLog();
     }
 
-    @Test
-    void testGetSize() {
-        assertEquals(0, testLog.size());
-        assertEquals(3, otherTestLog.size());
-    }
 
     @Test
     void testBHSave() throws IOException {
@@ -96,24 +83,24 @@ class BoreholeLogTest extends LogTest {
                 Files.readAllLines(Paths.get("data", "soil", "Load Add Save.txt")));
     }
 
-    @Test
-    void testAddSample() {
-        testLog.add(testSoilSample1);
-        Assertions.assertEquals("101 brown gravel false", testLog.get(0).toString());
-    }
+//    @Test
+//    void testAddSample() {
+//        testLog.add(testSoilSample1);
+//        Assertions.assertEquals("101 brown gravel false", testLog.get(0).toString());
+//    }
 
-    @Test
-    void testGetSample() {
-        assertEquals(testSoilSample2, testLog4.getSample(0));
-    }
+//    @Test
+//    void testGetSample() {
+//        assertEquals(testSoilSample2, testLog4.getSample(0));
+//    }
 
-    @Test
-    void testRemoveSample() {
-        testLog4.removeSample(0);
-        assertEquals(1, testLog4.logSize());
-        assertFalse(testLog4.contains(testSoilSample2));
-        assertTrue(testLog4.contains(testSoilSample1));
-    }
+//    @Test
+//    void testRemoveSample() {
+//        testLog4.removeSample(0);
+//        assertEquals(1, testLog4.logSize());
+//        assertFalse(testLog4.contains(testSoilSample2));
+//        assertTrue(testLog4.contains(testSoilSample1));
+//    }
 
 
     @Test
@@ -126,20 +113,20 @@ class BoreholeLogTest extends LogTest {
         testArray.add(testSoilSample2);
         assertEquals(testArray, testLog4.returnContaminatedSamples());
     }
+//
+//    @Test
+//    void testPrintLog() {
+//        assertTrue(testLog4.printLog());
+//    }
 
-    @Test
-    void testPrintLog() {
-        assertTrue(testLog4.printLog());
-    }
-
-    @Test
-    void testCheckUnique() {
-        assertFalse(testLog3.isSoilSampleIDUnique("103"));
-        assertFalse(testLog3.isSoilSampleIDUnique("101"));
-        assertTrue(testLog3.isSoilSampleIDUnique("102"));
-
-
-    }
+//    @Test
+//    void testCheckUnique() {
+//        assertFalse(testLog3.isSoilSampleIDUnique("103"));
+//        assertFalse(testLog3.isSoilSampleIDUnique("101"));
+//        assertTrue(testLog3.isSoilSampleIDUnique("102"));
+//
+//
+//    }
 
     @Test
     void testIncompatibleFileSaveName() {
