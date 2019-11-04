@@ -5,16 +5,17 @@ import java.util.Date;
 
 public class Project {
 
-//    private SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+    //    private SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
     private int projectNumber;
     private String projectManager;
     private String companyName = "210 Consulting";
     private String siteAddress;
 
 
-    public Project(){
+    public Project() {
 
     }
+
     public Project(int projectNumber, String projectManager, String siteAddress) {
 //        this.date = date;
         this.projectNumber = projectNumber;
