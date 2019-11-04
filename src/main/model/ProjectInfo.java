@@ -3,7 +3,7 @@ package model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Project {
+public class ProjectInfo {
 
     //    private SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
     private int projectNumber;
@@ -12,11 +12,11 @@ public class Project {
     private String siteAddress;
 
 
-    public Project() {
+    public ProjectInfo() {
 
     }
 
-    public Project(int projectNumber, String projectManager, String siteAddress) {
+    public ProjectInfo(int projectNumber, String projectManager, String siteAddress) {
 //        this.date = date;
         this.projectNumber = projectNumber;
         this.projectManager = projectManager;

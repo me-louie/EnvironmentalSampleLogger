@@ -1,13 +1,13 @@
 package ui;
 
-import model.Project;
+import model.ProjectInfo;
 
 import java.util.Scanner;
 
-class ProjectInfo {
-    private Project projectInfo = new Project();
+class ProjectInfoBuilder {
+    private ProjectInfo projectInfo = new ProjectInfo();
 
-    ProjectInfo() {
+    ProjectInfoBuilder() {
 
     }
 

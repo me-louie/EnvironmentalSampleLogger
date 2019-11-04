@@ -15,15 +15,15 @@ class Menu {
     private Log log;
     private boolean runProgram = true;
     private Printer printer = new Printer();
-    private ProjectInfo projectData = new ProjectInfo();
+    private ProjectInfoBuilder projectData = new ProjectInfoBuilder();
 
     Menu() {
-        printer.welcomeStatement("4.0");
-
         projectData.createProject();
 
+        printer.welcomeStatement("4.0");
+
         while (runProgram) {
-            pickSampleType();
+            pickSampleTypeMenu();
             System.out.println("Goodbye!");
         }
     }
@@ -31,7 +31,7 @@ class Menu {
 
     //MODIFIES: this
     //EFFECTS: sets sampleType to soil if user selects 1 or sets sampleType to water if user selects 2
-    private void pickSampleType() {
+    private void pickSampleTypeMenu() {
         System.out.println("Which sample type would you like to access?");
         System.out.println("[1] Soil [2] Water");
         Scanner input = new Scanner(System.in);
@@ -45,7 +45,7 @@ class Menu {
                 throw new InvalidSampleMediaException("Please pick a valid type.");
             } catch (InvalidSampleMediaException e) {
                 System.out.println(e.getMessage());
-                pickSampleType();
+                pickSampleTypeMenu();
             }
         }
         runLogMenu();
@@ -55,7 +55,7 @@ class Menu {
     private void runLogMenu() {
         printer.printMainMenu(log.getType());
         try {
-            handleUserInput();
+            handleUserInputMenu();
         } catch (InvalidInputException | SampleNameAlreadyUsedException e) {
             System.out.println("Please enter a valid command");
         }
@@ -64,7 +64,7 @@ class Menu {
 
     //TODO: work on waterlog load capabilities
     //EFFECTS: provides application options based on user input
-    private void handleUserInput() throws InvalidInputException, SampleNameAlreadyUsedException {
+    private void handleUserInputMenu() throws InvalidInputException, SampleNameAlreadyUsedException {
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
         if (isNumeric(str)) {
@@ -74,7 +74,7 @@ class Menu {
         } else if (str.equals("load")) {
             loadAnswer();
         } else if (str.equals("return")) {
-            pickSampleType();
+            pickSampleTypeMenu();
         } else if (str.equals("quit")) {
             runProgram = false;
         } else {
@@ -90,7 +90,7 @@ class Menu {
     }
 
     //EFFECTS: initiates add, view, or delete sample menu based on user input
-    private void addViewDeleteSample(String str) throws SampleNameAlreadyUsedException {
+    private void addViewDeleteSample(String str) {
         if (str.equals("2")) {
             viewExistingLog();
         } else if (str.equals("3")) {
@@ -185,7 +185,9 @@ class Menu {
     //MODIFIES: this
     //EFFECTS: adds a new soil sample to this
     private void addSoilSample() {
-        log.addSoilSampleToLog(addSampleID(), addColour(), addSoilType(), hasOdour());
+        SoilSampleBuilder ssb = new SoilSampleBuilder();
+        log.addSoilSampleToLog(ssb.addSampleID(), ssb.addColour(),
+                ssb.addSoilType(), ssb.hasOdour());
         runLogMenu();
     }
 
@@ -226,55 +228,57 @@ class Menu {
 //        }
 //    }
 
-    //MODIFIES: Sample
-    //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
-    private boolean hasOdour() {
-        System.out.println("Is the sample odourous?");
-        Scanner input = new Scanner(System.in);
-        String contaminated = input.nextLine();
-        boolean hasOdour = false;
-        if (contaminated.equals("yes")) {
-            hasOdour = true;
-        }
-//        try {
-//            sample.setIsSampleOdourous(sample, contaminated);
-//        } catch (YesOrNoInputException e) {
-//            System.out.println(e.getMessage());
-//            hasOdour();
-        return hasOdour;
-    }
-
-    //MODIFIES: this, sample
-    //EFFECTS: sets sample colour to grey, blue, or brown
-    private String addColour() {
-        System.out.println("Is the sample grey, blue, or brown?");
-        Scanner input = new Scanner(System.in);
-        String str = input.nextLine();
-//        try {
-//            soilSample1.setSoilColour(soilSample1, str);
-//        } catch (InvalidSoilColourException e) {
-//            System.out.println(e.getMessage());
-//            addColour();
+//    //TODO: delete if samplebuilder works
+//    //MODIFIES: Sample
+//    //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
+//    private boolean hasOdour() {
+//        System.out.println("Is the sample odourous?");
+//        Scanner input = new Scanner(System.in);
+//        String contaminated = input.nextLine();
+//        boolean hasOdour = false;
+//        if (contaminated.equals("yes")) {
+//            hasOdour = true;
 //        }
-
-        return str;
-    }
-
-
-    //MODIFIES: this, Sample
-//EFFECTS: sets sample type to silt, sand, or gravel
-    private String addSoilType() {
-        System.out.println("Is the sample silt, sand, or gravel?");
-        Scanner input = new Scanner(System.in);
-        String str = input.nextLine();
-//        try {
-//            soilSample1.setSoilType(soilSample1, str);
-//        } catch (InvalidSoilTypeException e) {
-//            System.out.println(e.getMessage());
-//            addSoilType();
-//        }
-        return str;
-    }
+////        try {
+////            sample.setIsSampleOdourous(sample, contaminated);
+////        } catch (YesOrNoInputException e) {
+////            System.out.println(e.getMessage());
+////            hasOdour();
+//        return hasOdour;
+//    }
+//
+//    //TODO: delete if samplebuilder works
+//    //MODIFIES: this, sample
+//    //EFFECTS: sets sample colour to grey, blue, or brown
+//    private String addColour() {
+//        System.out.println("Is the sample grey, blue, or brown?");
+//        Scanner input = new Scanner(System.in);
+//        String str = input.nextLine();
+////        try {
+////            soilSample1.setSoilColour(soilSample1, str);
+////        } catch (InvalidSoilColourException e) {
+////            System.out.println(e.getMessage());
+////            addColour();
+////        }
+//
+//        return str;
+//    }
+//
+//    //TODO: delete if samplebuilder works
+//    //MODIFIES: this, Sample
+////EFFECTS: sets sample type to silt, sand, or gravel
+//    private String addSoilType() {
+//        System.out.println("Is the sample silt, sand, or gravel?");
+//        Scanner input = new Scanner(System.in);
+//        String str = input.nextLine();
+////        try {
+////            soilSample1.setSoilType(soilSample1, str);
+////        } catch (InvalidSoilTypeException e) {
+////            System.out.println(e.getMessage());
+////            addSoilType();
+////        }
+//        return str;
+//    }
 
 //    //MODIFIES: this
 ////EFFECTS: removes water sample from water log based on sample id user inputted
@@ -292,52 +296,57 @@ class Menu {
 //    }
 
     private void addWaterSample() {
-        log.setHashMap(addSampleID(), buildHashArray());
+        WaterSampleBuilder wsb = new WaterSampleBuilder();
+        log.setHashMap(wsb.addSampleID(), wsb.buildHashArray());
         runLogMenu();
     }
 
-    private WaterSample buildHashArray() {
-        WaterSample waterSample = new WaterSample();
-        waterSample.setTemperature(addWaterTemperature());
-        waterSample.setTurbidity(addWaterTurbidity());
-        waterSample.setConductivity(addWaterConductivity());
-        return waterSample;
-    }
-
-    private Integer addWaterTemperature() {
-        System.out.println("Please enter the sample temperature.");
-        Scanner s = new Scanner(System.in);
-        String sampleData = s.nextLine();
-        return Integer.parseInt(sampleData);
-    }
-
-    private Integer addWaterTurbidity() {
-        System.out.println("Please enter the sample turbidity.");
-        Scanner s = new Scanner(System.in);
-        String sampleData = s.nextLine();
-        return Integer.parseInt(sampleData);
-    }
-
-    private Integer addWaterConductivity() {
-        System.out.println("Please enter the sample conductivity.");
-        Scanner s = new Scanner(System.in);
-        String sampleData = s.nextLine();
-        return Integer.parseInt(sampleData);
-    }
-
-
-    private String addSampleID() {
-        System.out.println("Please enter a new sample id.");
-        Scanner s = new Scanner(System.in);
-        String id = s.nextLine();
-//        if (!log.isSampleIDUnique(id)) {
-//            System.out.println("Sorry that id has already been used.");
-//            addSampleID();
-//        }
-        //TODO: ask TA, why when adding a sample with a duplicate name,
-        // after the return statement, addSample() is called again?
-        return id;
-    }
+//    //TODO: delete if samplebuilder works
+//    private WaterSample buildHashArray() {
+//        WaterSample waterSample = new WaterSample();
+//        waterSample.setTemperature(addWaterTemperature());
+//        waterSample.setTurbidity(addWaterTurbidity());
+//        waterSample.setConductivity(addWaterConductivity());
+//        return waterSample;
+//    }
+//
+//    //TODO: delete if samplebuilder works
+//    private Integer addWaterTemperature() {
+//        System.out.println("Please enter the sample temperature.");
+//        Scanner s = new Scanner(System.in);
+//        String sampleData = s.nextLine();
+//        return Integer.parseInt(sampleData);
+//    }
+//
+//    //TODO: delete if samplebuilder works
+//    private Integer addWaterTurbidity() {
+//        System.out.println("Please enter the sample turbidity.");
+//        Scanner s = new Scanner(System.in);
+//        String sampleData = s.nextLine();
+//        return Integer.parseInt(sampleData);
+//    }
+//
+//    //TODO: delete if samplebuilder works
+//    private Integer addWaterConductivity() {
+//        System.out.println("Please enter the sample conductivity.");
+//        Scanner s = new Scanner(System.in);
+//        String sampleData = s.nextLine();
+//        return Integer.parseInt(sampleData);
+//    }
+//
+////TODO: delete if samplebuilder works
+//    private String addSampleID() {
+//        System.out.println("Please enter a new sample id.");
+//        Scanner s = new Scanner(System.in);
+//        String id = s.nextLine();
+////        if (!log.isSampleIDUnique(id)) {
+////            System.out.println("Sorry that id has already been used.");
+////            addSampleID();
+////        }
+//        //TODO: ask TA, why when adding a sample with a duplicate name,
+//        // after the return statement, addSample() is called again?
+//        return id;
+//    }
 
 
     private boolean checkValidSoilType(String str) throws InvalidSoilTypeException {

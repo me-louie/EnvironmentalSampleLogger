@@ -26,22 +26,26 @@ public class Printer {
         System.out.println("Type 'quit' to end the application.");
     }
 
-    public void sampleHasBeenDeleted(String deleteID, int logSize) {
+    public void printSampleHasBeenDeleted(String deleteID, int logSize) {
         System.out.println("You successfully removed sample " + deleteID + ".");
         System.out.println("There are " + logSize + " samples remaining:");
 
     }
 
-    public void sampleHasBeenAdded(String sampleID) {
+    public void printSampleHasBeenAdded(String sampleID) {
         System.out.println("You successfully added sample " + sampleID + ".");
     }
 
-    public void logHasBeenSaved(File fileName) {
+    public void printLogHasBeenSaved(File fileName) {
         System.out.println("File " + fileName + " was saved.");
 
     }
 
-    public void logHasBeenLoaded(File fileName) {
+    public void printLogHasBeenLoaded(File fileName) {
+        System.out.println("File " + fileName + " has been loaded.");
+    }
+
+    public void printLogSize(){
 
     }
 }

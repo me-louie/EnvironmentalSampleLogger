@@ -4,7 +4,6 @@ package model;
 import ui.Printer;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,6 @@ public class BoreholeLog extends Log {
             soilSamples.add(soilSample);
             soilSample.setBoreholeLog(this);
         }
-
     }
 
 
@@ -56,7 +54,7 @@ public class BoreholeLog extends Log {
             pw.println(soilSample.isOdourous());
         }
         pw.close();
-        printer.logHasBeenSaved(fileName);
+        printer.printLogHasBeenSaved(fileName);
     }
 
 
@@ -79,7 +77,7 @@ public class BoreholeLog extends Log {
             soilSample1.setOdour((in.nextLine().equals("true")));
             boreholeLog.add(soilSample1);
         }
-        printer.logHasBeenLoaded(file);
+        printer.printLogHasBeenLoaded(file);
     }
 
     //EFFECTS: return soil type
@@ -114,7 +112,7 @@ public class BoreholeLog extends Log {
                 break;
             }
         }
-        printer.sampleHasBeenDeleted(deleteId, logSize());
+        printer.printSampleHasBeenDeleted(deleteId, logSize());
         printLog();
     }
 
@@ -123,7 +121,7 @@ public class BoreholeLog extends Log {
     public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
         SoilSample soilSample = new SoilSample(name, colour, type, odour, new BoreholeLog());
         addSample(soilSample);
-        printer.sampleHasBeenAdded(name);
+        printer.printSampleHasBeenAdded(name);
     }
 
 
