@@ -15,10 +15,13 @@ class Menu {
     private Log log;
     private boolean runProgram = true;
     private Printer printer = new Printer();
-
+    private ProjectInfo projectData = new ProjectInfo();
 
     Menu() {
         printer.welcomeStatement("4.0");
+
+        projectData.createProject();
+
         while (runProgram) {
             pickSampleType();
             System.out.println("Goodbye!");
@@ -59,7 +62,7 @@ class Menu {
     }
 
 
-    //TODO: work on waterlog delete, save, load capabilities
+    //TODO: work on waterlog load capabilities
     //EFFECTS: provides application options based on user input
     private void handleUserInput() throws InvalidInputException, SampleNameAlreadyUsedException {
         Scanner input = new Scanner(System.in);

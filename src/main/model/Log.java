@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Log implements Saveable, Loadable {
-    private List<Sample> log;
-
-    Log() {
-        this.log = new ArrayList<>();
-    }
+//    private List<Sample> log;
+//
+//    Log() {
+//        this.log = new ArrayList<>();
+//    }
 
     public abstract int logSize();
 

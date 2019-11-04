@@ -22,7 +22,7 @@ public class WaterLog extends Log {
     //EFFECTS: adds new entry to waterlog based on user input
     public void setHashMap(String str, WaterSample data) {
         waterLog.put(str, data);
-        System.out.println("You successfully added water sample " + str);
+        printer.sampleHasBeenAdded(str);
     }
 
     //EFFECTS: returns true if water log contains sample
@@ -43,7 +43,7 @@ public class WaterLog extends Log {
         }
         pw.flush();
         pw.close();
-        System.out.println("File " + fileName + " was saved.");
+        printer.logHasBeenSaved(fileName);
     }
 
     public void load(String fileLoadName){
@@ -146,8 +146,7 @@ public class WaterLog extends Log {
             throw new SampleDoesNotExistException("Sorry, that sample does not exist.");
         } else {
             waterLog.remove(sampleID);
-            System.out.println("You sucessfully removed " + sampleID);
-            System.out.println("There are " + waterLog.size() + " samples remaining.");
+            printer.sampleHasBeenDeleted(sampleID, logSize());
             System.out.println(waterLog);
         }
     }
@@ -168,7 +167,7 @@ public class WaterLog extends Log {
     //EFFECTS: removes specified sample from waterlog
     public void removeSampleFromLog(String deleteId) {
         waterLog.remove(deleteId);
-        printer.sampleHasBeenDeleted();
+        printer.sampleHasBeenDeleted(deleteId, logSize());
         printLog();
     }
 

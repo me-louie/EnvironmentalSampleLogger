@@ -1,11 +1,12 @@
 package ui;
 
 
+import java.io.File;
 
 public class Printer {
     //TODO: why do things break if PrintStatements extend PrintMenu?
 
-    public Printer(){
+    public Printer() {
     }
 
     //EFFECTS: prints welcome statement and indicates current version of the program
@@ -25,9 +26,22 @@ public class Printer {
         System.out.println("Type 'quit' to end the application.");
     }
 
-    public void sampleHasBeenDeleted() {
-        System.out.println("You successfully removed a sample.");
-        System.out.println("The remaining sample(s) is/are:");
+    public void sampleHasBeenDeleted(String deleteID, int logSize) {
+        System.out.println("You successfully removed sample " + deleteID + ".");
+        System.out.println("There are " + logSize + " samples remaining:");
+
+    }
+
+    public void sampleHasBeenAdded(String sampleID) {
+        System.out.println("You successfully added sample " + sampleID + ".");
+    }
+
+    public void logHasBeenSaved(File fileName) {
+        System.out.println("File " + fileName + " was saved.");
+
+    }
+
+    public void logHasBeenLoaded(File fileName) {
 
     }
 }
