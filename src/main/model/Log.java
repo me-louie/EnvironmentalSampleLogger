@@ -1,9 +1,6 @@
 package model;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Log implements Saveable, Loadable {
 //    private List<Sample> log;
 //

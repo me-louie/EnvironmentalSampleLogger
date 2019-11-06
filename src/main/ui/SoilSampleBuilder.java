@@ -1,6 +1,8 @@
 package ui;
 
 
+import exceptions.InvalidSoilTypeException;
+
 import java.util.Scanner;
 
 class SoilSampleBuilder extends SampleBuilder {
@@ -28,19 +30,38 @@ class SoilSampleBuilder extends SampleBuilder {
 
     //MODIFIES: this, Sample
 //EFFECTS: sets sample type to silt, sand, or gravel
+    //TODO: ask TA why after the return line, the method is called again
     String addSoilType() {
         System.out.println("Is the sample silt, sand, or gravel?");
+        String type = "didntwork";
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
-//        try {
-//            soilSample1.setSoilType(soilSample1, str);
-//        } catch (InvalidSoilTypeException e) {
-//            System.out.println(e.getMessage());
-//            addSoilType();
-//        }
-        return str;
+        if (checkValidSoilType(str)) {
+            type = str;
+        } else {
+            try {
+                throw new InvalidSoilTypeException("Please enter a valid type.");
+            } catch (InvalidSoilTypeException e) {
+                System.out.println(e.getMessage());
+                addSoilType();
+            }
+        }
+        return type;
     }
 
+    private boolean checkValidSoilType(String str) {
+        return (str.equals("sand")
+                || str.equals("silt")
+                || str.equals("gravel"));
+    }
+
+    private boolean checkValidSoilColour(String str) {
+        return (str.equals("blue")
+                || str.equals("grey")
+                || str.equals("brown"));
+//        } else {
+//            throw new InvalidSoilTypeException("Please enter a valid colour.");
+    }
 
 
     //MODIFIES: Sample
