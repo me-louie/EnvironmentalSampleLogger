@@ -1,5 +1,6 @@
 package model;
 
+import internet.Map;
 import ui.Printer;
 import ui.exceptions.SampleDoesNotExistException;
 

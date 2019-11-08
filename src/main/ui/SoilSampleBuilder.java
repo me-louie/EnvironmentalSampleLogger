@@ -3,6 +3,7 @@ package ui;
 
 import exceptions.InvalidSoilTypeException;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 class SoilSampleBuilder extends SampleBuilder {
@@ -29,24 +30,22 @@ class SoilSampleBuilder extends SampleBuilder {
 
 
     //MODIFIES: this, Sample
-//EFFECTS: sets sample type to silt, sand, or gravel
-    //TODO: ask TA why after the return line, the method is called again
+    //EFFECTS: sets sample type to silt, sand, or gravel
     String addSoilType() {
-        System.out.println("Is the sample silt, sand, or gravel?");
-        String type = "didntwork";
-        Scanner input = new Scanner(System.in);
-        String str = input.nextLine();
-        if (checkValidSoilType(str)) {
-            type = str;
-        } else {
-            try {
-                throw new InvalidSoilTypeException("Please enter a valid type.");
-            } catch (InvalidSoilTypeException e) {
-                System.out.println(e.getMessage());
-                addSoilType();
+        String str = "didntwork";
+
+        //surround in while.. while not valid, keep going
+        while (!checkValidSoilType(str)) {
+            System.out.println("Is the sample silt, sand, or gravel?");
+            Scanner input = new Scanner(System.in);
+            String type = input.nextLine();
+            if (checkValidSoilType(type)) {
+                return type;
+            } else {
+                System.out.println("Please enter a valid type");
             }
         }
-        return type;
+        return str;
     }
 
     private boolean checkValidSoilType(String str) {
