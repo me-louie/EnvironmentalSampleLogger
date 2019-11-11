@@ -14,14 +14,20 @@ public class Printer {
         System.out.println("Welcome to Sample Log Generator v." + version + "!");
     }
 
+    void printMainMenu() {
+        System.out.println("Press [1] to view consultant information");
+        System.out.println("Press [2] to access sample logger");
+    }
+
     //EFFECTS: prints main user menu for specified log type
-    void printMainMenu(String type) {
+    void printSampleMenu(String type) {
         System.out.println("What would you like to do?");
         System.out.println("Press [1] to add a new sample to the " + type);
         System.out.println("Press [2] to view the " + type);
         System.out.println("Press [3] to delete an existing sample from the " + type);
         System.out.println("Type 'save' to save your " + type);
         System.out.println("Type 'load' to load a " + type + " from a text file.");
+        System.out.println("Type 'info' to view project information.");
         System.out.println("Type 'return' to return to the main menu.");
         System.out.println("Type 'quit' to end the application.");
     }
@@ -45,7 +51,7 @@ public class Printer {
         System.out.println("File " + fileName + " has been loaded.");
     }
 
-    public void printLogSize(){
+    public void printLogSize() {
 
     }
 }

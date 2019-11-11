@@ -32,5 +32,6 @@ public class ProjectManager extends Employee {
         for (Employee employee : staff) {
             employee.print(indent + 1);
         }
+        System.out.println();
     }
 }

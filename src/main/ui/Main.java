@@ -3,9 +3,6 @@ package ui;
 
 
 import internet.SiteMap;
-import model.consultants.Employee;
-import model.consultants.FieldTechnician;
-import model.consultants.ProjectManager;
 import org.json.JSONException;
 
 public class Main {
@@ -13,30 +10,10 @@ public class Main {
     public static void main(String[] args) throws JSONException {
         SiteMap map = new SiteMap();
 
-
         map.parseCoordinates(map.createJson(map.getJsonResponse()));
 
+        Menu menu = new Menu();
 
-//        map.createJSON(map.getJSONresponse());
-//
-//
-//        Menu menu = new Menu();
-
-        ProjectManager pm1 = new ProjectManager("Alex");
-        ProjectManager pm2 = new ProjectManager("Bob");
-        ProjectManager pm3 = new ProjectManager("Carrie");
-        FieldTechnician ft1 = new FieldTechnician("Dan");
-        FieldTechnician ft2 = new FieldTechnician("Eva");
-        FieldTechnician ft3 = new FieldTechnician("Frank");
-
-        pm1.addStaff(pm2);
-        pm1.addStaff(pm3);
-        pm2.addStaff(ft1);
-        pm3.addStaff(ft2);
-        pm3.addStaff(ft3);
-
-        Employee e = pm1;
-        pm1.print(0);
 
 
     }

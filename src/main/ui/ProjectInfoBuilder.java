@@ -13,7 +13,7 @@ class ProjectInfoBuilder {
 
     void createProject() {
         projectInfo.setProjectNumber(createProjectNumber());
-        projectInfo.setProjectManager(createProjectManager());
+//        projectInfo.setProjectManager(createProjectManager());
         projectInfo.setSiteAddress(createSiteAddress());
     }
 

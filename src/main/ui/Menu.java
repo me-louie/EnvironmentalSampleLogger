@@ -1,7 +1,10 @@
 package ui;
 
-import exceptions.InvalidSoilTypeException;
 import model.*;
+import model.consultants.Employee;
+import model.consultants.FieldTechnician;
+import model.consultants.ProjectManager;
+import model.consultants.StaffBuilder;
 import ui.exceptions.InvalidInputException;
 import ui.exceptions.InvalidSampleMediaException;
 import ui.exceptions.SampleDoesNotExistException;
@@ -15,16 +18,19 @@ class Menu {
     private Log log;
     private boolean runProgram = true;
     private Printer printer = new Printer();
+    private StaffBuilder staffBuilder = new StaffBuilder();
 
     Menu() {
-//        ProjectInfoBuilder projectData = new ProjectInfoBuilder();
-//        projectData.createProject();
+        ProjectInfoBuilder projectData = new ProjectInfoBuilder();
+        projectData.createProject();
 
         printer.welcomeStatement("4.0");
+
 
         while (runProgram) {
             pickSampleTypeMenu();
             System.out.println("Goodbye!");
+
         }
     }
 
@@ -53,10 +59,10 @@ class Menu {
 
     //EFFECTS: initiates application
     private void runLogMenu() {
-        printer.printMainMenu(log.getType());
+        printer.printSampleMenu(log.getType());
         try {
             handleUserInputMenu();
-        } catch (InvalidInputException | SampleNameAlreadyUsedException e) {
+        } catch (InvalidInputException e) {
             System.out.println("Please enter a valid command");
         }
     }
@@ -64,7 +70,7 @@ class Menu {
 
     //TODO: work on waterlog load capabilities
     //EFFECTS: provides application options based on user input
-    private void handleUserInputMenu() throws InvalidInputException, SampleNameAlreadyUsedException {
+    private void handleUserInputMenu() throws InvalidInputException {
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
         if (isNumeric(str)) {
@@ -73,6 +79,8 @@ class Menu {
             saveAnswer();
         } else if (str.equals("load")) {
             loadAnswer();
+        } else if (str.equals("info")) {
+            viewProjectInfo();
         } else if (str.equals("return")) {
             pickSampleTypeMenu();
         } else if (str.equals("quit")) {
@@ -80,6 +88,11 @@ class Menu {
         } else {
             throw new InvalidInputException();
         }
+    }
+
+    private void viewProjectInfo() {
+        staffBuilder.getBoss().print(0);
+        runLogMenu();
     }
 
     //EFFECTS: returns true if input string is 1, 2, or 3
@@ -227,7 +240,6 @@ class Menu {
 //            }
 //        }
 //    }
-
 
 
 //    //MODIFIES: this
