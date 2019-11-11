@@ -5,21 +5,48 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
 
 // construct http client
 // make http request (GET request) with client
 // run synchronous request API
 
-public class Map {
+public class SiteMap {
     private HttpURLConnection connection = null;
     private JSONObject jsonObject = null;
+    private StringBuilder response = null;
 
-    public Map() {
+    private String token = "access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMWNsaTYwMDZwM2NtenJkMTRibTczIn0.ZJMCmrHKmy7K_ONrKamwqA";
+    private String mapboxAPI = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+    private String query = "ubc";
+    private String bbox = "bbox=-123.28965644634036,49.181803990270794,-122.97949367449506,49.322155168068576";
+    private static String searchURL = "";
 
+
+    public SiteMap() {
+//        enterAddress();
+//        buildURL();
+
+    }
+
+//    private void enterAddress() {
+//        System.out.println("Please enter an address.");
+//        Scanner input = new Scanner(System.in);
+//        this.query = input.nextLine();
+//    }
+
+    //original url "https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMWNsaTYwMDZwM2NtenJkMTRibTczIn0.ZJMCmrHKmy7K_ONrKamwqA"
+
+    //url with bbox "https://api.mapbox.com/geocoding/v5/mapbox.places/starbucks.json?bbox=-77.083056,38.908611,-76.997778,38.959167&access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMTlmNHUwMDV0M3BtemRmeTFveGRiIn0.PnKZ_-j1wONn43DnbtzShw"
+
+    private String buildURL() {
+        searchURL = this.mapboxAPI + this.query + ".json?" + this.bbox + this.token;
+        return searchURL;
     }
 
 
@@ -28,29 +55,17 @@ public class Map {
         try {
             //Create connection
 
-            URL url = new URL("https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMWNsaTYwMDZwM2NtenJkMTRibTczIn0.ZJMCmrHKmy7K_ONrKamwqA");
+            URL url = new URL("https://api.mapbox.com/geocoding/v5/mapbox.places/ubc.json?bbox=-123.28965644634036,49.181803990270794,-122.97949367449506,49.322155168068576&access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMTlmNHUwMDV0M3BtemRmeTFveGRiIn0.PnKZ_-j1wONn43DnbtzShw");
+//            URL url = new URL(buildURL());
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-//            connection.setRequestProperty("Content-Type",
-//                    "application/x-www-form-urlencoded");
-//
-//            connection.setRequestProperty("Content-Length",
-//                    Integer.toString(urlParameters.getBytes().length));
-//            connection.setRequestProperty("Content-Language", "en-US");
-//
-//            connection.setUseCaches(false);
-//            connection.setDoOutput(true);
-
-//            //Send request
-//            DataOutputStream wr = new DataOutputStream(
-//                    connection.getOutputStream());
-//            wr.writeBytes(urlParameters);
-//            wr.close();
+//            createConnection();
 
             //Get Response
+//            getResponse();
             InputStream is = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+            response = new StringBuilder();
             String line;
             while ((line = rd.readLine()) != null) {
                 response.append(line);
@@ -93,6 +108,7 @@ public class Map {
 
         JSONArray coordinates;
         coordinates = geometry.getJSONArray("coordinates");
+        System.out.println(coordinates.toString());
 
         return coordinates.toString();
     }

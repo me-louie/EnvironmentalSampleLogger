@@ -1,10 +1,9 @@
 package model;
 
-import static javax.xml.transform.OutputKeys.INDENT;
 
 public abstract class Employee {
     protected String name;
-//    protected String INDENT = "     ";
+    protected String indent = "     ";
 
     public Employee(String name) {
         this.name = name;
@@ -14,12 +13,19 @@ public abstract class Employee {
         print(0);
     }
 
-    public void print(int indent) {
-//        printIndent();
+    public abstract void print(int i);
 
+    public void printIndent(int indent) {
+        String indentation = "     ";
+        for (int i = 0; i < indent; i++) {
+            indentation = indentation + ">>>>";
+        }
+        System.out.println(indentation);
     }
 
-    public void printIndent(String indent) {
-        System.out.println(INDENT);
+    public void createLineBreak() {
+        System.out.println(">>>");
     }
+
+
 }

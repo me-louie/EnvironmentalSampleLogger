@@ -18,6 +18,7 @@ class WaterSampleBuilder extends SampleBuilder {
         return waterSample;
     }
 
+
     private Integer addWaterTemperature() {
         System.out.println("Please enter the sample temperature.");
         Scanner s = new Scanner(System.in);

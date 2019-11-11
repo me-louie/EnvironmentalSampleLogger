@@ -18,6 +18,10 @@ public class ProjectManager extends Employee {
     }
 
     public void print(int indent) {
+        printIndent(indent);
         System.out.println("Project Manager: " + name);
+        for (Employee employee : staff) {
+            employee.print(indent + 1);
+        }
     }
 }

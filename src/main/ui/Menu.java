@@ -17,8 +17,8 @@ class Menu {
     private Printer printer = new Printer();
 
     Menu() {
-        ProjectInfoBuilder projectData = new ProjectInfoBuilder();
-        projectData.createProject();
+//        ProjectInfoBuilder projectData = new ProjectInfoBuilder();
+//        projectData.createProject();
 
         printer.welcomeStatement("4.0");
 

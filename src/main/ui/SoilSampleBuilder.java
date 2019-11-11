@@ -1,9 +1,6 @@
 package ui;
 
 
-import exceptions.InvalidSoilTypeException;
-
-import javax.swing.*;
 import java.util.Scanner;
 
 class SoilSampleBuilder extends SampleBuilder {
@@ -15,16 +12,17 @@ class SoilSampleBuilder extends SampleBuilder {
     //MODIFIES: this, sample
     //EFFECTS: sets sample colour to grey, blue, or brown
     String addColour() {
-        System.out.println("Is the sample grey, blue, or brown?");
-        Scanner input = new Scanner(System.in);
-        String str = input.nextLine();
-//        try {
-//            soilSample1.setSoilColour(soilSample1, str);
-//        } catch (InvalidSoilColourException e) {
-//            System.out.println(e.getMessage());
-//            addColour();
-//        }
-
+        String str = "invalid colour";
+        while (!checkValidSoilColour(str)) {
+            System.out.println("Is the sample grey, blue, or brown?");
+            Scanner input = new Scanner(System.in);
+            String colour = input.nextLine();
+            if (checkValidSoilColour(colour)) {
+                return colour;
+            } else {
+                System.out.println("Please enter a valid colour.");
+            }
+        }
         return str;
     }
 
@@ -32,9 +30,8 @@ class SoilSampleBuilder extends SampleBuilder {
     //MODIFIES: this, Sample
     //EFFECTS: sets sample type to silt, sand, or gravel
     String addSoilType() {
-        String str = "didntwork";
+        String str = "invalid type";
 
-        //surround in while.. while not valid, keep going
         while (!checkValidSoilType(str)) {
             System.out.println("Is the sample silt, sand, or gravel?");
             Scanner input = new Scanner(System.in);
@@ -48,6 +45,28 @@ class SoilSampleBuilder extends SampleBuilder {
         return str;
     }
 
+
+    //MODIFIES: Sample
+    //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
+    boolean hasOdour() {
+        boolean runLoop = false;
+        boolean hasOdour = false;
+        while (!runLoop) {
+            System.out.println("Is the sample odourous?");
+            Scanner input = new Scanner(System.in);
+            String odour = input.nextLine();
+            if (odour.equals("yes")) {
+                hasOdour = true;
+                runLoop = true;
+            } else if (odour.equals("no")) {
+                runLoop = true;
+            } else {
+                System.out.println("Please enter 'yes' or 'no'.");
+            }
+        }
+        return hasOdour;
+    }
+
     private boolean checkValidSoilType(String str) {
         return (str.equals("sand")
                 || str.equals("silt")
@@ -58,26 +77,5 @@ class SoilSampleBuilder extends SampleBuilder {
         return (str.equals("blue")
                 || str.equals("grey")
                 || str.equals("brown"));
-//        } else {
-//            throw new InvalidSoilTypeException("Please enter a valid colour.");
-    }
-
-
-    //MODIFIES: Sample
-    //EFFECTS: sets sample odour to true if the sample is odourous, otherwise false
-    boolean hasOdour() {
-        System.out.println("Is the sample odourous?");
-        Scanner input = new Scanner(System.in);
-        String contaminated = input.nextLine();
-        boolean hasOdour = false;
-        if (contaminated.equals("yes")) {
-            hasOdour = true;
-        }
-//        try {
-//            sample.setIsSampleOdourous(sample, contaminated);
-//        } catch (YesOrNoInputException e) {
-//            System.out.println(e.getMessage());
-//            hasOdour();
-        return hasOdour;
     }
 }
