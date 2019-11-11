@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ProjectManagerTest{
+class ProjectManagerTest extends EmployeeTest{
 
     private ProjectManager testPM1;
     private ProjectManager testPM2;
@@ -24,7 +24,6 @@ public class ProjectManagerTest{
 
     @Test
     void testConstructor(){
-
         assertEquals("pm1", testPM1.getName());
     }
 
@@ -40,4 +39,5 @@ public class ProjectManagerTest{
         testPM1.addStaff(testPM2);
         assertEquals(1, testPM1.getStaffSize(testPM1));
     }
+
 }

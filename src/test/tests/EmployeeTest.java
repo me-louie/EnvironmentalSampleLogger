@@ -3,18 +3,26 @@ package tests;
 import model.consultants.Employee;
 import model.consultants.FieldTechnician;
 import model.consultants.ProjectManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EmployeeTest {
+class EmployeeTest {
 
-    private Employee pm1 = new ProjectManager("pm1");
-    private Employee ft1 = new FieldTechnician("ft1");
+    private Employee pm1;
+    private Employee ft1;
+
+    @BeforeEach
+    void setUp() {
+        pm1 = new ProjectManager("pm1");
+        ft1 = new FieldTechnician("ft1");
+    }
 
     @Test
     void testGetName() {
         assertEquals("pm1", pm1.getName());
+        assertEquals("ft1", ft1.getName());
     }
 
     @Test
