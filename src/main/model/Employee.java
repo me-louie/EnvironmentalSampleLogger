@@ -1,4 +1,4 @@
-package model.consultants;
+package model;
 
 
 import java.util.Objects;

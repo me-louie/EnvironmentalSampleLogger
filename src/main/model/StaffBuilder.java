@@ -1,4 +1,4 @@
-package model.consultants;
+package model;
 
 public class StaffBuilder {
     private Employee boss;

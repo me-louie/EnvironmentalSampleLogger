@@ -53,7 +53,7 @@ class WaterLogTest extends LogTest {
     }
 
     @Test
-    void testRemoveSample() {
+    void testRemoveSampleNoException() {
         wl.setHashMap("w1", w1);
         wl.setHashMap("w2", w2);
         assertEquals(2, wl.logSize());
@@ -64,6 +64,20 @@ class WaterLogTest extends LogTest {
         } catch (SampleDoesNotExistException e) {
             e.printStackTrace();
             fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testRemoveSampleThrowException() {
+        wl.setHashMap("w1", w1);
+        wl.setHashMap("w2", w2);
+        assertEquals(2, wl.logSize());
+        try {
+            wl.removeSample("w3");
+            fail("Exception should not have been thrown");
+        } catch (SampleDoesNotExistException e) {
+//            e.printStackTrace();
+            //expected
         }
     }
 

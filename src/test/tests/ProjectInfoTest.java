@@ -24,6 +24,13 @@ class ProjectInfoTest {
     }
 
     @Test
+    void testOtherConstructor(){
+        ProjectInfo blankProject = new ProjectInfo();
+        blankProject.setProjectNumber(123);
+        assertEquals(123, blankProject.getProjectNumber());
+    }
+
+    @Test
     void testSetProjectNumber(){
         projectInfo.setProjectNumber(54321);
         assertEquals(54321, projectInfo.getProjectNumber());

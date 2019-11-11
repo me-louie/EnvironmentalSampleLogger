@@ -1,8 +1,8 @@
 package tests;
 
-import model.consultants.Employee;
-import model.consultants.FieldTechnician;
-import model.consultants.ProjectManager;
+import model.Employee;
+import model.FieldTechnician;
+import model.ProjectManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

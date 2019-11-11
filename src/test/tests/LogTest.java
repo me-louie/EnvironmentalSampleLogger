@@ -94,5 +94,13 @@ class LogTest {
         assertFalse(bh.isSampleIDUnique("s4"));
     }
 
+    @Test
+    void testAddSoilSampleToLogTwice(){
+        bh.addSoilSampleToLog("s4", "blue", "sand", false);
+        bh.addSoilSampleToLog("s4", "blue", "sand", false);
+        assertEquals(4, bh.logSize());
+        assertFalse(bh.isSampleIDUnique("s4"));
+    }
+
 
 }

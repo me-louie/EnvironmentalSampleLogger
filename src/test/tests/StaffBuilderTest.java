@@ -1,8 +1,8 @@
 package tests;
 
-import model.consultants.Employee;
-import model.consultants.ProjectManager;
-import model.consultants.StaffBuilder;
+import model.Employee;
+import model.ProjectManager;
+import model.StaffBuilder;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

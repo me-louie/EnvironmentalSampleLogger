@@ -1,14 +1,10 @@
 package ui;
 
 import model.*;
-import model.consultants.Employee;
-import model.consultants.FieldTechnician;
-import model.consultants.ProjectManager;
-import model.consultants.StaffBuilder;
+import model.StaffBuilder;
 import ui.exceptions.InvalidInputException;
 import ui.exceptions.InvalidSampleMediaException;
 import ui.exceptions.SampleDoesNotExistException;
-import ui.exceptions.SampleNameAlreadyUsedException;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -25,7 +21,6 @@ class Menu {
         projectData.createProject();
 
         printer.welcomeStatement("4.0");
-
 
         while (runProgram) {
             pickSampleTypeMenu();

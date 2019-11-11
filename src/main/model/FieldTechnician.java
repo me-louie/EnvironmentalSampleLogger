@@ -1,4 +1,4 @@
-package model.consultants;
+package model;
 
 public class FieldTechnician extends Employee {
     public FieldTechnician(String name) {
