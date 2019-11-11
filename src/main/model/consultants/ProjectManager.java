@@ -1,4 +1,4 @@
-package model;
+package model.consultants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,12 @@ public class ProjectManager extends Employee {
         }
     }
 
+    public int getStaffSize(Employee employee) {
+        return staff.size();
+    }
+
+
+    @Override
     public void print(int indent) {
         String tab = "";
         for (int i = 0; i < indent; i++) {

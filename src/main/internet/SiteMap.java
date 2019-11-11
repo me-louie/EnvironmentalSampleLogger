@@ -30,20 +30,12 @@ public class SiteMap {
 
     }
 
-
     //url with bbox "https://api.mapbox.com/geocoding/v5/mapbox.places/starbucks.json?bbox=-77.083056,38.908611,-76.997778,38.959167&access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMTlmNHUwMDV0M3BtemRmeTFveGRiIn0.PnKZ_-j1wONn43DnbtzShw"
 
 
     //method modified from source: https://stackoverflow.com/questions/1359689/how-to-send-http-request-in-java
     public String getJsonResponse() {
         try {
-            //Create connection
-//            URL url = new URL(
-//                    "https://api.mapbox.com/geocoding/v5/mapbox.places/ubc.json?bbox=-123.28965644634036,
-//                    49.181803990270794,-122.97949367449506,49.322155168068576&access_token
-//                    =pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMTlmNHUwMDV0M3BtemRmeTFveGRiIn0.PnKZ_-j1wONn43DnbtzShw");
-//            connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("GET");
             createConnection();
             //Get Response
             InputStream is = connection.getInputStream();
@@ -66,8 +58,7 @@ public class SiteMap {
         }
     }
 
-    //"https://api.mapbox.com/geocoding/v5/mapbox.places/ubc.json?bbox=-123.28965644634036,49.181803990270794,-122.97949367449506,49.322155168068576&access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMTlmNHUwMDV0M3BtemRmeTFveGRiIn0.PnKZ_-j1wONn43DnbtzShw"
-
+    //EFFECTS: creates connection to the web
     private void createConnection() throws IOException {
         String website = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
         String query = "ubc";
@@ -110,11 +101,7 @@ public class SiteMap {
         return coordinates.toString();
     }
 }
-//
-//    String map =
-//            "https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMWNsaTYwMDZwM2NtenJkMTRibTczIn0.ZJMCmrHKmy7K_ONrKamwqA";
-//    URL url = new URL(map);
-//    map.parse();
+
 
 //check JSON library . see if i can convert string into json objet
 // use json library to parse the data i want
