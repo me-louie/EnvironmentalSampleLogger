@@ -11,17 +11,17 @@ import org.json.JSONException;
 public class Main {
 
     public static void main(String[] args) throws JSONException {
-//        SiteMap map = new SiteMap();
-//
-//
-//        map.parseCoordinates(map.createJSON(map.getJSONresponse()));
+        SiteMap map = new SiteMap();
+
+
+        map.parseCoordinates(map.createJson(map.getJsonResponse()));
 
 
 //        map.createJSON(map.getJSONresponse());
 //
 //
-        Menu menu = new Menu();
-//
+//        Menu menu = new Menu();
+
 //        ProjectManager pm1 = new ProjectManager("Alex");
 //        ProjectManager pm2 = new ProjectManager("Bob");
 //        ProjectManager pm3 = new ProjectManager("Carrie");
@@ -36,7 +36,7 @@ public class Main {
 //        pm3.addStaff(ft3);
 //
 //        Employee e = pm1;
-//        pm1.print();
+//        pm1.print(0);
 
 
     }

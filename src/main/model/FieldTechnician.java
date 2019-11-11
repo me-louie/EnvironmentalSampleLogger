@@ -5,8 +5,12 @@ public class FieldTechnician extends Employee {
         super(name);
     }
 
+    @Override
     public void print(int indent) {
-        printIndent(indent);
-        System.out.println("Field Technician: " + name);
+        String tab = ">>>";
+        for (int i = 0; i < indent; i++) {
+            tab = ">>>" + tab;
+        }
+        System.out.println(tab + "Field Technician: " + name);
     }
 }
