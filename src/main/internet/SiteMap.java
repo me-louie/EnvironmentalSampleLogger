@@ -23,18 +23,22 @@ public class SiteMap {
     private JSONObject jsonObject = null;
     private StringBuilder response = null;
     private String line;
+    private String siteAddress;
+    private String jsonResponse = null;
 
 
-    public SiteMap() {
-
+    public SiteMap(String siteAddress) throws JSONException {
+        queryBuilder(siteAddress);
+        getJsonResponse();
+        createJson(jsonResponse);
+        parseCoordinates(jsonObject);
+//        parseCoordinates(createJson(getJsonResponse()));
 
     }
 
-    //url with bbox "https://api.mapbox.com/geocoding/v5/mapbox.places/starbucks.json?bbox=-77.083056,38.908611,-76.997778,38.959167&access_token=pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMTlmNHUwMDV0M3BtemRmeTFveGRiIn0.PnKZ_-j1wONn43DnbtzShw"
-
 
     //method modified from source: https://stackoverflow.com/questions/1359689/how-to-send-http-request-in-java
-    public String getJsonResponse() {
+    private void getJsonResponse() {
         try {
             createConnection();
             //Get Response
@@ -47,10 +51,10 @@ public class SiteMap {
             }
             rd.close();
 //            System.out.println(response.toString());
-            return response.toString();
+            jsonResponse = response.toString();
         } catch (Exception e) {
-//            e.printStackTrace();
-            return null;
+            e.printStackTrace();
+//            return null;
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -58,32 +62,37 @@ public class SiteMap {
         }
     }
 
+    private void queryBuilder(String siteAddress) {
+        this.siteAddress = siteAddress.replace(" ", "%20");
+//        System.out.println(output);
+    }
+
     //EFFECTS: creates connection to the web
     private void createConnection() throws IOException {
         String website = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
-        String query = "ubc";
-        String bbox = ".json?bbox=-123.28965644634036,49.181803990270794,-122.97949367449506,49.322155168068576&";
+        String query = this.siteAddress;
+        String bbox = ".json?bbox=-123.31828695235798,49.00233130261947,-122.57499303553395,49.43177943428003&";
         String accessToken = "access_token=";
         String token = "pk.eyJ1IjoibWVsb3VpZSIsImEiOiJjazJvMTlmNHUwMDV0M3BtemRmeTFveGRiIn0.PnKZ_-j1wONn43DnbtzShw";
         String buildURL = website + query + bbox + accessToken + token;
+
         URL url = new URL(buildURL);
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
     }
 
 
-
-    public JSONObject createJson(String response) {
+    private void createJson(String response) {
         try {
             this.jsonObject = new JSONObject(response);
         } catch (JSONException err) {
             System.out.println("Invalid response.");
         }
-        return this.jsonObject;
+//        return this.jsonObject;
     }
 
 
-    public String parseCoordinates(JSONObject json) throws JSONException {
+    private String parseCoordinates(JSONObject json) throws JSONException {
         JSONArray myObj;
         myObj = this.jsonObject.getJSONArray("features");
 
@@ -93,10 +102,9 @@ public class SiteMap {
         JSONObject geometry;
         geometry = features.getJSONObject("geometry");
 
-
         JSONArray coordinates;
         coordinates = geometry.getJSONArray("coordinates");
-        System.out.println(coordinates.toString());
+        System.out.println("The coordinates of your site are: " + coordinates.toString());
 
         return coordinates.toString();
     }

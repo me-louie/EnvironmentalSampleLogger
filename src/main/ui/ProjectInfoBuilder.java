@@ -1,6 +1,8 @@
 package ui;
 
+import internet.SiteMap;
 import model.ProjectInfo;
+import org.json.JSONException;
 
 import java.util.Scanner;
 
@@ -11,10 +13,11 @@ class ProjectInfoBuilder {
 
     }
 
-    void createProject() {
-        projectInfo.setProjectNumber(createProjectNumber());
+    void createProject() throws JSONException {
+//        projectInfo.setProjectNumber(createProjectNumber());
 //        projectInfo.setProjectManager(createProjectManager());
         projectInfo.setSiteAddress(createSiteAddress());
+        SiteMap map = new SiteMap(projectInfo.getSiteAddress());
     }
 
     private String createSiteAddress() {

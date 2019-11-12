@@ -55,7 +55,7 @@ public abstract class Sample {
         } else if (contaminated.equals("no")) {
             sample.setOdour(false);
         } else {
-            throw new YesOrNoInputException("A 'yes' or 'no' is required.");
+            throw new YesOrNoInputException("Invalid response: 'yes' or 'no' is required.");
         }
     }
 

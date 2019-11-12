@@ -2,6 +2,7 @@ package ui;
 
 import model.*;
 import model.StaffBuilder;
+import org.json.JSONException;
 import ui.exceptions.InvalidInputException;
 import ui.exceptions.InvalidSampleMediaException;
 import ui.exceptions.SampleDoesNotExistException;
@@ -16,11 +17,11 @@ class Menu {
     private Printer printer = new Printer();
     private StaffBuilder staffBuilder = new StaffBuilder();
 
-    Menu() {
+    Menu() throws JSONException {
+        printer.welcomeStatement("4.0");
+
         ProjectInfoBuilder projectData = new ProjectInfoBuilder();
         projectData.createProject();
-
-        printer.welcomeStatement("4.0");
 
         while (runProgram) {
             pickSampleTypeMenu();
@@ -194,7 +195,7 @@ class Menu {
     //EFFECTS: adds a new soil sample to this
     private void addSoilSample() {
         SoilSampleBuilder ssb = new SoilSampleBuilder();
-        log.addSoilSampleToLog(ssb.addSampleID(), ssb.addColour(),
+        log.addSoilSampleToLog(ssb.addSampleID(log), ssb.addColour(),
                 ssb.addSoilType(), ssb.hasOdour());
         runLogMenu();
     }
@@ -254,7 +255,7 @@ class Menu {
 
     private void addWaterSample() {
         WaterSampleBuilder wsb = new WaterSampleBuilder();
-        log.setHashMap(wsb.addSampleID(), wsb.buildHashArray());
+        log.setHashMap(wsb.addSampleID(log), wsb.buildHashArray());
         runLogMenu();
     }
 
