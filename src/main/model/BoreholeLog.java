@@ -17,6 +17,7 @@ public class BoreholeLog extends Log {
     //EFFECTS: creates empty borehole log
     public BoreholeLog() {
         List<SoilSample> boreholeLog = new ArrayList<>();
+
     }
 
     //EFFECTS: returns list of samples which are odourous
@@ -37,6 +38,7 @@ public class BoreholeLog extends Log {
         if (!soilSamples.contains(soilSample)) {
             soilSamples.add(soilSample);
             soilSample.setBoreholeLog(this);
+            notifyObservers(soilSample);
         }
     }
 

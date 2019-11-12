@@ -1,7 +1,7 @@
 package model;
 
 
-public abstract class Log implements Saveable, Loadable {
+public abstract class Log extends Observable implements Saveable, Loadable  {
 //    private List<Sample> log;
 //
 //    Log() {

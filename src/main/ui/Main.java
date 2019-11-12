@@ -1,6 +1,5 @@
 package ui;
 
-import internet.SiteMap;
 import org.json.JSONException;
 
 public class Main {

@@ -16,6 +16,7 @@ class Menu {
     private boolean runProgram = true;
     private Printer printer = new Printer();
     private StaffBuilder staffBuilder = new StaffBuilder();
+    private LogBuilder logBuilder = new LogBuilder();
 
     Menu() throws JSONException {
         printer.welcomeStatement("4.0");
@@ -40,6 +41,7 @@ class Menu {
         String str = input.nextLine();
         if (str.equals("1")) {
             this.log = new BoreholeLog();
+            this.log.addObserver(logBuilder);
         } else if (str.equals("2")) {
             this.log = new WaterLog();
         } else {
