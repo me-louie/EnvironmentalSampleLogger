@@ -33,5 +33,11 @@ class EmployeeTest {
         assertEquals(pm2.hashCode(), pm2.hashCode());
         assertEquals(pm2, pm3);
         assertNotEquals(ft2, pm2);
+        assertNotEquals(null, pm2);
+    }
+
+    @Test
+    void testPrint(){
+        assertEquals("pm1", pm1.print(0));
     }
 }

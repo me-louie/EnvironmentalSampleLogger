@@ -6,11 +6,13 @@ public class FieldTechnician extends Employee {
     }
 
     @Override
-    public void print(int indent) {
+    public String print(int indent) {
         String tab = ">>>";
         for (int i = 0; i < indent; i++) {
             tab = ">>>" + tab;
         }
         System.out.println(tab + "Field Technician: " + name);
+
+        return this.name;
     }
 }

@@ -11,10 +11,11 @@ public class WaterSample extends Sample {
     private WaterLog waterLog;
 
     //EFFECTS: creates sample with name, type, odour, conductivity, temperature, turbidity.cvb
-    public WaterSample(int conductivity, int temperature, int turbidity, int ph) {
-        this.conductivity = conductivity;
+    public WaterSample(int temperature, int turbidity, int conductivity, int ph) {
+
         this.temperature = temperature;
         this.turbidity = turbidity;
+        this.conductivity = conductivity;
         this.ph = ph;
         waterLog = null;
 

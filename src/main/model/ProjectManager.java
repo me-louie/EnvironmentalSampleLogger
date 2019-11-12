@@ -23,7 +23,7 @@ public class ProjectManager extends Employee {
 
 
     @Override
-    public void print(int indent) {
+    public String print(int indent) {
         String tab = "";
         for (int i = 0; i < indent; i++) {
             tab = ">>>" + tab;
@@ -33,5 +33,7 @@ public class ProjectManager extends Employee {
             employee.print(indent + 1);
         }
         System.out.println();
+
+        return this.name;
     }
 }

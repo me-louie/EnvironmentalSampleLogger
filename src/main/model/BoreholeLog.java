@@ -155,8 +155,6 @@ public class BoreholeLog extends Log {
     }
 
     @Override
-    //TODO: this method is required by waterLog but not borehole log. Current it is abstract in log sso that I can call
-    // it from the Menu. Is there a better way?
     public void setHashMap(String addSampleID, WaterSample buildHashArray) {
 
     }

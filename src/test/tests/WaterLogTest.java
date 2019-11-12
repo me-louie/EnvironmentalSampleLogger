@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import ui.exceptions.SampleDoesNotExistException;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class WaterLogTest extends LogTest {
@@ -104,15 +108,18 @@ class WaterLogTest extends LogTest {
     }
 
 
-//
-//    @Test
-//    void testWLSave() throws IOException {
-//        otherTestWaterLog.addSample(testWaterSample2);
-//
-//        otherTestWaterLog.save("Save Test Waterlog.txt");
-//        assertEquals(Files.readAllLines(Paths.get("data", "water", "Save Test Waterlog Answers.txt")),
-//                Files.readAllLines(Paths.get("data", "water", "Save Test Waterlog.txt")));
-//    }
+
+    @Test
+    void testWLSave() throws IOException {
+        WaterLog testWL = new WaterLog();
+
+        testWL.setHashMap("wl1", w1);
+        testWL.setHashMap("wl2", w2);
+
+        testWL.save("Save Test Waterlog2.txt");
+        assertEquals(Files.readAllLines(Paths.get("data", "water", "WL Save Test.txt")),
+                Files.readAllLines(Paths.get("data", "water", "Save Test Waterlog2.txt")));
+    }
 //
 //    @Test
 //    void testWLLoad() throws IOException {

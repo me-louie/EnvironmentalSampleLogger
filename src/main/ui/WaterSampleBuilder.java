@@ -15,25 +15,33 @@ class WaterSampleBuilder extends SampleBuilder {
         waterSample.setTemperature(addWaterTemperature());
         waterSample.setTurbidity(addWaterTurbidity());
         waterSample.setConductivity(addWaterConductivity());
+        waterSample.setPH((addWaterPH()));
         return waterSample;
     }
 
+    private int addWaterPH() {
+        System.out.println("Please enter the sample pH.");
+        Scanner s = new Scanner(System.in);
+        String sampleData = s.nextLine();
+        return Integer.parseInt(sampleData);
+    }
 
-    private Integer addWaterTemperature() {
+
+    private int addWaterTemperature() {
         System.out.println("Please enter the sample temperature.");
         Scanner s = new Scanner(System.in);
         String sampleData = s.nextLine();
         return Integer.parseInt(sampleData);
     }
 
-    private Integer addWaterTurbidity() {
+    private int addWaterTurbidity() {
         System.out.println("Please enter the sample turbidity.");
         Scanner s = new Scanner(System.in);
         String sampleData = s.nextLine();
         return Integer.parseInt(sampleData);
     }
 
-    private Integer addWaterConductivity() {
+    private int addWaterConductivity() {
         System.out.println("Please enter the sample conductivity.");
         Scanner s = new Scanner(System.in);
         String sampleData = s.nextLine();

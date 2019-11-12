@@ -14,7 +14,7 @@ public abstract class Employee {
         return name;
     }
 
-    public abstract void print(int index);
+    public abstract String print(int index);
 
     @Override
     public boolean equals(Object o) {
