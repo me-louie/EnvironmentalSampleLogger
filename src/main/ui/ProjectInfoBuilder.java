@@ -1,6 +1,6 @@
 package ui;
 
-import internet.SiteMap;
+import network.SiteMap;
 import model.ProjectInfo;
 import org.json.JSONException;
 
