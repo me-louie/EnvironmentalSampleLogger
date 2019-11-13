@@ -7,7 +7,8 @@ import javax.swing.*;
 public class Foo1 {
     private String[] elements = {"Monday", "Tueday", "Wednesday"};
     private javax.swing.JList madeList = new javax.swing.JList();
-//
+
+    //
     public Foo1() {
         madeList.setModel(new DefaultListModel());
         for (String element : elements) {
