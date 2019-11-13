@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 
 class TabbedPane implements ActionListener {
-    public static void main(String args[]) {
+    public static void main(String [] args) {
         TabPane tabbedPane = new TabPane();
     }
 

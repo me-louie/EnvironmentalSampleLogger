@@ -22,7 +22,7 @@ class TabPane extends JFrame {
 
     private String[] columnNames = { "Name", "Roll Number", "Department" };
 
-    public static void main(String args[]) {
+    public static void main(String [] args) {
         TabPane tabbedPane = new TabPane();
     }
 
