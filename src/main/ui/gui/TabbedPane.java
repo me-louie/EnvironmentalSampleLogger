@@ -1,4 +1,4 @@
-package model;
+package ui.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,15 +22,6 @@ class TabbedPane {
         JLabel welcomeMsg = new JLabel("Welcome to Borehole Logger v.10.0!");
         welcomeMsg.setBounds(150, 50, 300, 50);
 
-//        JLabel selectSampleType = new JLabel("What type of sample would you like to access?");
-//        selectSampleType.setBounds(150, 100, 300, 50);
-//
-//        JButton b1 = new JButton("Soil");
-//        b1.setBounds(200, 300, 95, 30);
-//
-//        JButton b2 = new JButton("Water");
-//        b2.setBounds(200, 500, 95, 30);
-
         //sets grid layout for pane
         frame.getContentPane().setLayout(new GridLayout(1, 1));
 
@@ -41,6 +32,15 @@ class TabbedPane {
 
         frame.getContentPane().add(tabbedPane);
 
+//        DefaultListModel sampleList = new DefaultListModel();
+//        sampleList.addElement("Test1");
+//        sampleList.addElement("Test2");
+//        sampleList.addElement("Test3");
+//
+//        JList list = new JList(sampleList);
+
+        frame.add(createSampleList());
+
 //        frame.add(welcomeMsg);
 //        frame.add(selectSampleType);
 //        frame.add(b1);
@@ -49,7 +49,7 @@ class TabbedPane {
 
     }
 
-    private static JPanel makePanel(String text) {
+    private JPanel makePanel(String text) {
         JPanel p = new JPanel();
         p.add(new Label(text));
 //        p.setLayout(new GridLayout(1, 1));
@@ -58,6 +58,18 @@ class TabbedPane {
         button.setBounds(150, 600, 95, 30);
         p.add(button);
         return p;
+    }
+
+
+    //EFFECTS: create list of samples on side of frame
+    private JList createSampleList() {
+        DefaultListModel sampleList = new DefaultListModel();
+        sampleList.addElement("Test1");
+        sampleList.addElement("Test2");
+        sampleList.addElement("Test3");
+
+        JList list = new JList(sampleList);
+        return list;
     }
 }
 
@@ -72,7 +84,14 @@ class TabbedPane {
 //        }
 //        });
 
-
+//        JLabel selectSampleType = new JLabel("What type of sample would you like to access?");
+//        selectSampleType.setBounds(150, 100, 300, 50);
+//
+//        JButton b1 = new JButton("Soil");
+//        b1.setBounds(200, 300, 95, 30);
+//
+//        JButton b2 = new JButton("Water");
+//        b2.setBounds(200, 500, 95, 30);
 
 
 
