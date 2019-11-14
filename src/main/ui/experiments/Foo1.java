@@ -1,4 +1,4 @@
-package ui.gui;
+package ui.experiments;
 
 
 import java.awt.event.*;

@@ -1,4 +1,4 @@
-package ui.gui;
+package ui.experiments;
 
     /*
 Java Swing, 2nd Edition
