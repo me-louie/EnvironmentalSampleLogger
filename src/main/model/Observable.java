@@ -1,9 +1,10 @@
 package model;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Observable {
+public class Observable extends JPanel {
 
     private List<Observer> observers;
 

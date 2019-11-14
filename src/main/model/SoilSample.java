@@ -20,6 +20,12 @@ public class SoilSample extends Sample {
         this.boreholeLog = boreholeLog;
     }
 
+//    public SoilSample(String colour, String type, String odour){
+//        this.colour = colour;
+//        this.type = type;
+//        this.odour = odour;
+//    }
+
     //MODIFIES: this
     //EFFECTS: creates empty soil sample
     public SoilSample() {

@@ -42,7 +42,7 @@ class Menu {
         Scanner input = new Scanner(System.in);
         String str = input.nextLine();
         if (str.equals("1")) {
-            this.log = new BoreholeLog();
+            this.log = BoreholeLog.getInstance();
             this.log.addObserver(MyPanel.getInstance());
         } else if (str.equals("2")) {
             this.log = new WaterLog();

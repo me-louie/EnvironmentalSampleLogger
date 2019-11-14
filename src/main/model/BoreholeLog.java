@@ -2,6 +2,7 @@ package model;
 
 
 import ui.Printer;
+import ui.gui.MyPanel;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -13,12 +14,23 @@ public class BoreholeLog extends Log {
     private List<SoilSample> soilSamples = new ArrayList<>();
     private Printer printer = new Printer();
 
+    private static final BoreholeLog INSTANCE = new BoreholeLog();
 
-    //EFFECTS: creates empty borehole log
-    public BoreholeLog() {
+    private BoreholeLog() {
         List<SoilSample> boreholeLog = new ArrayList<>();
-
+        addObserver(MyPanel.getInstance());
     }
+
+
+    public static BoreholeLog getInstance() {
+        return INSTANCE;
+    }
+
+//    //EFFECTS: creates empty borehole log
+//    public BoreholeLog() {
+//        List<SoilSample> boreholeLog = new ArrayList<>();
+//
+//    }
 
     //EFFECTS: returns list of samples which are odourous
     public List<SoilSample> returnContaminatedSamples() {
@@ -121,9 +133,10 @@ public class BoreholeLog extends Log {
     //MODIFIES: this
     //EFFECTS: creates a new soil sample based on user input and adds it to the borehole log
     public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
-        SoilSample soilSample = new SoilSample(name, colour, type, odour, new BoreholeLog());
+        SoilSample soilSample = new SoilSample(name, colour, type, odour, BoreholeLog.getInstance());
         addSample(soilSample);
         printer.printSampleHasBeenAdded(name);
+//        notifyObservers(soilSample);
     }
 
 

@@ -1,5 +1,6 @@
 package ui;
 
+import model.BoreholeLog;
 import org.json.JSONException;
 import ui.gui.Graphic;
 
@@ -7,8 +8,9 @@ public class Main {
 
     public static void main(String[] args) throws JSONException {
 
+        BoreholeLog boreholeLog = BoreholeLog.getInstance();
         Graphic graphic = new Graphic();
-        Menu menu = new Menu();
+//        Menu menu = new Menu();
 
 
 //        SiteMap map = new SiteMap();

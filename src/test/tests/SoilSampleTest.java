@@ -34,7 +34,7 @@ class SoilSampleTest {
         s3 = new SoilSample("s3", "brown", "gravel", true, bh);
 
         testExceptionSample = new SoilSample();
-        BoreholeLog bh = new BoreholeLog();
+        BoreholeLog bh = BoreholeLog.getInstance();
     }
 
     @Test
