@@ -10,6 +10,7 @@ public class Graphic extends JPanel {
 
     private int width = 25;
     private int height = width;
+    private MyPanel panel;
 
 
     public static void main(String[] args) {
@@ -25,17 +26,23 @@ public class Graphic extends JPanel {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
         JLabel header = new JLabel("Borehole Logger");
 //        JPanel buttonPanel = new JPanel(new GridLayout(15, 1));
-//
-//        JButton reset = new JButton("Reset");
+
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        JButton reset = new JButton("Reset");
 //        buttonPanel.add(reset);
+
+        buttonPanel.add(header);
+        buttonPanel.add(reset);
 //
-//        JPanel panel = new JPanel();
-//        panel.setBackground(Color.YELLOW);
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.YELLOW);
+
 //
-        frame.add(header, BorderLayout.PAGE_START);
-        frame.add(new MyPanel(), BorderLayout.CENTER);
+        frame.add(buttonPanel, BorderLayout.PAGE_START);
+        frame.add(MyPanel.getInstance(), BorderLayout.CENTER);
 //        frame.add(buttonPanel, BorderLayout.LINE_END);
 
         frame.pack();

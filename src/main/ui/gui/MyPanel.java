@@ -3,9 +3,11 @@ package ui.gui;
 import model.Observer;
 import model.SoilSample;
 
+
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyPanel extends JPanel implements Observer {
 
@@ -17,25 +19,41 @@ public class MyPanel extends JPanel implements Observer {
     private Color grey = new Color(105, 105, 105);
     private Color brown = new Color(150, 94, 27);
     private int numOfSamples = 0;
-    private boolean toPaint = true;
+    private static final MyPanel INSTANCE = new MyPanel();
 
-    public MyPanel() {
+    private List<Color> sampleColours;
+
+
+    private MyPanel() {
+//        System.out.println("Made new panel");
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(new Color(200, 190, 153));
-
-//        addMouseListener(new MouseAdapter() {
-//            public void mousePressed(MouseEvent e) {
-//                moveSquare(e.getX(), e.getY());
-//            }
-//        });
-//
-//        addMouseMotionListener(new MouseAdapter() {
-//            public void mouseDragged(MouseEvent e) {
-//                moveSquare(e.getX(), e.getY());
-//            }
-//        });
+        sampleColours = new ArrayList<>();
 
     }
+
+    public static MyPanel getInstance() {
+        return INSTANCE;
+    }
+
+//    public MyPanel() {
+//        System.out.println("Made new panel");
+//        setBorder(BorderFactory.createLineBorder(Color.black));
+//        setBackground(new Color(200, 190, 153));
+//
+////        addMouseListener(new MouseAdapter() {
+////            public void mousePressed(MouseEvent e) {
+////                moveSquare(e.getX(), e.getY());
+////            }
+////        });
+////
+////        addMouseMotionListener(new MouseAdapter() {
+////            public void mouseDragged(MouseEvent e) {
+////                moveSquare(e.getX(), e.getY());
+////            }
+////        });
+//
+//    }
 
 //    private void moveSquare(int x, int y) {
 //        int OFFSET = 1;
@@ -54,19 +72,14 @@ public class MyPanel extends JPanel implements Observer {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Draw Text
         g.drawString("My Soil Samples", 10, 20);
 
-        System.out.println("prior to loop");
-//        while (numOfSamples != 0) {
-        if (numOfSamples == 1) {
-            g.fillRect(xcoord, ycoord, squareW, squareH);
-
-        } else {
-            g.fillOval(xcoord, ycoord, squareW, squareH);
+        for (int i = 0; i < numOfSamples; i++) {
+            g.setColor(sampleColours.get(i));
+            g.fillRect(xcoord, ycoord + i * squareW, squareW, squareH);
+            g.setColor(Color.BLACK);
+            g.drawRect(xcoord, ycoord + i * squareW, squareW, squareH);
         }
-
-        System.out.println("we repainted.");
 
 
 //        g.setColor(grey);
@@ -84,18 +97,24 @@ public class MyPanel extends JPanel implements Observer {
     @Override
     public String update(SoilSample s) {
         numOfSamples++;
-//        validate();
-        this.repaint();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            System.out.println("pause");
-        }
+        Color clr = parseColor(s.getColour());
+        sampleColours.add(clr);
+
         repaint();
         System.out.println("blah blah blah");
-        String latestColour = s.getColour();
         return null;
     }
+
+    private Color parseColor(String clr) {
+        if (clr.equals("blue")) {
+            return blue;
+        } else if (clr.equals("grey")) {
+            return grey;
+        } else {
+            return brown;
+        }
+    }
 }
+
 
 

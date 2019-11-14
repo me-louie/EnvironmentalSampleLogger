@@ -18,7 +18,7 @@ class Menu {
     private Printer printer = new Printer();
     private StaffBuilder staffBuilder = new StaffBuilder();
     private LogBuilder logBuilder = new LogBuilder();
-    private MyPanel observingPanel = new MyPanel();
+//    private MyPanel observingPanel = new MyPanel();
 
     Menu() throws JSONException {
         printer.welcomeStatement("4.0");
@@ -43,7 +43,7 @@ class Menu {
         String str = input.nextLine();
         if (str.equals("1")) {
             this.log = new BoreholeLog();
-            this.log.addObserver(observingPanel);
+            this.log.addObserver(MyPanel.getInstance());
         } else if (str.equals("2")) {
             this.log = new WaterLog();
         } else {
@@ -201,7 +201,7 @@ class Menu {
         SoilSampleBuilder ssb = new SoilSampleBuilder();
         log.addSoilSampleToLog(ssb.addSampleID(log), ssb.addColour(),
                 ssb.addSoilType(), ssb.hasOdour());
-        observingPanel.repaint();
+//        observingPanel.repaint();
         runLogMenu();
     }
 
