@@ -6,6 +6,7 @@ import org.json.JSONException;
 import ui.exceptions.InvalidInputException;
 import ui.exceptions.InvalidSampleMediaException;
 import ui.exceptions.SampleDoesNotExistException;
+import ui.gui.MyPanel;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -17,12 +18,13 @@ class Menu {
     private Printer printer = new Printer();
     private StaffBuilder staffBuilder = new StaffBuilder();
     private LogBuilder logBuilder = new LogBuilder();
+    private MyPanel observingPanel = new MyPanel();
 
     Menu() throws JSONException {
         printer.welcomeStatement("4.0");
 
-        ProjectInfoBuilder projectData = new ProjectInfoBuilder();
-        projectData.createProject();
+//        ProjectInfoBuilder projectData = new ProjectInfoBuilder();
+//        projectData.createProject();
 
         while (runProgram) {
             pickSampleTypeMenu();
@@ -41,7 +43,7 @@ class Menu {
         String str = input.nextLine();
         if (str.equals("1")) {
             this.log = new BoreholeLog();
-            this.log.addObserver(logBuilder);
+            this.log.addObserver(observingPanel);
         } else if (str.equals("2")) {
             this.log = new WaterLog();
         } else {
@@ -199,6 +201,7 @@ class Menu {
         SoilSampleBuilder ssb = new SoilSampleBuilder();
         log.addSoilSampleToLog(ssb.addSampleID(log), ssb.addColour(),
                 ssb.addSoilType(), ssb.hasOdour());
+        observingPanel.repaint();
         runLogMenu();
     }
 

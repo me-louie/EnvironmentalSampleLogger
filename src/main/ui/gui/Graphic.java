@@ -26,12 +26,17 @@ public class Graphic extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel header = new JLabel("Borehole Logger");
+//        JPanel buttonPanel = new JPanel(new GridLayout(15, 1));
+//
+//        JButton reset = new JButton("Reset");
+//        buttonPanel.add(reset);
 //
 //        JPanel panel = new JPanel();
 //        panel.setBackground(Color.YELLOW);
 //
         frame.add(header, BorderLayout.PAGE_START);
         frame.add(new MyPanel(), BorderLayout.CENTER);
+//        frame.add(buttonPanel, BorderLayout.LINE_END);
 
         frame.pack();
 
