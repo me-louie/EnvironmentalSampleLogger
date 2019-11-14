@@ -3,7 +3,6 @@ package ui.gui;
 import model.Observer;
 import model.SoilSample;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -81,16 +80,6 @@ public class MyPanel extends JPanel implements Observer {
             g.drawRect(xcoord, ycoord + i * squareW, squareW, squareH);
         }
 
-
-//        g.setColor(grey);
-//        g.fillRect(xcoord, ycoord, squareW, squareH);
-//        g.setColor(Color.BLACK);
-//        g.drawRect(xcoord, ycoord, squareW, squareH);
-//
-//        g.setColor(blue);
-//        g.fillRect(xcoord, ycoord + squareH, squareW, squareH);
-//        g.setColor(Color.BLACK);
-//        g.drawRect(xcoord, ycoord + squareH, squareW, squareH);
     }
 
 
@@ -113,6 +102,10 @@ public class MyPanel extends JPanel implements Observer {
         } else {
             return brown;
         }
+    }
+
+    protected void setNumOfSamples(int i) {
+        numOfSamples = i;
     }
 }
 
