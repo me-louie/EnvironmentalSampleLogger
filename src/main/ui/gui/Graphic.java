@@ -46,6 +46,7 @@ public class Graphic extends JPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                createAddSamplePane();
 
 //                JPanel createNewSamplePanel = new JPanel(new GridLayout());
 //                JButton blue = new JButton("blue");
@@ -54,38 +55,40 @@ public class Graphic extends JPanel {
 //                createNewSamplePanel.add(blue);
 //                createNewSamplePanel.add(grey);
 //                createNewSamplePanel.add(brown);
-                JLabel myColour = new JLabel("Colour:");
-                JLabel myStratigraphy = new JLabel("Stratigraphy:");
-                JLabel myOdour = new JLabel("Is the sample odorous?");
-
-                String[] colours = {"Blue", "Grey", "Brown"};
-                String[] types = {"Silt", "Sand", "Gravel"};
-                String[] odourous = {"No", "Yes"};
-
-                JComboBox jcc = new JComboBox(colours);
-                JComboBox jct = new JComboBox(types);
-                JComboBox jco = new JComboBox(odourous);
-
-                jcc.setEditable(true);
-                jct.setEditable(true);
-                jco.setEditable(true);
-
-                Object[] options = new Object[]{};
-                JOptionPane createSample = new JOptionPane("Enter Sample Information", JOptionPane.QUESTION_MESSAGE,
-                        JOptionPane.OK_CANCEL_OPTION, null, options, null);
-
-                createSample.add(myColour);
-                createSample.add(jcc);
-                createSample.add(myStratigraphy);
-                createSample.add(jct);
-                createSample.add(myOdour);
-                createSample.add(jco);
-
-                //create a JDialog and add JOptionPane to it
-                JDialog diag = new JDialog();
-                diag.getContentPane().add(createSample);
-                diag.pack();
-                diag.setVisible(true);
+//                JButton submitSample = new JButton("OK");
+//                JLabel myColour = new JLabel("Colour:");
+//                JLabel myStratigraphy = new JLabel("Stratigraphy:");
+//                JLabel myOdour = new JLabel("Is the sample odorous?");
+//
+//                String[] colours = {"Blue", "Grey", "Brown"};
+//                String[] types = {"Silt", "Sand", "Gravel"};
+//                String[] odourous = {"No", "Yes"};
+//
+//                JComboBox jcc = new JComboBox(colours);
+//                JComboBox jct = new JComboBox(types);
+//                JComboBox jco = new JComboBox(odourous);
+//
+//                jcc.setEditable(true);
+//                jct.setEditable(true);
+//                jco.setEditable(true);
+//
+//                Object[] options = new Object[]{};
+//                JOptionPane createSample = new JOptionPane("Enter Sample Information", JOptionPane.QUESTION_MESSAGE,
+//                        JOptionPane.OK_CANCEL_OPTION, null, options, null);
+//
+//                createSample.add(myColour);
+//                createSample.add(jcc);
+//                createSample.add(myStratigraphy);
+//                createSample.add(jct);
+//                createSample.add(myOdour);
+//                createSample.add(jco);
+//                createSample.add(submitSample);
+//
+//                //create a JDialog and add JOptionPane to it
+//                JDialog diag = new JDialog();
+//                diag.getContentPane().add(createSample);
+//                diag.pack();
+//                diag.setVisible(true);
 
 
 //                String input = (String) JOptionPane.showInputDialog(null, "Select Colour",
@@ -117,6 +120,57 @@ public class Graphic extends JPanel {
 
         frame.pack();
 
+    }
+
+    public void createAddSamplePane() {
+        JLabel myColour = new JLabel("Colour:");
+        JLabel myStratigraphy = new JLabel("Stratigraphy:");
+        JLabel myOdour = new JLabel("Is the sample odorous?");
+
+        String[] colours = {"blue", "grey", "brown"};
+        String[] types = {"silt", "sand", "gravel"};
+        String[] odourous = {"no", "yes"};
+
+        JComboBox jcc = new JComboBox(colours);
+        JComboBox jct = new JComboBox(types);
+        JComboBox jco = new JComboBox(odourous);
+
+        jcc.setEditable(true);
+        jct.setEditable(true);
+        jco.setEditable(true);
+
+        JButton submitSample = new JButton("OK");
+        submitSample.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                jcc = (JComboBox) e.getSource();
+                Object selectedColour = jcc.getSelectedItem();
+                Object selectedStrat = jct.getSelectedItem();
+                Object selectedOdour = jco.getSelectedItem();
+
+                System.out.println(selectedColour + " was selected.");
+                System.out.println(selectedStrat + " was selected.");
+                System.out.println(selectedOdour + " was selected.");
+            }
+        });
+
+        Object[] options = new Object[]{};
+        JOptionPane createSample = new JOptionPane("Enter Sample Information", JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.OK_CANCEL_OPTION, null, options, null);
+
+        createSample.add(myColour);
+        createSample.add(jcc);
+        createSample.add(myStratigraphy);
+        createSample.add(jct);
+        createSample.add(myOdour);
+        createSample.add(jco);
+        createSample.add(submitSample);
+
+        //create a JDialog and add JOptionPane to it
+        JDialog diag = new JDialog();
+        diag.getContentPane().add(createSample);
+        diag.pack();
+        diag.setVisible(true);
     }
 
     //create JOption Pane
