@@ -16,6 +16,21 @@ public class Graphic extends Observable {
     private int height = width;
     private BoreholeLog bh = BoreholeLog.getInstance();
 
+    private String[] colours = {"blue", "grey", "brown"};
+    private String[] types = {"silt", "sand", "gravel"};
+    private String[] odourous = {"no", "yes"};
+
+    JTextField sampleID = new JTextField("");
+    JLabel myID = new JLabel("Please enter a sample ID");
+    //        myID.setAlignmentX(RIGHT_ALIGNMENT);
+    JLabel myColour = new JLabel("Colour:");
+    JLabel myStratigraphy = new JLabel("Stratigraphy:");
+    JLabel myOdour = new JLabel("Is the sample odorous?");
+    JButton submitSample = new JButton("OK");
+
+    JComboBox jcc = new JComboBox(colours);
+    JComboBox jct = new JComboBox(types);
+    JComboBox jco = new JComboBox(odourous);
 
 
     public static void main(String[] args) {
@@ -55,9 +70,18 @@ public class Graphic extends Observable {
             }
         });
 
+//        JButton removeButton = new JButton("-");
+//        removeButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                createRemoveSamplePane();
+//            }
+//        });
+
         buttonPanel.add(header);
         buttonPanel.add(reset);
         buttonPanel.add(addButton);
+//        buttonPanel.add(removeButton);
 //
         JPanel panel = new JPanel();
         panel.setBackground(Color.YELLOW);
@@ -71,26 +95,31 @@ public class Graphic extends Observable {
 
     }
 
+    private void createRemoveSamplePane() {
+        String m = JOptionPane.showInputDialog("Please enter the ID of the sample you wish to delete");
+        bh.removeSampleFromLog(m);
+    }
+
     public void createAddSamplePane() {
-        JTextField sampleID = new JTextField("");
-        JLabel myID = new JLabel("Please enter a sample ID");
-        JLabel myColour = new JLabel("Colour:");
-        JLabel myStratigraphy = new JLabel("Stratigraphy:");
-        JLabel myOdour = new JLabel("Is the sample odorous?");
+//        JTextField sampleID = new JTextField("");
+//        JLabel myID = new JLabel("Please enter a sample ID");
+//        myID.setAlignmentX(RIGHT_ALIGNMENT);
+//        JLabel myColour = new JLabel("Colour:");
+//        JLabel myStratigraphy = new JLabel("Stratigraphy:");
+//        JLabel myOdour = new JLabel("Is the sample odorous?");
 
-        String[] colours = {"blue", "grey", "brown"};
-        String[] types = {"silt", "sand", "gravel"};
-        String[] odourous = {"no", "yes"};
+//        String[] colours = {"blue", "grey", "brown"};
+//        String[] types = {"silt", "sand", "gravel"};
+//        String[] odourous = {"no", "yes"};
 
-        JComboBox jcc = new JComboBox(colours);
-        JComboBox jct = new JComboBox(types);
-        JComboBox jco = new JComboBox(odourous);
+//        JComboBox jcc = new JComboBox(colours);
+//        JComboBox jct = new JComboBox(types);
+//        JComboBox jco = new JComboBox(odourous);
 
         jcc.setEditable(true);
         jct.setEditable(true);
         jco.setEditable(true);
 
-        JButton submitSample = new JButton("OK");
         submitSample.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -101,13 +130,10 @@ public class Graphic extends Observable {
                 bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, true);
 
 
-
-
-
-                System.out.println(selectedID);
-                System.out.println(selectedColour + " was selected.");
-                System.out.println(selectedStrat + " was selected.");
-                System.out.println(selectedOdour + " was selected.");
+//                System.out.println(selectedID);
+//                System.out.println(selectedColour + " was selected.");
+//                System.out.println(selectedStrat + " was selected.");
+//                System.out.println(selectedOdour + " was selected.");
             }
         });
 
@@ -115,21 +141,65 @@ public class Graphic extends Observable {
         JOptionPane createSample = new JOptionPane("Enter Sample Information", JOptionPane.QUESTION_MESSAGE,
                 JOptionPane.OK_CANCEL_OPTION, null, options, null);
 
-        createSample.add(myID);
-        createSample.add(sampleID);
-        createSample.add(myColour);
-        createSample.add(jcc);
-        createSample.add(myStratigraphy);
-        createSample.add(jct);
-        createSample.add(myOdour);
-        createSample.add(jco);
-        createSample.add(submitSample);
+        createPanel(createSample);
+//        createSample.add(myID);
+//        createSample.add(sampleID);
+//        createSample.add(myColour);
+//        createSample.add(jcc);
+//        createSample.add(myStratigraphy);
+//        createSample.add(jct);
+//        createSample.add(myOdour);
+//        createSample.add(jco);
+//        createSample.add(submitSample);
 
         //create a JDialog and add JOptionPane to it
+        createDialog(createSample);
+//        JDialog diag = new JDialog();
+//        diag.getContentPane().add(createSample);
+//        diag.pack();
+//        diag.setVisible(true);
+    }
+
+//    public void addSampleAL(JButton button){
+//        button.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String selectedID = sampleID.getText();
+//                String selectedColour = jcc.getSelectedItem().toString();
+//                String selectedStrat = jct.getSelectedItem().toString();
+//                String selectedOdour = jco.getSelectedItem().toString();
+//                bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, true);
+//
+//
+////                System.out.println(selectedID);
+////                System.out.println(selectedColour + " was selected.");
+////                System.out.println(selectedStrat + " was selected.");
+////                System.out.println(selectedOdour + " was selected.");
+//            }
+//        });
+//
+//    }
+
+    private JOptionPane createPanel(JOptionPane jp) {
+
+        jp.add(myID);
+        jp.add(sampleID);
+        jp.add(myColour);
+        jp.add(jcc);
+        jp.add(myStratigraphy);
+        jp.add(jct);
+        jp.add(myOdour);
+        jp.add(jco);
+        jp.add(submitSample);
+        return jp;
+    }
+
+    private Dialog createDialog(JOptionPane createSample) {
         JDialog diag = new JDialog();
         diag.getContentPane().add(createSample);
         diag.pack();
         diag.setVisible(true);
+        return diag;
     }
 
 }

@@ -88,10 +88,12 @@ public class MyPanel extends JPanel implements Observer {
         numOfSamples++;
         Color clr = parseColor(s.getColour());
         sampleColours.add(clr);
-
         repaint();
         System.out.println("blah blah blah");
         return null;
+
+
+
     }
 
     private Color parseColor(String clr) {

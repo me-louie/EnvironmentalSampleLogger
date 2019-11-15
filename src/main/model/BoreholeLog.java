@@ -127,6 +127,7 @@ public class BoreholeLog extends Log {
         for (int i = 0; i < logSize(); i++) {
             if (getSample(i).getName().equals(deleteId)) {
                 removeSample(i);
+                notifyObservers(getSample(i));
                 break;
             }
         }
