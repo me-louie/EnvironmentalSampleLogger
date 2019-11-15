@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class BoreholeLog extends Log {
     private List<SoilSample> soilSamples = new ArrayList<>();
     private Printer printer = new Printer();
-
+//TODO: singleton
     private static final BoreholeLog INSTANCE = new BoreholeLog();
 
     private BoreholeLog() {
@@ -29,6 +29,10 @@ public class BoreholeLog extends Log {
     public void clear() {
         BoreholeLog.getInstance().removeAll();
     }
+
+//    public BoreholeLog() {
+//        List<SoilSample> borehole = new ArrayList<>();
+//    }
 
 //    //EFFECTS: creates empty borehole log
 //    public BoreholeLog() {
@@ -138,7 +142,7 @@ public class BoreholeLog extends Log {
     //MODIFIES: this
     //EFFECTS: creates a new soil sample based on user input and adds it to the borehole log
     public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
-        SoilSample soilSample = new SoilSample(name, colour, type, odour, BoreholeLog.getInstance());
+        SoilSample soilSample = new SoilSample(name, colour, type, odour, new BoreholeLog());
         addSample(soilSample);
         printer.printSampleHasBeenAdded(name);
 //        notifyObservers(soilSample);

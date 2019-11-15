@@ -20,17 +20,17 @@ public class Graphic extends Observable {
     private String[] types = {"silt", "sand", "gravel"};
     private String[] odourous = {"no", "yes"};
 
-    JTextField sampleID = new JTextField("");
-    JLabel myID = new JLabel("Please enter a sample ID");
+    private JTextField sampleID = new JTextField("");
+    private JLabel myID = new JLabel("Please enter a sample ID");
     //        myID.setAlignmentX(RIGHT_ALIGNMENT);
-    JLabel myColour = new JLabel("Colour:");
-    JLabel myStratigraphy = new JLabel("Stratigraphy:");
-    JLabel myOdour = new JLabel("Is the sample odorous?");
-    JButton submitSample = new JButton("OK");
+    private JLabel myColour = new JLabel("Colour:");
+    private JLabel myStratigraphy = new JLabel("Stratigraphy:");
+    private JLabel myOdour = new JLabel("Is the sample odorous?");
+    private JButton submitSample = new JButton("OK");
 
-    JComboBox jcc = new JComboBox(colours);
-    JComboBox jct = new JComboBox(types);
-    JComboBox jco = new JComboBox(odourous);
+    private JComboBox jcc = new JComboBox(colours);
+    private JComboBox jct = new JComboBox(types);
+    private JComboBox jco = new JComboBox(odourous);
 
 
     public static void main(String[] args) {

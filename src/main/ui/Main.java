@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) throws JSONException {
 
         BoreholeLog boreholeLog = BoreholeLog.getInstance();
+//        BoreholeLog boreholeLog = new BoreholeLog();
         Graphic graphic = new Graphic();
 //        Menu menu = new Menu();
 
