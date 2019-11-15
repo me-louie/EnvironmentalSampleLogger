@@ -26,7 +26,7 @@ public class MyPanel extends JPanel implements Observer {
     private MyPanel() {
 //        System.out.println("Made new panel");
         setBorder(BorderFactory.createLineBorder(Color.black));
-        setBackground(new Color(200, 140, 154));
+        setBackground(new Color(192, 200, 158));
         sampleColours = new ArrayList<>();
 
     }

@@ -41,6 +41,7 @@ public class Graphic extends Observable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MyPanel.getInstance().setNumOfSamples(0);
+                bh.clear();
                 MyPanel.getInstance().repaint();
             }
         });

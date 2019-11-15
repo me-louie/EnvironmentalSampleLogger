@@ -17,13 +17,17 @@ public class BoreholeLog extends Log {
     private static final BoreholeLog INSTANCE = new BoreholeLog();
 
     private BoreholeLog() {
-        List<SoilSample> boreholeLog = new ArrayList<>();
+//        List<SoilSample> boreholeLog = new ArrayList<>();
         addObserver(MyPanel.getInstance());
     }
 
 
     public static BoreholeLog getInstance() {
         return INSTANCE;
+    }
+
+    public void clear() {
+        BoreholeLog.getInstance().removeAll();
     }
 
 //    //EFFECTS: creates empty borehole log

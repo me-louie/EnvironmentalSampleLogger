@@ -26,7 +26,6 @@ public abstract class Log extends Observable implements Saveable, Loadable  {
 
     public abstract void setHashMap(String addSampleID, WaterSample buildHashArray);
 
-
 }
 
 
