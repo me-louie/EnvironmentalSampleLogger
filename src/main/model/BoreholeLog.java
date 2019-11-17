@@ -58,7 +58,7 @@ public class BoreholeLog extends Log {
         if (!soilSamples.contains(soilSample)) {
             soilSamples.add(soilSample);
             soilSample.setBoreholeLog(this);
-            notifyObservers(soilSample);
+            notifyObservers(this);
         }
     }
 
@@ -131,7 +131,7 @@ public class BoreholeLog extends Log {
         for (int i = 0; i < logSize(); i++) {
             if (getSample(i).getName().equals(deleteId)) {
                 removeSample(i);
-                notifyObservers(getSample(i));
+                notifyObservers(this);
                 break;
             }
         }

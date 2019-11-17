@@ -1,5 +1,6 @@
 package ui.gui;
 
+import model.BoreholeLog;
 import model.Observer;
 import model.SoilSample;
 
@@ -71,7 +72,9 @@ public class MyPanel extends JPanel implements Observer {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.drawString("My Soil Samples", 10, 20);
+        g.setFont(new Font("Calibri", Font.ITALIC, 25));
+        g.drawString("My Soil Samples", 20, 40);
+
 
         for (int i = 0; i < numOfSamples; i++) {
             g.setColor(sampleColours.get(i));
@@ -84,14 +87,19 @@ public class MyPanel extends JPanel implements Observer {
 
 
     @Override
-    public String update(SoilSample s) {
-        numOfSamples++;
-        Color clr = parseColor(s.getColour());
-        sampleColours.add(clr);
+    public String update(BoreholeLog boreholeLog) {
+//        numOfSamples++;
+//        Color clr = parseColor(s.getColour());
+//        sampleColours.add(clr);
+        numOfSamples = boreholeLog.logSize();
+        sampleColours.clear();
+        for (int i = 0; i < numOfSamples; i++) {
+            Color clr = parseColor(boreholeLog.getSample(i).getColour());
+            sampleColours.add(clr);
+        }
         repaint();
         System.out.println("blah blah blah");
         return null;
-
 
 
     }

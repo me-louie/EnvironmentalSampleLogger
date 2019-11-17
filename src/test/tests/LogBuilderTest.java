@@ -26,10 +26,10 @@ class LogBuilderTest {
         bh.addSample(s2);
     }
 
-    @Test
-    void testUpdate() {
-        assertEquals("blue", lb1.update(s1));
-        assertEquals("grey", lb1.update(s2));
-    }
+//    @Test
+//    void testUpdate() {
+//        assertEquals("blue", lb1.update(s1));
+//        assertEquals("grey", lb1.update(s2));
+//    }
 
 }

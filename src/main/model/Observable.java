@@ -22,9 +22,9 @@ public class Observable extends JPanel {
         return observers.size();
     }
 
-    void notifyObservers(SoilSample s) {
+    void notifyObservers(BoreholeLog boreholeLog) {
         for (Observer observer : observers) {
-            observer.update(s);
+            observer.update(boreholeLog);
         }
 
     }

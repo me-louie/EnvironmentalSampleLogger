@@ -4,7 +4,6 @@ package ui;
 import java.io.File;
 
 public class Printer {
-    //TODO: why do things break if PrintStatements extend PrintMenu?
 
     public Printer() {
     }
