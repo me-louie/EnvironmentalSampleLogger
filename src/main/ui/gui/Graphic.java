@@ -37,8 +37,8 @@ public class Graphic extends Observable {
     private JComboBox jct = new JComboBox(types);
     private JComboBox jco = new JComboBox(odourous);
 
-    private Color darkBlue = new Color(70, 160, 252);
-    private Color lightBlue = new Color(143, 185, 200);
+    private Color darkBlue = new Color(252, 239, 236);
+    private Color lightBlue = new Color(200, 185, 150);
 
 
 //    private void formatFields() {
@@ -89,7 +89,7 @@ public class Graphic extends Observable {
 
         //creates Add Sample Button
         JButton addButton = new JButton("+");
-        addButton.setFont(new Font("Arial", Font.BOLD, 30));
+        addButton.setFont(new Font("Arial", Font.BOLD, 25));
 //        addButton.setForeground(Color.WHITE);
         addButton.setBackground(lightBlue);
         addButton.addActionListener(new ActionListener() {
@@ -171,9 +171,10 @@ public class Graphic extends Observable {
     }
 
     public void createAddSamplePane() {
-        jcc.setEditable(true);
-        jct.setEditable(true);
-        jco.setEditable(true);
+        setComboBoxesEditable();
+//        jcc.setEditable(true);
+//        jct.setEditable(true);
+//        jco.setEditable(true);
 
         submitSample.addActionListener(new ActionListener() {
             @Override
@@ -183,21 +184,18 @@ public class Graphic extends Observable {
                 String selectedStrat = jct.getSelectedItem().toString();
                 String selectedOdour = jco.getSelectedItem().toString();
                 boolean odour = false;
-                if (selectedOdour.equals("true")) {
+                if (selectedOdour.equals("yes")) {
                     odour = true;
                 }
                 bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, odour);
-
-
             }
         });
 
         Object[] options = new Object[]{};
-        JOptionPane addSamplePane = new JOptionPane("Enter Sample Information", JOptionPane.QUESTION_MESSAGE,
+        JOptionPane enterSampleInformation = new JOptionPane("Enter Sample Information", JOptionPane.QUESTION_MESSAGE,
                 JOptionPane.OK_CANCEL_OPTION, null, options, null);
 
-
-        createPanel(addSamplePane);
+        createPanel(enterSampleInformation);
 //        addSamplePane.add(myID);
 //        addSamplePane.add(sampleID);
 //        addSamplePane.add(myColour);
@@ -209,11 +207,18 @@ public class Graphic extends Observable {
 //        addSamplePane.add(submitSample);
 
         //create a JDialog and add JOptionPane to it
-        createDialog(addSamplePane);
+        createJDialog(enterSampleInformation);
 //        JDialog diag = new JDialog();
 //        diag.getContentPane().add(addSamplePane);
 //        diag.pack();
 //        diag.setVisible(true);
+    }
+
+
+    private void setComboBoxesEditable() {
+        jcc.setEditable(true);
+        jct.setEditable(true);
+        jco.setEditable(true);
     }
 
 //    public void addSampleAL(JButton button){
@@ -256,7 +261,7 @@ public class Graphic extends Observable {
         return jp;
     }
 
-    private Dialog createDialog(JOptionPane createSample) {
+    private Dialog createJDialog(JOptionPane createSample) {
         JDialog diag = new JDialog();
         diag.getContentPane().add(createSample);
         diag.pack();

@@ -81,12 +81,11 @@ public class MyPanel extends JPanel implements Observer {
         for (int i = 0; i < numOfSamples; i++) {
             g.setColor(sampleColours.get(i));
             g.fillRect(xcoord, ycoord + i * squareW, squareW, squareH);
-            g.setColor(Color.BLACK);
-//            if (boreholeLog.getSample(i).isOdourous()) {
-//                g.setColor(Color.BLACK);
-//            } else {
-//                g.setColor(Color.RED);
-//            }
+            if (boreholeLog.getSample(i).isOdourous()) {
+                g.setColor(Color.RED);
+            } else {
+                g.setColor(Color.BLACK);
+            }
             g.drawRect(xcoord, ycoord + i * squareW, squareW, squareH);
             g.drawString(boreholeLog.getSample(i).getName(), xcoord - 100, (ycoord + 25) + i * squareW);
         }

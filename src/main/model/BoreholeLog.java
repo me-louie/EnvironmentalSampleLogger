@@ -148,6 +148,7 @@ public class BoreholeLog extends Log {
         SoilSample soilSample = new SoilSample(name, colour, type, odour, new BoreholeLog());
         addSample(soilSample);
         printer.printSampleHasBeenAdded(name);
+        System.out.println(soilSample + " was added.");
 //        notifyObservers(soilSample);
     }
 
