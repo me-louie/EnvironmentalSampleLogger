@@ -37,6 +37,9 @@ public class Graphic extends Observable {
     private JComboBox jct = new JComboBox(types);
     private JComboBox jco = new JComboBox(odourous);
 
+    private Color darkBlue = new Color(70, 160, 252);
+    private Color lightBlue = new Color(143, 185, 200);
+
 
 //    private void formatFields() {
 //        ArrayList<JLabel> labels = new ArrayList<>();
@@ -74,7 +77,7 @@ public class Graphic extends Observable {
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         JButton reset = new JButton("Reset");
         reset.setFont(new Font("Arial", Font.BOLD, 20));
-        reset.setBackground(new Color(252, 252, 252));
+        reset.setBackground(lightBlue);
         reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,8 +89,9 @@ public class Graphic extends Observable {
 
         //creates Add Sample Button
         JButton addButton = new JButton("+");
-        addButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        addButton.setBackground(new Color(140, 196, 252));
+        addButton.setFont(new Font("Arial", Font.BOLD, 30));
+//        addButton.setForeground(Color.WHITE);
+        addButton.setBackground(lightBlue);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -96,8 +100,8 @@ public class Graphic extends Observable {
         });
 
         JButton removeButton = new JButton("-");
-        removeButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        removeButton.setBackground(new Color(252, 252, 252));
+        removeButton.setFont(new Font("Arial", Font.PLAIN, 35));
+        removeButton.setBackground(darkBlue);
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,7 +111,7 @@ public class Graphic extends Observable {
 
         JButton saveButton = new JButton("Save");
         saveButton.setFont(new Font("Arial", Font.BOLD, 20));
-        saveButton.setBackground(new Color(140, 196, 252));
+        saveButton.setBackground(lightBlue);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -121,10 +125,28 @@ public class Graphic extends Observable {
             }
         });
 
+        JButton loadButton = new JButton("Load");
+        loadButton.setFont(new Font("Arial", Font.BOLD, 20));
+        loadButton.setBackground(darkBlue);
+        loadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String m = JOptionPane.showInputDialog("Please enter a file name");
+                try {
+                    bh.load(m + ".txt");
+                    MyPanel.getInstance().update(BoreholeLog.getInstance());
+                } catch (FileNotFoundException ex) {
+//                    ex.printStackTrace();
+                }
+
+            }
+        });
+
 
         buttonPanel.add(addButton);
         buttonPanel.add(removeButton);
         buttonPanel.add(saveButton);
+        buttonPanel.add(loadButton);
         buttonPanel.add(reset);
 
         headerPanel.add(appName);
@@ -160,7 +182,11 @@ public class Graphic extends Observable {
                 String selectedColour = jcc.getSelectedItem().toString();
                 String selectedStrat = jct.getSelectedItem().toString();
                 String selectedOdour = jco.getSelectedItem().toString();
-                bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, true);
+                boolean odour = false;
+                if (selectedOdour.equals("true")) {
+                    odour = true;
+                }
+                bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, odour);
 
 
             }
