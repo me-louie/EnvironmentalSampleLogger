@@ -2,11 +2,18 @@ package ui;
 
 import model.BoreholeLog;
 import org.json.JSONException;
+import ui.gui.CustomOutputStream;
 import ui.gui.Graphic;
+
+import javax.swing.*;
+import java.io.PrintStream;
 
 public class Main {
 
     public static void main(String[] args) throws JSONException {
+
+        System.out.println("blah blah blah");
+
 
         BoreholeLog boreholeLog = BoreholeLog.getInstance();
 //        BoreholeLog boreholeLog = new BoreholeLog();

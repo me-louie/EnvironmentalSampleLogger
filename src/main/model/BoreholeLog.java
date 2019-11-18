@@ -13,7 +13,10 @@ import java.util.Scanner;
 public class BoreholeLog extends Log {
     private List<SoilSample> soilSamples = new ArrayList<>();
     private Printer printer = new Printer();
-//TODO: singleton
+
+
+
+
     private static final BoreholeLog INSTANCE = new BoreholeLog();
 
     private BoreholeLog() {

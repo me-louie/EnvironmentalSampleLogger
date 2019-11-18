@@ -6,6 +6,7 @@ import model.SoilSample;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,10 @@ public class MyPanel extends JPanel implements Observer {
     private static final MyPanel INSTANCE = new MyPanel();
 
     private List<Color> sampleColours;
+    private List<String> sampleIDs = new ArrayList<>();
 
 
     private MyPanel() {
-//        System.out.println("Made new panel");
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(new Color(192, 200, 158));
         sampleColours = new ArrayList<>();
@@ -72,8 +73,8 @@ public class MyPanel extends JPanel implements Observer {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setFont(new Font("Calibri", Font.ITALIC, 25));
-        g.drawString("My Soil Samples", 20, 40);
+        g.setFont(new Font("Calibri", Font.BOLD, 25));
+        g.drawString("Sample IDs", 20, 40);
 
 
         for (int i = 0; i < numOfSamples; i++) {
@@ -81,6 +82,7 @@ public class MyPanel extends JPanel implements Observer {
             g.fillRect(xcoord, ycoord + i * squareW, squareW, squareH);
             g.setColor(Color.BLACK);
             g.drawRect(xcoord, ycoord + i * squareW, squareW, squareH);
+            g.drawString(sampleIDs.get(i), xcoord - 100, (ycoord + 25) + i * squareW);
         }
 
     }
@@ -88,17 +90,20 @@ public class MyPanel extends JPanel implements Observer {
 
     @Override
     public String update(BoreholeLog boreholeLog) {
-//        numOfSamples++;
-//        Color clr = parseColor(s.getColour());
-//        sampleColours.add(clr);
         numOfSamples = boreholeLog.logSize();
         sampleColours.clear();
+        sampleIDs.clear();
         for (int i = 0; i < numOfSamples; i++) {
             Color clr = parseColor(boreholeLog.getSample(i).getColour());
             sampleColours.add(clr);
+            sampleIDs.add(boreholeLog.getSample(i).getName());
         }
+
+
         repaint();
-        System.out.println("blah blah blah");
+
+
+
         return null;
 
 
