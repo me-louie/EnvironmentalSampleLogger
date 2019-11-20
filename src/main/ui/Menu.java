@@ -22,7 +22,7 @@ class Menu {
 
     //MODIFIES: this
     //EFFECTS: constructrs new Menu object and runs program menu
-    Menu(){
+    Menu() {
         printer.welcomeStatement("4.0");
 
 //        ProjectInfoBuilder projectData = new ProjectInfoBuilder();
