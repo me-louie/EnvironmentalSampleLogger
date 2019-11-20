@@ -2,8 +2,7 @@ package ui.exceptions;
 
 public class SampleNameAlreadyUsedException extends Exception {
 
-    public SampleNameAlreadyUsedException(){}
-
+    //EFFECTS: constructs new SampleNameAlreadyUsed exception with specified message
     public SampleNameAlreadyUsedException(String msg) {
         super(msg);
     }

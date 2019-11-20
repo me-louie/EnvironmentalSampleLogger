@@ -6,7 +6,7 @@ import org.json.JSONException;
 import ui.exceptions.InvalidInputException;
 import ui.exceptions.InvalidSampleMediaException;
 import ui.exceptions.SampleDoesNotExistException;
-import ui.gui.MyPanel;
+import ui.gui.AppPanel;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -17,10 +17,12 @@ class Menu {
     private boolean runProgram = true;
     private Printer printer = new Printer();
     private StaffBuilder staffBuilder = new StaffBuilder();
-    private LogBuilder logBuilder = new LogBuilder();
+//    private LogBuilder logBuilder = new LogBuilder();
 //    private MyPanel observingPanel = new MyPanel();
 
-    Menu() throws JSONException {
+    //MODIFIES: this
+    //EFFECTS: constructrs new Menu object and runs program menu
+    Menu(){
         printer.welcomeStatement("4.0");
 
 //        ProjectInfoBuilder projectData = new ProjectInfoBuilder();
@@ -43,7 +45,7 @@ class Menu {
         String str = input.nextLine();
         if (str.equals("1")) {
             this.log = BoreholeLog.getInstance();
-            this.log.addObserver(MyPanel.getInstance());
+            this.log.addObserver(AppPanel.getInstance());
         } else if (str.equals("2")) {
             this.log = new WaterLog();
         } else {
@@ -68,7 +70,6 @@ class Menu {
     }
 
 
-    //TODO: work on waterlog load capabilities
     //EFFECTS: provides application options based on user input
     private void handleUserInputMenu() throws InvalidInputException {
         Scanner input = new Scanner(System.in);
@@ -86,7 +87,7 @@ class Menu {
         } else if (str.equals("quit")) {
             runProgram = false;
         } else {
-            throw new InvalidInputException();
+            throw new InvalidInputException("Sorry, I don't understand. Please enter a valid command.");
         }
     }
 

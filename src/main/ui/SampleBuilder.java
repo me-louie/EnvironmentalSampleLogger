@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 class SampleBuilder {
 
+    //MODIFIES: log, SoilSample
+    //EFFECTS: sets sample ID based on user input
     String addSampleID(Log log) {
         boolean runLoop = false;
         String id = "";

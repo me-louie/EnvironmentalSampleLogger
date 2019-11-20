@@ -79,11 +79,13 @@ public class SoilSample extends Sample {
 
     }
 
+    //EFFECTS: returns the soil sample's borehole log
     public BoreholeLog getBoreholeLog() {
         return boreholeLog;
     }
 
-    public void setBoreholeLog(BoreholeLog bh) {
+    //EFFECTS: sets soil sample's borehole log to this
+    void setBoreholeLog(BoreholeLog bh) {
         this.boreholeLog = bh;
     }
 }

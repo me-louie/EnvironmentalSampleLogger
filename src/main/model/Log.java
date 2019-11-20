@@ -2,17 +2,8 @@ package model;
 
 
 public abstract class Log extends Observable implements Saveable, Loadable  {
-//    private List<Sample> log;
-//
-//    Log() {
-//        this.log = new ArrayList<>();
-//    }
 
     public abstract int logSize();
-
-//    public abstract Sample getSample(int i);
-
-//    public abstract void removeSample(int i);
 
     public abstract void printLog();
 

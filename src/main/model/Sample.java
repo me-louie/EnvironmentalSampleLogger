@@ -7,6 +7,7 @@ public abstract class Sample {
     String type;
     boolean odour;
 
+    //MODIFIES: this
     //EFFECTS: creates new sample
     Sample() {
 
@@ -60,6 +61,7 @@ public abstract class Sample {
     }
 
     @Override
+    //EFFECTS: returns true if two samples have the same sample ID and type
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -77,6 +79,7 @@ public abstract class Sample {
     }
 
     @Override
+    //EFFECTS: returns sample's hashcode
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + type.hashCode();

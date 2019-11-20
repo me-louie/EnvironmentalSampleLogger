@@ -81,9 +81,9 @@ public class Graphic extends Observable {
         reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyPanel.getInstance().setNumOfSamples(0);
+                AppPanel.getInstance().setNumOfSamples(0);
                 bh.clear();
-                MyPanel.getInstance().repaint();
+                AppPanel.getInstance().repaint();
             }
         });
 
@@ -134,7 +134,7 @@ public class Graphic extends Observable {
                 String m = JOptionPane.showInputDialog("Please enter a file name");
                 try {
                     bh.load(m + ".txt");
-                    MyPanel.getInstance().update(BoreholeLog.getInstance());
+                    AppPanel.getInstance().update(BoreholeLog.getInstance());
                 } catch (FileNotFoundException ex) {
 //                    ex.printStackTrace();
                 }
@@ -153,7 +153,7 @@ public class Graphic extends Observable {
         headerPanel.add(buttonPanel);
 
         frame.add(headerPanel, BorderLayout.PAGE_START);
-        frame.add(MyPanel.getInstance(), BorderLayout.CENTER);
+        frame.add(AppPanel.getInstance(), BorderLayout.CENTER);
         frame.add(consoleLog, BorderLayout.PAGE_END);
 
         frame.pack();
@@ -170,12 +170,8 @@ public class Graphic extends Observable {
         bh.removeSampleFromLog(m);
     }
 
-    public void createAddSamplePane() {
+    private void createAddSamplePane() {
         setComboBoxesEditable();
-//        jcc.setEditable(true);
-//        jct.setEditable(true);
-//        jco.setEditable(true);
-
         submitSample.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -183,10 +179,11 @@ public class Graphic extends Observable {
                 String selectedColour = jcc.getSelectedItem().toString();
                 String selectedStrat = jct.getSelectedItem().toString();
                 String selectedOdour = jco.getSelectedItem().toString();
-                boolean odour = false;
-                if (selectedOdour.equals("yes")) {
-                    odour = true;
-                }
+                boolean odour = hasOdour(selectedOdour);
+//                boolean odour = false;
+//                if (selectedOdour.equals("yes")) {
+//                    odour = true;
+//                }
                 bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, odour);
             }
         });
@@ -196,22 +193,17 @@ public class Graphic extends Observable {
                 JOptionPane.OK_CANCEL_OPTION, null, options, null);
 
         createPanel(enterSampleInformation);
-//        addSamplePane.add(myID);
-//        addSamplePane.add(sampleID);
-//        addSamplePane.add(myColour);
-//        addSamplePane.add(jcc);
-//        addSamplePane.add(myStratigraphy);
-//        addSamplePane.add(jct);
-//        addSamplePane.add(myOdour);
-//        addSamplePane.add(jco);
-//        addSamplePane.add(submitSample);
 
         //create a JDialog and add JOptionPane to it
         createJDialog(enterSampleInformation);
-//        JDialog diag = new JDialog();
-//        diag.getContentPane().add(addSamplePane);
-//        diag.pack();
-//        diag.setVisible(true);
+    }
+
+    private boolean hasOdour(String selectedOdour) {
+        boolean odour = false;
+        if (selectedOdour.equals("yes")) {
+            odour = true;
+        }
+        return odour;
     }
 
 

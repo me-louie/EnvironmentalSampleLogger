@@ -2,15 +2,13 @@ package ui.gui;
 
 import model.BoreholeLog;
 import model.Observer;
-import model.SoilSample;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPanel extends JPanel implements Observer {
+public class AppPanel extends JPanel implements Observer {
 
     private int xcoord = 200;
     private int ycoord = 50;
@@ -20,21 +18,21 @@ public class MyPanel extends JPanel implements Observer {
     private Color grey = new Color(105, 105, 105);
     private Color brown = new Color(150, 94, 27);
     private int numOfSamples = 0;
-    private static final MyPanel INSTANCE = new MyPanel();
+    private static final AppPanel INSTANCE = new AppPanel();
 
     private List<Color> sampleColours;
     private List<String> sampleIDs = new ArrayList<>();
     private BoreholeLog boreholeLog = BoreholeLog.getInstance();
 
 
-    private MyPanel() {
+    private AppPanel() {
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(new Color(192, 200, 158));
         sampleColours = new ArrayList<>();
 
     }
 
-    public static MyPanel getInstance() {
+    public static AppPanel getInstance() {
         return INSTANCE;
     }
 
@@ -120,7 +118,7 @@ public class MyPanel extends JPanel implements Observer {
         }
     }
 
-    protected void setNumOfSamples(int i) {
+    void setNumOfSamples(int i) {
         numOfSamples = i;
     }
 }

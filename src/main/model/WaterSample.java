@@ -91,13 +91,13 @@ public class WaterSample extends Sample {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets this water sample's water log to wl
     public void setWaterLog(WaterLog wl) {
         this.waterLog = wl;
-//        if (!wl.contains(this)) {
-//            wl.addSample(this);
-//        }
     }
 
+    //EFFECTS: returns this water sample's water log
     public WaterLog getWaterLog() {
         return waterLog;
     }

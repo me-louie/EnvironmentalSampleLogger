@@ -6,10 +6,14 @@ import java.util.Scanner;
 
 class WaterSampleBuilder extends SampleBuilder {
 
+    //MODIFIES: this
+    //EFFECTS: constructs new water sample builder
     WaterSampleBuilder() {
 
     }
 
+    //MODIFIES: WaterSample, WaterLog
+    //EFFECTS: constructs new WaterSample based on user input
     WaterSample buildHashArray() {
         WaterSample waterSample = new WaterSample();
         waterSample.setTemperature(addWaterTemperature());

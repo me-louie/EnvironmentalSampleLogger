@@ -3,6 +3,8 @@ package model;
 public class StaffBuilder {
     private Employee boss;
 
+    //MODIFIES: this
+    //EFFECTS: creates staff list of project managers and field technicians
     public StaffBuilder() {
         ProjectManager pm1 = new ProjectManager("Alex");
         ProjectManager pm2 = new ProjectManager("Bob");

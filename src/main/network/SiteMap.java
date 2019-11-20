@@ -11,10 +11,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-// construct http client
-// make http request (GET request) with client
-// run synchronous request API
-
 public class SiteMap {
     private HttpURLConnection connection = null;
     private JSONObject jsonObject = null;
@@ -24,12 +20,14 @@ public class SiteMap {
     private String jsonResponse = null;
 
 
+    //MODIFIES: this
+    //EFFECTS: creates new site map object and returns coordinates the address query
     public SiteMap(String siteAddress) throws JSONException {
         queryBuilder(siteAddress);
         getJsonResponse();
         createJson(jsonResponse);
         parseCoordinates(jsonObject);
-//        parseCoordinates(createJson(getJsonResponse()));
+
 
     }
 
@@ -108,12 +106,4 @@ public class SiteMap {
 }
 
 
-//check JSON library . see if i can convert string into json objet
-// use json library to parse the data i want
-// take that data and next query to get map
-//check what format the map is in
-//may need to convert to jpeg or png
-
-
-//read documentation for json parsing
 

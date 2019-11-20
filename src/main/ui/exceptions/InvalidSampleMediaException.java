@@ -2,8 +2,7 @@ package ui.exceptions;
 
 public class InvalidSampleMediaException extends Exception {
 
-    public InvalidSampleMediaException(){}
-
+    //EFFECTS: constructs new invalid sample media exception with specified message
     public InvalidSampleMediaException(String msg) {
         super(msg);
     }

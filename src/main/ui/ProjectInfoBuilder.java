@@ -9,16 +9,19 @@ import java.util.Scanner;
 class ProjectInfoBuilder {
     private ProjectInfo projectInfo = new ProjectInfo();
 
+    //MODIFIES: this
+    //EFFECTS: creates new ProjectInfoBuilder object
     ProjectInfoBuilder() {
 
     }
 
-    void createProject() throws JSONException {
-//        projectInfo.setProjectNumber(createProjectNumber());
-//        projectInfo.setProjectManager(createProjectManager());
-        projectInfo.setSiteAddress(createSiteAddress());
-        SiteMap map = new SiteMap(projectInfo.getSiteAddress());
-    }
+
+//    void createProject() throws JSONException {
+////        projectInfo.setProjectNumber(createProjectNumber());
+////        projectInfo.setProjectManager(createProjectManager());
+//        projectInfo.setSiteAddress(createSiteAddress());
+//        SiteMap map = new SiteMap(projectInfo.getSiteAddress());
+//    }
 
     private String createSiteAddress() {
         System.out.println("Please enter the Site address");

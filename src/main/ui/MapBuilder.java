@@ -11,10 +11,13 @@ public class MapBuilder {
     private static String searchURL = "";
 
 
+    //MODIFIES: this
+    //EFFECTS: creates new MapBuilder object
     MapBuilder() {
 
     }
 
+    //EFFECTS: sets query based on user input
     public void enterMapAddress() {
         System.out.println("Please enter an address.");
         Scanner input = new Scanner(System.in);

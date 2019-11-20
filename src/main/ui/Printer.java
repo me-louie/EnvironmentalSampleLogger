@@ -13,10 +13,6 @@ public class Printer {
         System.out.println("Welcome to Sample Log Generator v." + version + "!");
     }
 
-    void printMainMenu() {
-        System.out.println("Press [1] to view consultant information");
-        System.out.println("Press [2] to access sample logger");
-    }
 
     //EFFECTS: prints main user menu for specified log type
     void printSampleMenu(String type) {
@@ -31,26 +27,27 @@ public class Printer {
         System.out.println("Type 'quit' to end the application.");
     }
 
+    //EFFECTS: prints name of sample which has been deleted and number of samples remaining
     public void printSampleHasBeenDeleted(String deleteID, int logSize) {
         System.out.println("You successfully removed sample " + deleteID + ".");
         System.out.println("There are " + logSize + " samples remaining:");
 
     }
 
+    //EFFECTS: prints name of sample which has been added
     public void printSampleHasBeenAdded(String sampleID) {
         System.out.println("You successfully added sample " + sampleID + ".");
     }
 
+    //EFFECTS: prints name of file which has been saved
     public void printLogHasBeenSaved(File fileName) {
         System.out.println("File " + fileName + " was saved.");
 
     }
 
+    //EFFECTS: print name of file which has been loaded
     public void printLogHasBeenLoaded(File fileName) {
         System.out.println("File " + fileName + " has been loaded.");
     }
 
-    public void printLogSize() {
-
-    }
 }

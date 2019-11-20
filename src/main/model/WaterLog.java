@@ -19,7 +19,7 @@ public class WaterLog extends Log {
 
 
     //MODIFIES: this
-    //EFFECTS: adds new entry to waterlog based on user input
+    //EFFECTS: adds new entry to water log based on user input
     public void setHashMap(String str, WaterSample data) {
         waterLog.put(str, data);
         printer.printSampleHasBeenAdded(str);
@@ -32,7 +32,7 @@ public class WaterLog extends Log {
 
 
 
-    //EFFECTS: writes borehole log data to txt file
+    //EFFECTS: writes water log data to txt file
     public void save(String fileSaveName) throws FileNotFoundException {
 
         File fileName = new File(String.valueOf(Paths.get("data", "water", fileSaveName)));
@@ -172,9 +172,8 @@ public class WaterLog extends Log {
     }
 
     @Override
-    //TODO: same thing as setHashMap() in borehole log class
+    //EFFECTS: creates a new soil sample based on user input and adds it to the BoreholeLog
     public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
-
     }
 
 }

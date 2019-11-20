@@ -4,25 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectManager extends Employee {
-    protected List<Employee> staff;
+    private List<Employee> staff;
 
+    //MODIFIES: this
+    //EFFECTS: creates new project manager with a name and adds it to the list of employees
     public ProjectManager(String name) {
         super(name);
         this.staff = new ArrayList<>();
     }
 
+    //EFFECTS: adds employee to the list of employees if the employee is not already in the list
     public void addStaff(Employee employee) {
         if (!staff.contains(employee)) {
             staff.add(employee);
         }
     }
 
+    //EFFECTS: returns size of the employee list
     public int getStaffSize(Employee employee) {
         return staff.size();
     }
 
 
     @Override
+    //EFFECTS: prints name of the project manager and all employees under that manager
     public String print(int indent) {
         String tab = "";
         for (int i = 0; i < indent; i++) {

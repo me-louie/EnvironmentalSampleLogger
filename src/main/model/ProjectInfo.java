@@ -1,23 +1,22 @@
 package model;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class ProjectInfo {
 
-    //    private SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
     private int projectNumber;
     private String projectManager;
     private String companyName = "210 Consulting";
     private String siteAddress;
 
 
+    //MODIFIES: this
+    //EFFECTS: creates new project info object
     public ProjectInfo() {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: constructs new project info object with project number, project manager, and site address
     public ProjectInfo(int projectNumber, String projectManager, String siteAddress) {
-//        this.date = date;
         this.projectNumber = projectNumber;
         this.projectManager = projectManager;
         this.companyName = companyName;
@@ -56,11 +55,4 @@ public class ProjectInfo {
         this.siteAddress = siteAddress;
     }
 
-//    public SimpleDateFormat getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(SimpleDateFormat date) {
-//        this.date = date;
-//    }
 }
