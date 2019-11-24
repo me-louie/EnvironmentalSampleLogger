@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
-import static javax.swing.SwingConstants.LEFT;
+import static javax.swing.SwingConstants.*;
 
 
 public class Graphic extends Observable {
@@ -24,41 +24,30 @@ public class Graphic extends Observable {
     private String[] odourous = {"no", "yes"};
 
     private JTextField sampleID = new JTextField("");
-    private JLabel myID = new JLabel("Please enter a sample ID");
+    private JLabel enterSampleData = new JLabel("Enter Sample Data");
+    private JLabel myID = new JLabel("Sample ID");
     //        myID.setAlignmentX(RIGHT_ALIGNMENT);
     private JLabel myColour = new JLabel("Colour:", LEFT);
     private JLabel myStratigraphy = new JLabel("Stratigraphy:");
     private JLabel myOdour = new JLabel("Is the sample odorous?");
     private JButton submitSample = new JButton("OK");
 
-    public JTextField consoleLog = new JTextField("Status...");
+    private JTextField consoleLog = new JTextField("Status...");
 
     private JComboBox jcc = new JComboBox(colours);
     private JComboBox jct = new JComboBox(types);
     private JComboBox jco = new JComboBox(odourous);
 
-    private Color darkBlue = new Color(252, 239, 236);
-    private Color lightBlue = new Color(200, 185, 150);
+    private Color colour1 = new Color(252, 239, 236);
+    private Color colour2 = new Color(200, 185, 150);
+
+    private ImageIcon augerIcon = new ImageIcon("data/Capture.PNG");
 
 
-//    private void formatFields() {
-//        ArrayList<JLabel> labels = new ArrayList<>();
-//        labels.addAll(Arrays.asList(myID, myColour, myStratigraphy, myOdour));
-//
-//        for (int i = 0; i < labels.size(); i++) {
-//            setFont(new Font("Arial", Font.PLAIN, 20));
-//            setAlignmentX(RIGHT_ALIGNMENT);
-//        }
 
-//    }
-
-
-    public static void main(String[] args) {
-        Graphic g = new Graphic();
-    }
-
+    //MODIFIES: this
+    //EFFECTS: creates JFrame and adds buttons to frame to create app GUI
     public Graphic() {
-
 
         JFrame frame = new JFrame();
 
@@ -77,46 +66,45 @@ public class Graphic extends Observable {
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         JButton reset = new JButton("Reset");
         reset.setFont(new Font("Arial", Font.BOLD, 20));
-        reset.setBackground(lightBlue);
+        reset.setBackground(colour2);
         reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AppPanel.getInstance().setNumOfSamples(0);
+                BoreholeLogDrawer.getInstance().setNumOfSamples(0);
                 bh.clear();
-                AppPanel.getInstance().repaint();
+                BoreholeLogDrawer.getInstance().repaint();
             }
         });
 
         //creates Add Sample Button
         JButton addButton = new JButton("+");
         addButton.setFont(new Font("Arial", Font.BOLD, 25));
-//        addButton.setForeground(Color.WHITE);
-        addButton.setBackground(lightBlue);
+        addButton.setBackground(colour2);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createAddSamplePane();
+                generateAddSampleMenu();
             }
         });
 
         JButton removeButton = new JButton("-");
         removeButton.setFont(new Font("Arial", Font.PLAIN, 35));
-        removeButton.setBackground(darkBlue);
+        removeButton.setBackground(colour1);
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createRemoveSamplePane();
+                generateRemoveSampleMenu();
             }
         });
 
         JButton saveButton = new JButton("Save");
         saveButton.setFont(new Font("Arial", Font.BOLD, 20));
-        saveButton.setBackground(lightBlue);
+        saveButton.setBackground(colour2);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    createSavePanel();
+                    generateSaveProjectMenu();
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                     consoleLog.setText("Sorry, that file name is invalid.");
@@ -127,14 +115,14 @@ public class Graphic extends Observable {
 
         JButton loadButton = new JButton("Load");
         loadButton.setFont(new Font("Arial", Font.BOLD, 20));
-        loadButton.setBackground(darkBlue);
+        loadButton.setBackground(colour1);
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String m = JOptionPane.showInputDialog("Please enter a file name");
                 try {
                     bh.load(m + ".txt");
-                    AppPanel.getInstance().update(BoreholeLog.getInstance());
+                    BoreholeLogDrawer.getInstance().update(BoreholeLog.getInstance());
                 } catch (FileNotFoundException ex) {
 //                    ex.printStackTrace();
                 }
@@ -153,24 +141,25 @@ public class Graphic extends Observable {
         headerPanel.add(buttonPanel);
 
         frame.add(headerPanel, BorderLayout.PAGE_START);
-        frame.add(AppPanel.getInstance(), BorderLayout.CENTER);
+        frame.add(BoreholeLogDrawer.getInstance(), BorderLayout.CENTER);
         frame.add(consoleLog, BorderLayout.PAGE_END);
 
         frame.pack();
 
     }
 
-    private void createSavePanel() throws FileNotFoundException {
+
+    private void generateSaveProjectMenu() throws FileNotFoundException {
         String m = JOptionPane.showInputDialog("Please enter a file name");
         bh.save(m + ".txt");
     }
 
-    private void createRemoveSamplePane() {
+    private void generateRemoveSampleMenu() {
         String m = JOptionPane.showInputDialog("Please enter the ID of the sample you wish to delete");
         bh.removeSampleFromLog(m);
     }
 
-    private void createAddSamplePane() {
+    private void generateAddSampleMenu() {
         setComboBoxesEditable();
         submitSample.addActionListener(new ActionListener() {
             @Override
@@ -180,19 +169,15 @@ public class Graphic extends Observable {
                 String selectedStrat = jct.getSelectedItem().toString();
                 String selectedOdour = jco.getSelectedItem().toString();
                 boolean odour = hasOdour(selectedOdour);
-//                boolean odour = false;
-//                if (selectedOdour.equals("yes")) {
-//                    odour = true;
-//                }
                 bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, odour);
             }
         });
 
         Object[] options = new Object[]{};
-        JOptionPane enterSampleInformation = new JOptionPane("Enter Sample Information", JOptionPane.QUESTION_MESSAGE,
+        JOptionPane enterSampleInformation = new JOptionPane(enterSampleData, JOptionPane.QUESTION_MESSAGE,
                 JOptionPane.OK_CANCEL_OPTION, null, options, null);
 
-        createPanel(enterSampleInformation);
+        generateComboBoxMenu(enterSampleInformation);
 
         //create a JDialog and add JOptionPane to it
         createJDialog(enterSampleInformation);
@@ -209,57 +194,36 @@ public class Graphic extends Observable {
 
     private void setComboBoxesEditable() {
         jcc.setEditable(true);
+        jcc.setPreferredSize(new Dimension(1, 30));
         jct.setEditable(true);
+        jct.setPreferredSize(new Dimension(1, 30));
         jco.setEditable(true);
+        jco.setPreferredSize(new Dimension(1, 30));
     }
 
-//    public void addSampleAL(JButton button){
-//        button.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String selectedID = sampleID.getText();
-//                String selectedColour = jcc.getSelectedItem().toString();
-//                String selectedStrat = jct.getSelectedItem().toString();
-//                String selectedOdour = jco.getSelectedItem().toString();
-//                bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, true);
-//
-//
-////                System.out.println(selectedID);
-////                System.out.println(selectedColour + " was selected.");
-////                System.out.println(selectedStrat + " was selected.");
-////                System.out.println(selectedOdour + " was selected.");
-//            }
-//        });
-//
-//    }
 
-    private JOptionPane createPanel(JOptionPane jp) {
-//        myID.setAlignmentX(RIGHT_ALIGNMENT);
-//        myID.setFont(new Font("Arial", Font.BOLD, 20));
+    private void generateComboBoxMenu(JOptionPane jp) {
         jp.add(myID);
         jp.add(sampleID);
 
-//        myColour.setAlignmentX(LEFT_ALIGNMENT);
-//        myColour.setFont(new Font("Arial", Font.BOLD, 20));
         jp.add(myColour);
         jp.add(jcc);
-//        myStratigraphy.setAlignmentX(RIGHT_ALIGNMENT);
+
         jp.add(myStratigraphy);
         jp.add(jct);
-//        myOdour.setAlignmentX(RIGHT_ALIGNMENT);
+
         jp.add(myOdour);
         jp.add(jco);
         jp.add(submitSample);
-        return jp;
+
     }
 
-    private Dialog createJDialog(JOptionPane createSample) {
+    private void createJDialog(JOptionPane createSample) {
         JDialog diag = new JDialog();
         diag.getContentPane().add(createSample);
         diag.pack();
         diag.setVisible(true);
         diag.setLocation(1200, 300);
-        return diag;
     }
 
 }

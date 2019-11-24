@@ -46,6 +46,8 @@ public class WaterLog extends Log {
         printer.printLogHasBeenSaved(fileName);
     }
 
+    //MODIFIES: this
+    //EFFECTS: loads water log data saved as .txt file
     public void load(String fileLoadName){
 
     }

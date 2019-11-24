@@ -18,6 +18,7 @@ public abstract class Employee {
     }
 
 
+    //EFFECTS: prints employee's name
     public abstract String print(int index);
 
     @Override

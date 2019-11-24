@@ -2,11 +2,10 @@ package ui;
 
 import model.*;
 import model.StaffBuilder;
-import org.json.JSONException;
 import ui.exceptions.InvalidInputException;
 import ui.exceptions.InvalidSampleMediaException;
 import ui.exceptions.SampleDoesNotExistException;
-import ui.gui.AppPanel;
+import ui.gui.BoreholeLogDrawer;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -45,7 +44,7 @@ class Menu {
         String str = input.nextLine();
         if (str.equals("1")) {
             this.log = BoreholeLog.getInstance();
-            this.log.addObserver(AppPanel.getInstance());
+            this.log.addObserver(BoreholeLogDrawer.getInstance());
         } else if (str.equals("2")) {
             this.log = new WaterLog();
         } else {

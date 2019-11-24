@@ -2,11 +2,8 @@ package ui;
 
 import model.BoreholeLog;
 import org.json.JSONException;
-import ui.gui.CustomOutputStream;
 import ui.gui.Graphic;
 
-import javax.swing.*;
-import java.io.PrintStream;
 
 public class Main {
 
@@ -16,7 +13,6 @@ public class Main {
 
 
         BoreholeLog boreholeLog = BoreholeLog.getInstance();
-//        BoreholeLog boreholeLog = new BoreholeLog();
         Graphic graphic = new Graphic();
 //        Menu menu = new Menu();
 

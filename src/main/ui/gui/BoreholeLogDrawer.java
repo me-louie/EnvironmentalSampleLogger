@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppPanel extends JPanel implements Observer {
+public class BoreholeLogDrawer extends JPanel implements Observer {
 
     private int xcoord = 200;
     private int ycoord = 50;
@@ -18,21 +18,21 @@ public class AppPanel extends JPanel implements Observer {
     private Color grey = new Color(105, 105, 105);
     private Color brown = new Color(150, 94, 27);
     private int numOfSamples = 0;
-    private static final AppPanel INSTANCE = new AppPanel();
+    private static final BoreholeLogDrawer INSTANCE = new BoreholeLogDrawer();
 
     private List<Color> sampleColours;
-    private List<String> sampleIDs = new ArrayList<>();
     private BoreholeLog boreholeLog = BoreholeLog.getInstance();
 
 
-    private AppPanel() {
+    private BoreholeLogDrawer() {
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(new Color(192, 200, 158));
         sampleColours = new ArrayList<>();
 
     }
 
-    public static AppPanel getInstance() {
+    //EFFECTS: returns BoreholeLogDrawer
+    public static BoreholeLogDrawer getInstance() {
         return INSTANCE;
     }
 
@@ -65,10 +65,14 @@ public class AppPanel extends JPanel implements Observer {
 //        }
 //    }
 
+    @Override
+    //EFFECTS: sets preferred size to 500 x 800
     public Dimension getPreferredSize() {
         return new Dimension(500, 800);
     }
 
+    //MODIFIES: this
+    //EFFECTS: generates graphically depiction of the BoreholeLog based on user input
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -92,15 +96,15 @@ public class AppPanel extends JPanel implements Observer {
 
 
     @Override
+    //MODIFIES: this
+    //EFFECTS: updates this and then repaints GUI to reflect changes to BoreholeLog
     public String update(BoreholeLog boreholeLog) {
         numOfSamples = boreholeLog.logSize();
         sampleColours.clear();
-//        sampleIDs.clear();
         this.boreholeLog = boreholeLog;
         for (int i = 0; i < numOfSamples; i++) {
             Color clr = parseColor(boreholeLog.getSample(i).getColour());
             sampleColours.add(clr);
-//            sampleIDs.add(boreholeLog.getSample(i).getName());
         }
         repaint();
         return null;

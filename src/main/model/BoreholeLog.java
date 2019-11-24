@@ -2,7 +2,7 @@ package model;
 
 
 import ui.Printer;
-import ui.gui.AppPanel;
+import ui.gui.BoreholeLogDrawer;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -15,10 +15,10 @@ public class BoreholeLog extends Log {
     private static final BoreholeLog INSTANCE = new BoreholeLog();
 
     //MODIFIES: this
-    //EFFECTS: subscribes AppPanel as an observer to the BoreholeLog
+    //EFFECTS: subscribes BoreholeLogDrawer as an observer to the BoreholeLog
     private BoreholeLog() {
 //        List<SoilSample> boreholeLog = new ArrayList<>();
-        addObserver(AppPanel.getInstance());
+        addObserver(BoreholeLogDrawer.getInstance());
     }
 
 
@@ -119,7 +119,7 @@ public class BoreholeLog extends Log {
     }
 
     @Override
-    //MODIFIES: this, AppPanel
+    //MODIFIES: this, BorehoeLogDrawer
     //EFFECTS: removes soil sample from the BoreholeLog based on id and notifies observers
     public void removeSampleFromLog(String deleteId) {
         for (int i = 0; i < logSize(); i++) {
