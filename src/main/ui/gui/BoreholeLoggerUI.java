@@ -9,11 +9,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.nio.file.InvalidPathException;
 
 import static javax.swing.SwingConstants.*;
 
 
-public class Graphic extends Observable {
+public class BoreholeLoggerUI extends Observable {
 
     private int width = 25;
     private int height = width;
@@ -26,13 +27,12 @@ public class Graphic extends Observable {
     private JTextField sampleID = new JTextField("");
     private JLabel enterSampleData = new JLabel("Enter Sample Data");
     private JLabel myID = new JLabel("Sample ID");
-    //        myID.setAlignmentX(RIGHT_ALIGNMENT);
-    private JLabel myColour = new JLabel("Colour:", LEFT);
+    private JLabel myColour = new JLabel("Colour:");
     private JLabel myStratigraphy = new JLabel("Stratigraphy:");
-    private JLabel myOdour = new JLabel("Is the sample odorous?");
+    private JLabel myOdour = new JLabel("Odorous?");
     private JButton submitSample = new JButton("OK");
 
-    private JTextField consoleLog = new JTextField("Status...");
+    private JTextField consoleLog = new JTextField("Welcome to Borehole Logger v.11.0!");
 
     private JComboBox jcc = new JComboBox(colours);
     private JComboBox jct = new JComboBox(types);
@@ -41,13 +41,12 @@ public class Graphic extends Observable {
     private Color colour1 = new Color(252, 239, 236);
     private Color colour2 = new Color(200, 185, 150);
 
-    private ImageIcon augerIcon = new ImageIcon("data/Capture.PNG");
+//    private ImageIcon augerIcon = new ImageIcon("data/Capture.PNG");
 
 
-
-    //MODIFIES: this
+    //MODIFIES: this, BoreholeLogDrawer
     //EFFECTS: creates JFrame and adds buttons to frame to create app GUI
-    public Graphic() {
+    public BoreholeLoggerUI() {
 
         JFrame frame = new JFrame();
 
@@ -55,13 +54,16 @@ public class Graphic extends Observable {
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+        frame.setLocation(700, 50);
+//        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel headerPanel = new JPanel(new GridLayout(2, 1));
 
         JLabel appName = new JLabel("Borehole Logger");
         appName.setFont(new Font("Calibri", Font.BOLD, 35));
+        consoleLog.setFont(new Font("Arial", Font.BOLD, 20));
+        enterSampleData.setFont(new Font("Arial", Font.BOLD, 30));
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         JButton reset = new JButton("Reset");
@@ -69,9 +71,13 @@ public class Graphic extends Observable {
         reset.setBackground(colour2);
         reset.addActionListener(new ActionListener() {
             @Override
+            //MODIFIES: this, BoreholeLogDrawer, BoreholeLog
+            //EFFECTS: removes all existing samples from BoreholeLog and repaints BoreholeLogDrawer when resetButton
+            //         is clicked
             public void actionPerformed(ActionEvent e) {
                 BoreholeLogDrawer.getInstance().setNumOfSamples(0);
                 bh.clear();
+                consoleLog.setText("All samples were removed from the BoreholeLog.");
                 BoreholeLogDrawer.getInstance().repaint();
             }
         });
@@ -82,6 +88,8 @@ public class Graphic extends Observable {
         addButton.setBackground(colour2);
         addButton.addActionListener(new ActionListener() {
             @Override
+            //MODIFIES: this
+            //EFFECTS: generates add sample menu pane when addButton is clicked
             public void actionPerformed(ActionEvent e) {
                 generateAddSampleMenu();
             }
@@ -92,6 +100,8 @@ public class Graphic extends Observable {
         removeButton.setBackground(colour1);
         removeButton.addActionListener(new ActionListener() {
             @Override
+            //MODIFIES: this
+            //EFFECTS: generates remove sample menu pane whe removeButton is clicked
             public void actionPerformed(ActionEvent e) {
                 generateRemoveSampleMenu();
             }
@@ -102,14 +112,16 @@ public class Graphic extends Observable {
         saveButton.setBackground(colour2);
         saveButton.addActionListener(new ActionListener() {
             @Override
+            //MODIFIES: this, BoreholeLog
+            //EFFECTS: saves current sample data to BoreholeLog when saveButton is clicked
             public void actionPerformed(ActionEvent e) {
                 try {
                     generateSaveProjectMenu();
-                } catch (FileNotFoundException ex) {
-                    ex.printStackTrace();
-                    consoleLog.setText("Sorry, that file name is invalid.");
+                } catch (FileNotFoundException | InvalidPathException ex) {
+                    consoleLog.setForeground(Color.RED);
+                    consoleLog.setText("ERROR: Sorry, that file name is invalid.");
+//                    ex.printStackTrace();
                 }
-
             }
         });
 
@@ -118,12 +130,18 @@ public class Graphic extends Observable {
         loadButton.setBackground(colour1);
         loadButton.addActionListener(new ActionListener() {
             @Override
+            //MODIFIES: this, BoreholeLog, BoreholeLogDrawer
+            //EFFECTS: loads saved BoreholeLog data and repaints BoreholeLogDrawer
             public void actionPerformed(ActionEvent e) {
                 String m = JOptionPane.showInputDialog("Please enter a file name");
                 try {
                     bh.load(m + ".txt");
                     BoreholeLogDrawer.getInstance().update(BoreholeLog.getInstance());
-                } catch (FileNotFoundException ex) {
+                    consoleLog.setForeground(Color.BLACK);
+                    consoleLog.setText("File: '" + m + "' was successfully loaded.");
+                } catch (FileNotFoundException | InvalidPathException ex) {
+                    consoleLog.setForeground(Color.RED);
+                    consoleLog.setText("Sorry, that file was not found.");
 //                    ex.printStackTrace();
                 }
 
@@ -152,15 +170,24 @@ public class Graphic extends Observable {
     private void generateSaveProjectMenu() throws FileNotFoundException {
         String m = JOptionPane.showInputDialog("Please enter a file name");
         bh.save(m + ".txt");
+        consoleLog.setForeground(Color.BLACK);
+        consoleLog.setText("File: '" + m + "' was successfully saved.");
     }
 
     private void generateRemoveSampleMenu() {
         String m = JOptionPane.showInputDialog("Please enter the ID of the sample you wish to delete");
-        bh.removeSampleFromLog(m);
+        if (bh.isSampleIDUnique(m)) {
+            consoleLog.setForeground(Color.RED);
+            consoleLog.setText("ERROR: Sorry, that sample was not found.");
+        } else {
+            consoleLog.setForeground(Color.BLACK);
+            bh.removeSampleFromLog(m);
+            consoleLog.setText("Sample " + m + " was removed.");
+        }
     }
 
     private void generateAddSampleMenu() {
-        setComboBoxesEditable();
+        formatComboBoxes();
         submitSample.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,7 +196,13 @@ public class Graphic extends Observable {
                 String selectedStrat = jct.getSelectedItem().toString();
                 String selectedOdour = jco.getSelectedItem().toString();
                 boolean odour = hasOdour(selectedOdour);
-                bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, odour);
+                makeSample(selectedID, selectedColour, selectedStrat, odour);
+//                if (!bh.isSampleIDUnique(selectedID)) {
+//                    consoleLog.setText("Sorry, that ID has already been used.");
+//                } else {
+//                    bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, odour);
+//                    consoleLog.setText("Sample " + selectedID + " was added.");
+//                }
             }
         });
 
@@ -183,6 +216,18 @@ public class Graphic extends Observable {
         createJDialog(enterSampleInformation);
     }
 
+    private void makeSample(String selectedID, String selectedColour, String selectedStrat, boolean odour) {
+
+        if (!bh.isSampleIDUnique(selectedID)) {
+            consoleLog.setForeground(Color.RED);
+            consoleLog.setText("ERROR: Sorry, that ID has already been used.");
+        } else {
+            bh.addSampleToLog(selectedID, selectedColour, selectedStrat, odour);
+            consoleLog.setForeground(Color.BLACK);
+            consoleLog.setText("Sample " + selectedID + " was added.");
+        }
+    }
+
     private boolean hasOdour(String selectedOdour) {
         boolean odour = false;
         if (selectedOdour.equals("yes")) {
@@ -192,13 +237,25 @@ public class Graphic extends Observable {
     }
 
 
-    private void setComboBoxesEditable() {
+    private void formatComboBoxes() {
+        myID.setFont(new Font("Arial", Font.BOLD, 20));
+        myID.setAlignmentX(LEFT);
+        sampleID.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        myColour.setAlignmentX(LEFT);
+        myColour.setFont(new Font("Arial", Font.BOLD, 20));
         jcc.setEditable(true);
-        jcc.setPreferredSize(new Dimension(1, 30));
+        jcc.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        myStratigraphy.setAlignmentX(LEFT);
+        myStratigraphy.setFont(new Font("Arial", Font.BOLD, 20));
         jct.setEditable(true);
-        jct.setPreferredSize(new Dimension(1, 30));
+        jct.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        myOdour.setAlignmentX(LEFT);
+        myOdour.setFont(new Font("Arial", Font.BOLD, 20));
         jco.setEditable(true);
-        jco.setPreferredSize(new Dimension(1, 30));
+        jco.setFont(new Font("Arial", Font.PLAIN, 20));
     }
 
 

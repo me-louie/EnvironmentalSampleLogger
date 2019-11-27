@@ -20,7 +20,7 @@ class Menu {
 //    private MyPanel observingPanel = new MyPanel();
 
     //MODIFIES: this
-    //EFFECTS: constructrs new Menu object and runs program menu
+    //EFFECTS: constructs new Menu object and runs program menu
     Menu() {
         printer.welcomeStatement("4.0");
 
@@ -199,7 +199,7 @@ class Menu {
     //EFFECTS: adds a new soil sample to this
     private void addSoilSample() {
         SoilSampleBuilder ssb = new SoilSampleBuilder();
-        log.addSoilSampleToLog(ssb.addSampleID(log), ssb.addColour(),
+        log.addSampleToLog(ssb.addSampleID(log), ssb.addColour(),
                 ssb.addSoilType(), ssb.hasOdour());
 //        observingPanel.repaint();
         runLogMenu();

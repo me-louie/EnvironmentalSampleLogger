@@ -21,7 +21,7 @@ public abstract class Log extends Observable implements Saveable, Loadable  {
 
     //MODIFIES: log
     //EFFECTS: adds sample to log based on user input
-    public abstract void addSoilSampleToLog(String name, String colour, String type, boolean odour);
+    public abstract void addSampleToLog(String name, String colour, String type, boolean odour);
 
     //MODIFIES: log
     //EFFECTS: adds sample to log based on user input

@@ -2,18 +2,18 @@ package ui;
 
 import model.BoreholeLog;
 import org.json.JSONException;
-import ui.gui.Graphic;
+import ui.gui.BoreholeLoggerUI;
 
 
 public class Main {
 
-    public static void main(String[] args) throws JSONException {
 
-        System.out.println("blah blah blah");
+    //EFFECTS: runs the application
+    public static void main(String[] args) {
 
 
         BoreholeLog boreholeLog = BoreholeLog.getInstance();
-        Graphic graphic = new Graphic();
+        BoreholeLoggerUI boreholeLoggerUI = new BoreholeLoggerUI();
 //        Menu menu = new Menu();
 
 
@@ -21,7 +21,6 @@ public class Main {
 //        map.queryBuilder("4968 Beamish Court");
 //
 //        map.parseCoordinates(map.createJson(map.getJsonResponse()));
-
 
 
     }

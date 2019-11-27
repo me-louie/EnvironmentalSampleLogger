@@ -13,7 +13,7 @@ class WaterSampleBuilder extends SampleBuilder {
     }
 
     //MODIFIES: WaterSample, WaterLog
-    //EFFECTS: constructs new WaterSample based on user input
+    //EFFECTS: constructs new WaterSample based on user input and returns the water sample
     WaterSample buildHashArray() {
         WaterSample waterSample = new WaterSample();
         waterSample.setTemperature(addWaterTemperature());

@@ -22,6 +22,7 @@ public class StaffBuilder {
         boss = pm1;
     }
 
+    //EFFECTS: returns boss
     public Employee getBoss() {
         return boss;
     }

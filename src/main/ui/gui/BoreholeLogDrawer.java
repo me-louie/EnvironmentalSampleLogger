@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BoreholeLogDrawer extends JPanel implements Observer {
 
-    private int xcoord = 200;
+    private int xcoord = 225;
     private int ycoord = 50;
     private int squareW = 50;
     private int squareH = 50;
@@ -66,7 +66,7 @@ public class BoreholeLogDrawer extends JPanel implements Observer {
 //    }
 
     @Override
-    //EFFECTS: sets preferred size to 500 x 800
+    //EFFECTS: returns dimensions of this preferred size
     public Dimension getPreferredSize() {
         return new Dimension(500, 800);
     }
@@ -89,7 +89,7 @@ public class BoreholeLogDrawer extends JPanel implements Observer {
                 g.setColor(Color.BLACK);
             }
             g.drawRect(xcoord, ycoord + i * squareW, squareW, squareH);
-            g.drawString(boreholeLog.getSample(i).getName(), xcoord - 100, (ycoord + 25) + i * squareW);
+            g.drawString(boreholeLog.getSample(i).getName(), xcoord - 200, (ycoord + 25) + i * squareW);
         }
 
     }

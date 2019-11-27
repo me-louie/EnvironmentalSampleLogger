@@ -175,7 +175,7 @@ public class WaterLog extends Log {
 
     @Override
     //EFFECTS: creates a new soil sample based on user input and adds it to the BoreholeLog
-    public void addSoilSampleToLog(String name, String colour, String type, boolean odour) {
+    public void addSampleToLog(String name, String colour, String type, boolean odour) {
     }
 
 }

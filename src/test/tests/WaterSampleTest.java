@@ -27,9 +27,9 @@ class WaterSampleTest {
         @Test
         void testConstructor() {
             WaterSample w0 = new WaterSample(1, 2, 3, 4);
-            assertEquals(1, w0.getConductivity());
-            assertEquals(2, w0.getTemperature());
-            assertEquals(3, w0.getTurbidity());
+            assertEquals(3, w0.getConductivity());
+            assertEquals(1, w0.getTemperature());
+            assertEquals(2, w0.getTurbidity());
             assertEquals(4, w0.getPH());
         }
 
@@ -58,7 +58,7 @@ class WaterSampleTest {
 
         @Test
         void testToString() {
-        assertEquals("10 20 30 7", w1.toString());
+        assertEquals("30 10 20 7", w1.toString());
         }
 
         @Test

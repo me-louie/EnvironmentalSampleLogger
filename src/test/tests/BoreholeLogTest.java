@@ -46,6 +46,12 @@ class BoreholeLogTest extends LogTest {
 //        testLog4.addSample(testSoilSample1);
 
         bh = BoreholeLog.getInstance();
+
+    }
+
+    @Test
+    void testConstructor(){
+        assertEquals(2, bh.logSize());
     }
 
 
@@ -87,6 +93,7 @@ class BoreholeLogTest extends LogTest {
 
     @Test
     void testReturnContaminatedSamplesEmptyList() {
+        emptyArray.add(testSoilSample2);
         assertEquals(emptyArray, bh.returnContaminatedSamples());
     }
 

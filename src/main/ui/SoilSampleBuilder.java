@@ -5,12 +5,14 @@ import java.util.Scanner;
 
 class SoilSampleBuilder extends SampleBuilder {
 
+    //MODIFIES: this
+    //EFFECTS: constructs new SoilSampleBuilder
     SoilSampleBuilder() {
 
     }
 
     //MODIFIES: this, sample
-    //EFFECTS: sets sample colour to grey, blue, or brown
+    //EFFECTS: sets sample colour to grey, blue, or brown and returns the colour
     String addColour() {
         String str = "invalid colour";
         while (!checkValidSoilColour(str)) {

@@ -5,6 +5,8 @@ import java.io.File;
 
 public class Printer {
 
+    //MODIFIES: this
+    //EFFECTS: constructs new printer
     public Printer() {
     }
 
