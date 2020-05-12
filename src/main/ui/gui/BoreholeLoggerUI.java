@@ -32,7 +32,7 @@ public class BoreholeLoggerUI extends Observable {
     private JLabel myOdour = new JLabel("Odorous?");
     private JButton submitSample = new JButton("OK");
 
-    private JTextField consoleLog = new JTextField("Welcome to Borehole Logger v.11.0!");
+    private JTextField consoleLog = new JTextField("Welcome to Environmental Sample Logger V1.0!");
 
     private JComboBox jcc = new JComboBox(colours);
     private JComboBox jct = new JComboBox(types);
@@ -60,7 +60,7 @@ public class BoreholeLoggerUI extends Observable {
 
         JPanel headerPanel = new JPanel(new GridLayout(2, 1));
 
-        JLabel appName = new JLabel("Borehole Logger");
+        JLabel appName = new JLabel("Environmental Sample Logger");
         appName.setFont(new Font("Calibri", Font.BOLD, 35));
         consoleLog.setFont(new Font("Arial", Font.BOLD, 20));
         enterSampleData.setFont(new Font("Arial", Font.BOLD, 30));
@@ -197,12 +197,6 @@ public class BoreholeLoggerUI extends Observable {
                 String selectedOdour = jco.getSelectedItem().toString();
                 boolean odour = hasOdour(selectedOdour);
                 makeSample(selectedID, selectedColour, selectedStrat, odour);
-//                if (!bh.isSampleIDUnique(selectedID)) {
-//                    consoleLog.setText("Sorry, that ID has already been used.");
-//                } else {
-//                    bh.addSoilSampleToLog(selectedID, selectedColour, selectedStrat, odour);
-//                    consoleLog.setText("Sample " + selectedID + " was added.");
-//                }
             }
         });
 
